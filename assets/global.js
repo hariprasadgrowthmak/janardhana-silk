@@ -1310,10 +1310,23 @@ $('.top_button_arrow').click(function(event) {
       const HOVER_DELAY = 50;
       const CLOSE_DELAY = 100;
       
+      const updateMenuPosition = function() {
+        const content = details.querySelector('[class*="mega-menu__content"]');
+        if (content && content.classList.contains('msu-mega__content')) {
+          // For MSU mega menu using fixed positioning
+          const header = document.querySelector('header') || document.querySelector('shop-header');
+          if (header) {
+            const headerHeight = header.offsetHeight;
+            content.style.top = headerHeight + 'px';
+          }
+        }
+      };
+      
       const handleMouseEnter = function(e) {
         clearTimeout(closeTimeout);
         if (!details.hasAttribute('open')) {
           details.setAttribute('open', '');
+          updateMenuPosition();
         }
       };
       
@@ -1330,6 +1343,7 @@ $('.top_button_arrow').click(function(event) {
       // Add listeners to details element
       details.addEventListener('mouseenter', function(e) {
         clearTimeout(closeTimeout);
+        updateMenuPosition();
       }, true);
       
       details.addEventListener('mouseleave', function(e) {
@@ -1343,6 +1357,7 @@ $('.top_button_arrow').click(function(event) {
       if (summary) {
         summary.addEventListener('mouseenter', function(e) {
           clearTimeout(closeTimeout);
+          updateMenuPosition();
         });
         
         summary.addEventListener('mouseleave', function(e) {
@@ -1378,4 +1393,7 @@ $('.top_button_arrow').click(function(event) {
   // Also try initializing after delays for dynamic content
   setTimeout(initMegaMenuHover, 500);
   setTimeout(initMegaMenuHover, 1000);
+  
+  // Update menu positions on window resize
+  window.addEventListener('resize', initMegaMenuHover);
 })();

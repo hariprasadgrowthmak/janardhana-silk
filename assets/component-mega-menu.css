@@ -7,6 +7,11 @@ header-menu {
   overflow: visible !important;
 }
 
+header-menu details {
+  position: relative;
+  z-index: 101;
+}
+
 .mega-menu[open] {
   position: relative;
 }
@@ -314,6 +319,10 @@ h5.mega_iwt_title {
   visibility: hidden;
   pointer-events: none;
   transition: all 0.3s ease;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
 }
 
 .msu-mega-menu[open] .msu-mega__content {
