@@ -107,11 +107,22 @@
             "button_text": "LIVE Shopping",
             "button_url": ""
           }
+        },
+        "msu_megamenu_APP8FC": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "salwar",
+            "image": "shopify://shop_images/Every_Saree_has_a_story_to_tell_Unity_Buildings_J.C._Road_Bangalore-560_002_Ph-_080-2222_1.webp",
+            "show_live_button": true,
+            "button_text": "Shop Now",
+            "button_url": ""
+          }
         }
       },
       "block_order": [
         "megamenu_jpebTm",
-        "msu_megamenu_VbQwXy"
+        "msu_megamenu_VbQwXy",
+        "msu_megamenu_APP8FC"
       ],
       "settings": {
         "logo_position": "middle-left",
