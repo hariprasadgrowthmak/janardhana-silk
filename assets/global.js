@@ -1393,7 +1393,7 @@ $('.top_button_arrow').click(function(event) {
             if (tracker.details.hasAttribute('open')) {
               tracker.details.removeAttribute('open');
             }
-          }, 250);
+          }, 150);
         }
       } else {
         // Clear any pending close
@@ -1401,6 +1401,50 @@ $('.top_button_arrow').click(function(event) {
         tracker.closeTimeout = null;
       }
     });
+  }
+
+  function handleClickOutside(e) {
+    Object.keys(megaMenuTracker).forEach(menuId => {
+      const tracker = megaMenuTracker[menuId];
+      if (!tracker.details.hasAttribute('open')) {
+        return;
+      }
+
+      const menuRect = tracker.menu.getBoundingClientRect();
+      const contentRect = tracker.content.getBoundingClientRect();
+
+      const clickInMenu = (
+        e.clientX >= menuRect.left &&
+        e.clientX <= menuRect.right &&
+        e.clientY >= menuRect.top &&
+        e.clientY <= menuRect.bottom
+      );
+
+      const clickInContent = (
+        e.clientX >= contentRect.left &&
+        e.clientX <= contentRect.right &&
+        e.clientY >= contentRect.top &&
+        e.clientY <= contentRect.bottom
+      );
+
+      if (!clickInMenu && !clickInContent) {
+        // Click outside - close menu immediately
+        if (tracker.details.hasAttribute('open')) {
+          tracker.details.removeAttribute('open');
+        }
+      }
+    });
+  }
+
+  function handleEscapeKey(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      Object.keys(megaMenuTracker).forEach(menuId => {
+        const tracker = megaMenuTracker[menuId];
+        if (tracker.details.hasAttribute('open')) {
+          tracker.details.removeAttribute('open');
+        }
+      });
+    }
   }
 
   function initMegaMenuHover() {
@@ -1413,9 +1457,11 @@ $('.top_button_arrow').click(function(event) {
       setupMegaMenuHover(menu, index);
     });
 
-    // Attach global mousemove only once
+    // Attach global handlers only once
     if (!globalMouseMoveActive) {
       document.addEventListener('mousemove', handleGlobalMouseMove);
+      document.addEventListener('click', handleClickOutside, true);
+      document.addEventListener('keydown', handleEscapeKey);
       globalMouseMoveActive = true;
     }
   }
