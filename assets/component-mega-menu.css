@@ -293,33 +293,32 @@ h5.mega_iwt_title {
 
 /*** MSU Mega Menu Styles ***/
 .msu-mega-menu .msu-mega__content {
-  padding: 3rem;
-  background-color: #fff;
+  padding: 3.5rem 4rem;
+  background-color: #ffffff;
   border-top: none;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  min-height: 500px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  min-height: 520px;
 }
 
 .msu-mega__grid {
   display: flex !important;
-  gap: 3rem;
-  align-items: stretch;
+  gap: 4rem;
+  align-items: flex-start;
   max-width: 100%;
 }
 
 .msu-mega__columns {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2.5rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3rem;
   flex-grow: 1;
 }
 
 .msu-mega__column {
   border-right: none;
   padding-right: 0;
-  border-left: 1px solid #e5e5e5;
-  padding-left: 2rem;
+  padding-left: 0;
 }
 
 .msu-mega__column:first-child {
@@ -333,85 +332,89 @@ h5.mega_iwt_title {
 
 .msu-mega__heading {
   color: #a85c5c;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 600;
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
   text-transform: capitalize;
-  border-bottom: 2px solid #a85c5c;
-  padding-bottom: 0.75rem;
+  border-bottom: 2.5px solid #a85c5c;
+  padding-bottom: 0.8rem;
   font-family: var(--font-heading-family);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
 }
 
 .msu-mega__view-all {
   display: inline-block;
   color: #a85c5c;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   padding: 0;
+  transition: all 0.2s ease;
 }
 
 .msu-mega__view-all:hover {
-  text-decoration: underline;
+  text-decoration: none;
   color: #8a4848;
 }
 
 .msu-mega__link {
-  font-size: 1.2rem !important;
-  color: #666 !important;
-  padding: 0.6rem 0 !important;
+  font-size: 1rem !important;
+  color: #555 !important;
+  padding: 0.5rem 0 !important;
   display: block;
   text-decoration: none;
-  line-height: 1.6;
+  line-height: 1.7;
   transition: color 0.2s ease;
 }
 
 .msu-mega__link:hover {
   color: #a85c5c !important;
   text-decoration: none !important;
-  font-weight: 500;
 }
 
 .msu-mega__image-wrapper {
-  width: 280px;
+  width: 300px;
+  height: 380px;
   flex-shrink: 0;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .msu-mega__image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
-  border-radius: 8px;
+  border-radius: 6px;
   object-fit: cover;
 }
 
 .msu-mega__image-overlay {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #fff;
+  top: 24px;
+  right: 24px;
+  background-color: #ffffff;
   border-radius: 50%;
-  padding: 12px 16px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #a85c5c;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   z-index: 10;
 }
 
 .msu-mega__image-overlay-text {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: #a85c5c;
-  line-height: 1.2;
+  color: #ff6633;
+  line-height: 1.3;
+  text-align: center;
 }
 
 .msu-mega__image-button {
