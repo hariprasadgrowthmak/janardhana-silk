@@ -1286,187 +1286,158 @@ $('.top_button_arrow').click(function(event) {
     }, 800)
 });
 
-// Mega menu hover handler - works with any mega menu type
+// Mega menu hover handler - works with MSU mega menu type
 (function() {
-  let hoverTracker = {};
+  let megaMenuTracker = {};
+  let globalMouseMoveActive = false;
   
-  function initMegaMenuHover() {
-    // Check if device supports hover
-    if (!window.matchMedia('(hover: hover)').matches) {
-      return; // Touch device, skip hover handling
+  function setupMegaMenuHover(menu, index) {
+    const details = menu.querySelector('details.msu-mega-menu');
+    if (!details) return;
+
+    const content = details.querySelector('.msu-mega__content');
+    if (!content) return;
+
+    const menuId = 'megamenu_' + index;
+    megaMenuTracker[menuId] = {
+      menu: menu,
+      details: details,
+      content: content,
+      closeTimeout: null
+    };
+
+    const CLOSE_DELAY = 250;
+
+    function updateMenuPosition() {
+      const header = document.querySelector('header') || document.querySelector('shop-header');
+      if (header) {
+        const headerHeight = header.offsetHeight;
+        content.style.top = headerHeight + 'px';
+      }
     }
 
-    const headerMenus = document.querySelectorAll('header-menu');
-    
-    if (!headerMenus.length) {
-      return;
+    function clearCloseTimer() {
+      if (megaMenuTracker[menuId]) {
+        clearTimeout(megaMenuTracker[menuId].closeTimeout);
+        megaMenuTracker[menuId].closeTimeout = null;
+      }
     }
 
-    headerMenus.forEach(function(menu, index) {
-      const details = menu.querySelector('details');
-      if (!details) {
-        return; // Not a menu
-      }
-
-      // Store tracker for this menu
-      const menuId = 'menu_' + index;
-      if (!hoverTracker[menuId]) {
-        hoverTracker[menuId] = { closeTimeout: null };
-      }
-
-      const tracker = hoverTracker[menuId];
-      const CLOSE_DELAY = 200;
-      
-      const updateMenuPosition = function() {
-        const content = details.querySelector('[class*="mega-menu__content"]');
-        if (content && content.classList.contains('msu-mega__content')) {
-          // For MSU mega menu using fixed positioning
-          const header = document.querySelector('header') || document.querySelector('shop-header');
-          if (header) {
-            const headerHeight = header.offsetHeight;
-            content.style.top = headerHeight + 'px';
-          }
-        }
-      };
-      
-      const closeMenu = function() {
-        clearTimeout(tracker.closeTimeout);
-        tracker.closeTimeout = setTimeout(function() {
+    function scheduleClose() {
+      clearCloseTimer();
+      if (megaMenuTracker[menuId]) {
+        megaMenuTracker[menuId].closeTimeout = setTimeout(() => {
           if (details.hasAttribute('open')) {
             details.removeAttribute('open');
           }
         }, CLOSE_DELAY);
-      };
-      
-      const clearCloseTimer = function() {
-        clearTimeout(tracker.closeTimeout);
-      };
-      
-      const handleMouseEnter = function(e) {
-        clearCloseTimer();
-        if (!details.hasAttribute('open')) {
-          details.setAttribute('open', '');
-          updateMenuPosition();
-        }
-      };
-      
-      const handleMouseLeave = function(e) {
-        closeMenu();
-      };
-
-      // Remove old listeners to prevent duplicates
-      menu.removeEventListener('mouseenter', handleMouseEnter);
-      menu.removeEventListener('mouseleave', handleMouseLeave);
-      details.removeEventListener('mouseenter', clearCloseTimer);
-      details.removeEventListener('mouseleave', closeMenu);
-
-      // Add listeners to header-menu wrapper
-      menu.addEventListener('mouseenter', handleMouseEnter);
-      menu.addEventListener('mouseleave', handleMouseLeave);
-      
-      // Add listeners to details element
-      details.addEventListener('mouseenter', function(e) {
-        clearCloseTimer();
-      });
-      
-      details.addEventListener('mouseleave', function(e) {
-        closeMenu();
-      });
-
-      // Add listeners to summary
-      const summary = details.querySelector('summary');
-      if (summary) {
-        summary.addEventListener('mouseenter', function(e) {
-          clearCloseTimer();
-        });
-        
-        summary.addEventListener('mouseleave', function(e) {
-          closeMenu();
-        });
       }
+    }
 
-      // Add listeners to the content div with special handling for fixed positioning
-      const content = details.querySelector('[class*="mega-menu__content"]');
-      if (content) {
-        content.addEventListener('mouseenter', function(e) {
-          clearCloseTimer();
-        });
-        
-        content.addEventListener('mouseleave', function(e) {
-          closeMenu();
-        });
+    function openMenu() {
+      clearCloseTimer();
+      if (!details.hasAttribute('open')) {
+        details.setAttribute('open', '');
+        updateMenuPosition();
       }
-    });
-    
-    // Add a global mousemove handler to detect when mouse leaves any fixed menu
-    document.removeEventListener('mousemove', globalMouseMoveHandler);
-    document.addEventListener('mousemove', globalMouseMoveHandler);
+    }
+
+    // Menu trigger hover
+    menu.addEventListener('mouseenter', openMenu);
+    menu.addEventListener('mouseleave', scheduleClose);
+
+    // Details hover
+    details.addEventListener('mouseenter', clearCloseTimer);
+    details.addEventListener('mouseleave', scheduleClose);
+
+    // Summary hover
+    const summary = details.querySelector('summary');
+    if (summary) {
+      summary.addEventListener('mouseenter', clearCloseTimer);
+      summary.addEventListener('mouseleave', scheduleClose);
+    }
+
+    // Content hover
+    content.addEventListener('mouseenter', clearCloseTimer);
+    content.addEventListener('mouseleave', scheduleClose);
   }
 
-  function globalMouseMoveHandler(e) {
-    const headerMenus = document.querySelectorAll('header-menu');
-    
-    headerMenus.forEach(function(menu, index) {
-      const details = menu.querySelector('details');
-      if (!details || !details.hasAttribute('open')) {
-        return;
-      }
-      
-      const content = details.querySelector('[class*="mega-menu__content"]');
-      if (!content) {
-        return;
-      }
-      
-      const menuId = 'menu_' + index;
-      const tracker = hoverTracker[menuId];
-      if (!tracker) {
+  function handleGlobalMouseMove(e) {
+    Object.keys(megaMenuTracker).forEach(menuId => {
+      const tracker = megaMenuTracker[menuId];
+      if (!tracker.details.hasAttribute('open')) {
         return;
       }
 
-      const contentRect = content.getBoundingClientRect();
-      const menuRect = menu.getBoundingClientRect();
-      
-      // Check if mouse is over menu trigger area or the fixed content
+      const menuRect = tracker.menu.getBoundingClientRect();
+      const contentRect = tracker.content.getBoundingClientRect();
+
       const isOverMenuTrigger = (
         e.clientX >= menuRect.left &&
         e.clientX <= menuRect.right &&
         e.clientY >= menuRect.top &&
         e.clientY <= menuRect.bottom
       );
-      
+
       const isOverContent = (
         e.clientX >= contentRect.left &&
         e.clientX <= contentRect.right &&
         e.clientY >= contentRect.top &&
         e.clientY <= contentRect.bottom
       );
-      
+
       if (!isOverMenuTrigger && !isOverContent) {
-        // Mouse is outside both menu trigger and content
-        clearTimeout(tracker.closeTimeout);
-        tracker.closeTimeout = setTimeout(function() {
-          if (details.hasAttribute('open')) {
-            details.removeAttribute('open');
-          }
-        }, 200);
+        // Schedule menu close
+        if (!tracker.closeTimeout) {
+          tracker.closeTimeout = setTimeout(() => {
+            if (tracker.details.hasAttribute('open')) {
+              tracker.details.removeAttribute('open');
+            }
+          }, 250);
+        }
       } else {
-        // Mouse is over one of the areas
+        // Clear any pending close
         clearTimeout(tracker.closeTimeout);
+        tracker.closeTimeout = null;
       }
     });
   }
 
-  // Initialize when DOM is ready
+  function initMegaMenuHover() {
+    if (!window.matchMedia('(hover: hover)').matches) {
+      return;
+    }
+
+    const headerMenus = document.querySelectorAll('header-menu');
+    headerMenus.forEach((menu, index) => {
+      setupMegaMenuHover(menu, index);
+    });
+
+    // Attach global mousemove only once
+    if (!globalMouseMoveActive) {
+      document.addEventListener('mousemove', handleGlobalMouseMove);
+      globalMouseMoveActive = true;
+    }
+  }
+
+  // Initialize
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initMegaMenuHover);
   } else {
     initMegaMenuHover();
   }
 
-  // Also try initializing after delays for dynamic content
+  // Retry initialization for dynamic content
   setTimeout(initMegaMenuHover, 500);
   setTimeout(initMegaMenuHover, 1000);
-  
-  // Update menu positions on window resize
-  window.addEventListener('resize', initMegaMenuHover);
+
+  // Update on resize
+  window.addEventListener('resize', () => {
+    Object.values(megaMenuTracker).forEach(tracker => {
+      const header = document.querySelector('header') || document.querySelector('shop-header');
+      if (header && tracker.details.hasAttribute('open')) {
+        tracker.content.style.top = header.offsetHeight + 'px';
+      }
+    });
+  });
 })();

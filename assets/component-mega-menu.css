@@ -315,9 +315,9 @@ h5.mega_iwt_title {
   min-height: auto;
   width: fit-content;
   max-width: calc(100vw - 80px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
   transition: all 0.3s ease;
   position: fixed;
   left: 50%;
@@ -325,10 +325,17 @@ h5.mega_iwt_title {
   top: auto;
 }
 
+/* Ensure closed state with !important */
+.msu-mega-menu:not([open]) .msu-mega__content {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .msu-mega-menu[open] .msu-mega__content {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 .msu-mega__grid {
