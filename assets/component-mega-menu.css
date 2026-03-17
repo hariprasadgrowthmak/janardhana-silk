@@ -7,6 +7,10 @@ header-menu {
   overflow: visible !important;
 }
 
+.mega-menu[open] {
+  position: relative;
+}
+
 .mega-menu__content {
   background-color: rgb(var(--color-background));
   border-left: 0;
@@ -17,9 +21,11 @@ header-menu {
   padding-bottom: 3rem;
   padding-top: 3rem;
   position: absolute;
-  right: 0;
+  right: auto;
   top: 100%;
   z-index: 100;
+  width: auto;
+  white-space: nowrap;
 }
 
 .shopify-section-header-sticky .mega-menu__content {
@@ -297,7 +303,11 @@ h5.mega_iwt_title {
   background-color: #ffffff;
   border-top: none;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  min-height: 520px;
+  min-height: auto;
+  width: auto;
+  max-width: 100%;
+  left: 0;
+  right: auto;
 }
 
 .msu-mega__grid {
@@ -305,6 +315,8 @@ h5.mega_iwt_title {
   gap: 4rem;
   align-items: flex-start;
   max-width: 100%;
+  width: auto;
+  flex-wrap: nowrap;
 }
 
 .msu-mega__columns {
@@ -313,12 +325,14 @@ h5.mega_iwt_title {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 3rem;
   flex-grow: 1;
+  width: auto;
 }
 
 .msu-mega__column {
   border-right: none;
   padding-right: 0;
   padding-left: 0;
+  min-width: 0;
 }
 
 .msu-mega__column:first-child {
@@ -376,7 +390,9 @@ h5.mega_iwt_title {
 }
 
 .msu-mega__image-wrapper {
-  width: 300px;
+  width: auto;
+  min-width: 280px;
+  max-width: 350px;
   height: 380px;
   flex-shrink: 0;
   position: relative;
