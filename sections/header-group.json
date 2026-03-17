@@ -117,23 +117,12 @@
             "button_text": "LIVE Shopping",
             "button_url": ""
           }
-        },
-        "msu_megamenu_QqEU6y": {
-          "type": "msu_megamenu",
-          "settings": {
-            "parent_link": "Accessories",
-            "image": "shopify://shop_images/Screenshot2026-03-04at2.22.50AM.png",
-            "show_live_button": false,
-            "button_text": "LIVE Shopping",
-            "button_url": ""
-          }
         }
       },
       "block_order": [
         "megamenu_jpebTm",
         "msu_megamenu_VbQwXy",
-        "msu_megamenu_BAAGF3",
-        "msu_megamenu_QqEU6y"
+        "msu_megamenu_BAAGF3"
       ],
       "settings": {
         "logo_position": "middle-left",
