@@ -32,8 +32,8 @@
                     {%- for childlink in link.links -%}
                       <div class="msu-mega__column">
                         <h3 class="msu-mega__heading">{{ childlink.title | escape }}</h3>
-                        {%- if forloop.index <= 2 -%}
-                          <a href="{{ childlink.url }}" class="msu-mega__view-all">View All {{ childlink.title | escape }} &rsaquo;</a>
+                        {%- if childlink.url != '' -%}
+                          <a href="{{ childlink.url }}" class="msu-mega__view-all">View All {{ childlink.title | escape }} ›</a>
                         {%- endif -%}
                         {%- if childlink.links != blank -%}
                           <ul class="list-unstyled" role="list">
@@ -59,6 +59,16 @@
                         height="{{ msu_block.settings.image.height }}"
                         class="msu-mega__image"
                       >
+                      {%- if msu_block.settings.show_live_button -%}
+                        <div class="msu-mega__image-overlay">
+                          <div class="msu-mega__image-overlay-text">LIVE<br>Shopping</div>
+                        </div>
+                        {%- if msu_block.settings.button_url != blank -%}
+                          <a href="{{ msu_block.settings.button_url }}" class="msu-mega__image-button">
+                            {{ msu_block.settings.button_text | default: 'Shop Now' }}
+                          </a>
+                        {%- endif -%}
+                      {%- endif -%}
                     </div>
                   {%- endif -%}
                 </div>

@@ -290,29 +290,38 @@ h5.mega_iwt_title {
 
 /*** MSU Mega Menu Styles ***/
 .msu-mega-menu .msu-mega__content {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding: 3rem;
   background-color: #fff;
-  border-top: 1px solid #e5e5e5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-top: none;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  min-height: 500px;
 }
 
 .msu-mega__grid {
   display: flex !important;
-  gap: 2rem;
-  align-items: flex-start;
+  gap: 3rem;
+  align-items: stretch;
+  max-width: 100%;
 }
 
 .msu-mega__columns {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: 2.5rem;
+  flex-grow: 1;
 }
 
 .msu-mega__column {
-  border-right: 1px solid #eee;
-  padding-right: 1rem;
+  border-right: none;
+  padding-right: 0;
+  border-left: 1px solid #e5e5e5;
+  padding-left: 2rem;
+}
+
+.msu-mega__column:first-child {
+  border-left: none;
+  padding-left: 0;
 }
 
 .msu-mega__column:last-child {
@@ -320,52 +329,118 @@ h5.mega_iwt_title {
 }
 
 .msu-mega__heading {
-  color: #42120f; /* Maroon color from screenshot */
-  font-size: 1.6rem;
+  color: #a85c5c;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 1.5rem;
   text-transform: capitalize;
-  border-bottom: 1px solid #42120f;
-  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #a85c5c;
+  padding-bottom: 0.75rem;
+  font-family: var(--font-heading-family);
+  letter-spacing: 0.5px;
 }
 
 .msu-mega__view-all {
   display: inline-block;
-  color: #42120f;
+  color: #a85c5c;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0;
 }
 
 .msu-mega__view-all:hover {
   text-decoration: underline;
+  color: #8a4848;
 }
 
 .msu-mega__link {
-  font-size: 1.3rem !important;
-  color: #333 !important;
-  padding: 0.4rem 0 !important;
+  font-size: 1.2rem !important;
+  color: #666 !important;
+  padding: 0.6rem 0 !important;
   display: block;
   text-decoration: none;
+  line-height: 1.6;
+  transition: color 0.2s ease;
 }
 
 .msu-mega__link:hover {
-  color: #42120f !important;
-  text-decoration: underline !important;
+  color: #a85c5c !important;
+  text-decoration: none !important;
+  font-weight: 500;
 }
 
 .msu-mega__image-wrapper {
-  width: 250px;
+  width: 280px;
   flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .msu-mega__image {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.msu-mega__image-overlay {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 12px 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #a85c5c;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.msu-mega__image-overlay-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #a85c5c;
+  line-height: 1.2;
+}
+
+.msu-mega__image-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(168, 92, 92, 0.95);
+  color: white;
+  padding: 12px 24px;
   border-radius: 4px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 10;
+}
+
+.msu-mega__image-button:hover {
+  background-color: rgba(138, 72, 72, 1);
+}
+
+@media screen and (max-width: 1200px) {
+  .msu-mega__columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  
+  .msu-mega__image-wrapper {
+    width: 200px;
+  }
 }
 
 @media screen and (max-width: 989px) {
