@@ -19,12 +19,13 @@ header-menu {
   left: 50%;
   transform: translateX(-50%);
   overflow-y: auto;
-  padding-bottom: 3rem;
-  padding-top: 3rem;
+  overflow-x: hidden;
+  padding: 3.5rem 4rem;
   position: absolute;
   top: 100%;
   z-index: 100;
   width: fit-content;
+  max-width: calc(100vw - 40px);
 }
 
 .shopify-section-header-sticky .mega-menu__content {
@@ -298,13 +299,13 @@ h5.mega_iwt_title {
 
 /*** MSU Mega Menu Styles ***/
 .msu-mega-menu .msu-mega__content {
-  padding: 3.5rem 4rem;
+  padding: 3.5rem 4rem !important;
   background-color: #ffffff;
   border-top: none;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   min-height: auto;
   width: fit-content;
-  max-width: calc(100vw - 40px);
+  max-width: calc(100vw - 80px);
 }
 
 .msu-mega__grid {
@@ -313,6 +314,7 @@ h5.mega_iwt_title {
   align-items: flex-start;
   flex-wrap: nowrap;
   width: auto;
+  justify-content: center;
 }
 
 .msu-mega__columns {
