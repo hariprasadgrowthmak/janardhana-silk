@@ -115,7 +115,7 @@
       "settings": {
         "logo_position": "middle-left",
         "menu": "header",
-        "menu_type_desktop": "custom_mega",
+        "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
         "color_scheme": "scheme-5c2f6738-90ad-435b-abca-0c0c149d151a",
