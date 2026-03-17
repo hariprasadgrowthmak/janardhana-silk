@@ -1286,34 +1286,73 @@ $('.top_button_arrow').click(function(event) {
     }, 800)
 });
 
-// Mega menu hover handler
-document.addEventListener('DOMContentLoaded', function() {
-  const headerMenus = document.querySelectorAll('header-menu');
-  
-  headerMenus.forEach(function(menu) {
-    const details = menu.querySelector('details.mega-menu');
-    if (!details) return;
+// Mega menu hover handler - works with any mega menu type
+(function() {
+  function initMegaMenuHover() {
+    // Check if device supports hover
+    if (!window.matchMedia('(hover: hover)').matches) {
+      return; // Touch device, skip hover handling
+    }
+
+    const headerMenus = document.querySelectorAll('header-menu');
     
-    const summary = details.querySelector('summary');
-    
-    // Handle hover to open mega menu
-    menu.addEventListener('mouseenter', function() {
-      details.setAttribute('open', '');
-    });
-    
-    // Handle mouse leave to close mega menu
-    menu.addEventListener('mouseleave', function() {
-      details.removeAttribute('open');
-    });
-    
-    // Keep menu open when clicking summary (for keyboard accessibility)
-    summary.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (details.hasAttribute('open')) {
-        details.removeAttribute('open');
-      } else {
-        details.setAttribute('open', '');
+    if (!headerMenus.length) {
+      console.warn('No header-menu elements found');
+      return;
+    }
+
+    headerMenus.forEach(function(menu, index) {
+      const details = menu.querySelector('details.mega-menu');
+      if (!details) {
+        return; // Not a mega menu
       }
+
+      let openTimeout;
+      let closeTimeout;
+      
+      const handleMouseEnter = function() {
+        clearTimeout(closeTimeout);
+        if (!details.hasAttribute('open')) {
+          openTimeout = setTimeout(function() {
+            details.setAttribute('open', '');
+            console.log('Menu ' + index + ' opened via hover');
+          }, 50);
+        }
+      };
+      
+      const handleMouseLeave = function() {
+        clearTimeout(openTimeout);
+        if (details.hasAttribute('open')) {
+          closeTimeout = setTimeout(function() {
+            details.removeAttribute('open');
+            console.log('Menu ' + index + ' closed via mouseleave');
+          }, 150);
+        }
+      };
+
+      menu.addEventListener('mouseenter', handleMouseEnter);
+      menu.addEventListener('mouseleave', handleMouseLeave);
+      
+      // Prevent closing when moving to the menu content
+      details.addEventListener('mouseenter', function() {
+        clearTimeout(closeTimeout);
+      });
+      
+      details.addEventListener('mouseleave', function() {
+        closeTimeout = setTimeout(function() {
+          details.removeAttribute('open');
+        }, 150);
+      });
     });
-  });
-});
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMegaMenuHover);
+  } else {
+    initMegaMenuHover();
+  }
+
+  // Also try initializing after a short delay in case of dynamic content
+  setTimeout(initMegaMenuHover, 500);
+})();

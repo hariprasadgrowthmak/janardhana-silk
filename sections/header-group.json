@@ -41,7 +41,7 @@
         "megamenu_jpebTm": {
           "type": "megamenu",
           "settings": {
-            "parent_link": "Saree Collections",
+            "parent_link": "Sarees",
             "hide_default_menu": "False",
             "custom_mega_menu_columns": 6,
             "menu_layout": "full_bleed",
@@ -96,10 +96,20 @@
             "btntitle6": "",
             "btnurl6": ""
           }
+        },
+        "msu_megamenu_VbQwXy": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "Sarees",
+            "show_live_button": true,
+            "button_text": "LIVE Shopping",
+            "button_url": ""
+          }
         }
       },
       "block_order": [
-        "megamenu_jpebTm"
+        "megamenu_jpebTm",
+        "msu_megamenu_VbQwXy"
       ],
       "settings": {
         "logo_position": "middle-left",
