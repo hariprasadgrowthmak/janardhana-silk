@@ -40,6 +40,7 @@
       "blocks": {
         "megamenu_jpebTm": {
           "type": "megamenu",
+          "disabled": true,
           "settings": {
             "parent_link": "Sarees",
             "hide_default_menu": "False",
@@ -99,7 +100,6 @@
         },
         "msu_megamenu_VbQwXy": {
           "type": "msu_megamenu",
-          "disabled": true,
           "settings": {
             "parent_link": "Sarees",
             "show_live_button": true,
