@@ -298,6 +298,10 @@ h5.mega_iwt_title {
 /*** end advance mega menu css ****/
 
 /*** MSU Mega Menu Styles ***/
+.msu-mega-menu {
+  position: relative;
+}
+
 .msu-mega-menu .msu-mega__content {
   padding: 3.5rem 4rem !important;
   background-color: #ffffff;
@@ -306,6 +310,16 @@ h5.mega_iwt_title {
   min-height: auto;
   width: fit-content;
   max-width: calc(100vw - 80px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.msu-mega-menu[open] .msu-mega__content {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .msu-mega__grid {

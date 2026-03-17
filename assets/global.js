@@ -1306,52 +1306,64 @@ $('.top_button_arrow').click(function(event) {
         return; // Not a menu
       }
 
-      let openTimeout;
       let closeTimeout;
+      const HOVER_DELAY = 50;
+      const CLOSE_DELAY = 100;
       
       const handleMouseEnter = function(e) {
         clearTimeout(closeTimeout);
-        clearTimeout(openTimeout);
-        openTimeout = setTimeout(function() {
+        if (!details.hasAttribute('open')) {
           details.setAttribute('open', '');
-        }, 50);
+        }
       };
       
       const handleMouseLeave = function(e) {
-        clearTimeout(openTimeout);
         closeTimeout = setTimeout(function() {
           details.removeAttribute('open');
-        }, 100);
+        }, CLOSE_DELAY);
       };
 
-      // Add listeners to header-menu
-      menu.addEventListener('mouseenter', handleMouseEnter);
-      menu.addEventListener('mouseleave', handleMouseLeave);
+      // Add listeners to header-menu wrapper
+      menu.addEventListener('mouseenter', handleMouseEnter, true);
+      menu.addEventListener('mouseleave', handleMouseLeave, true);
       
-      // Add listeners to details element to prevent closing
-      details.addEventListener('mouseenter', function() {
+      // Add listeners to details element
+      details.addEventListener('mouseenter', function(e) {
         clearTimeout(closeTimeout);
-        clearTimeout(openTimeout);
-      });
+      }, true);
       
-      details.addEventListener('mouseleave', function() {
+      details.addEventListener('mouseleave', function(e) {
         closeTimeout = setTimeout(function() {
           details.removeAttribute('open');
-        }, 100);
-      });
+        }, CLOSE_DELAY);
+      }, true);
 
-      // Add listeners to the content div
-      const content = details.querySelector('[class*="mega-menu__content"]') || details.querySelector('[class*="submenu"]');
-      if (content) {
-        content.addEventListener('mouseenter', function() {
+      // Add listeners to summary
+      const summary = details.querySelector('summary');
+      if (summary) {
+        summary.addEventListener('mouseenter', function(e) {
           clearTimeout(closeTimeout);
         });
         
-        content.addEventListener('mouseleave', function() {
+        summary.addEventListener('mouseleave', function(e) {
           closeTimeout = setTimeout(function() {
             details.removeAttribute('open');
-          }, 100);
+          }, CLOSE_DELAY);
         });
+      }
+
+      // Add listeners to the content div
+      const content = details.querySelector('[class*="mega-menu__content"]') || details.nextElementSibling;
+      if (content) {
+        content.addEventListener('mouseenter', function(e) {
+          clearTimeout(closeTimeout);
+        }, true);
+        
+        content.addEventListener('mouseleave', function(e) {
+          closeTimeout = setTimeout(function() {
+            details.removeAttribute('open');
+          }, CLOSE_DELAY);
+        }, true);
       }
     });
   }
@@ -1363,7 +1375,7 @@ $('.top_button_arrow').click(function(event) {
     initMegaMenuHover();
   }
 
-  // Also try initializing after a short delay in case of dynamic content
+  // Also try initializing after delays for dynamic content
   setTimeout(initMegaMenuHover, 500);
   setTimeout(initMegaMenuHover, 1000);
 })();
