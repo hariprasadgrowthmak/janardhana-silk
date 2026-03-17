@@ -36,6 +36,15 @@ class HeaderMenu extends DetailsDisclosure {
   constructor() {
     super();
     this.header = document.querySelector('.header-wrapper');
+    this.isMegaMenu = this.mainDetailsToggle.classList.contains('mega-menu');
+  }
+
+  onFocusOut() {
+    if (this.isMegaMenu) {
+      // Don't close mega menus on focusout - let hover handler manage it
+      return;
+    }
+    super.onFocusOut();
   }
 
   onToggle() {

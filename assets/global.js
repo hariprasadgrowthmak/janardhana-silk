@@ -1297,52 +1297,62 @@ $('.top_button_arrow').click(function(event) {
     const headerMenus = document.querySelectorAll('header-menu');
     
     if (!headerMenus.length) {
-      console.warn('No header-menu elements found');
       return;
     }
 
     headerMenus.forEach(function(menu, index) {
-      const details = menu.querySelector('details.mega-menu');
+      const details = menu.querySelector('details');
       if (!details) {
-        return; // Not a mega menu
+        return; // Not a menu
       }
 
       let openTimeout;
       let closeTimeout;
       
-      const handleMouseEnter = function() {
+      const handleMouseEnter = function(e) {
         clearTimeout(closeTimeout);
-        if (!details.hasAttribute('open')) {
-          openTimeout = setTimeout(function() {
-            details.setAttribute('open', '');
-            console.log('Menu ' + index + ' opened via hover');
-          }, 50);
-        }
+        clearTimeout(openTimeout);
+        openTimeout = setTimeout(function() {
+          details.setAttribute('open', '');
+        }, 50);
       };
       
-      const handleMouseLeave = function() {
+      const handleMouseLeave = function(e) {
         clearTimeout(openTimeout);
-        if (details.hasAttribute('open')) {
-          closeTimeout = setTimeout(function() {
-            details.removeAttribute('open');
-            console.log('Menu ' + index + ' closed via mouseleave');
-          }, 150);
-        }
+        closeTimeout = setTimeout(function() {
+          details.removeAttribute('open');
+        }, 100);
       };
 
+      // Add listeners to header-menu
       menu.addEventListener('mouseenter', handleMouseEnter);
       menu.addEventListener('mouseleave', handleMouseLeave);
       
-      // Prevent closing when moving to the menu content
+      // Add listeners to details element to prevent closing
       details.addEventListener('mouseenter', function() {
         clearTimeout(closeTimeout);
+        clearTimeout(openTimeout);
       });
       
       details.addEventListener('mouseleave', function() {
         closeTimeout = setTimeout(function() {
           details.removeAttribute('open');
-        }, 150);
+        }, 100);
       });
+
+      // Add listeners to the content div
+      const content = details.querySelector('[class*="mega-menu__content"]') || details.querySelector('[class*="submenu"]');
+      if (content) {
+        content.addEventListener('mouseenter', function() {
+          clearTimeout(closeTimeout);
+        });
+        
+        content.addEventListener('mouseleave', function() {
+          closeTimeout = setTimeout(function() {
+            details.removeAttribute('open');
+          }, 100);
+        });
+      }
     });
   }
 
@@ -1355,4 +1365,5 @@ $('.top_button_arrow').click(function(event) {
 
   // Also try initializing after a short delay in case of dynamic content
   setTimeout(initMegaMenuHover, 500);
+  setTimeout(initMegaMenuHover, 1000);
 })();
