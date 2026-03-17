@@ -1,0 +1,483 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-73991b54-b71b-4542-bbab-4c6d3a90c403",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "categories_slider_Mzk3hx": {
+      "type": "categories-slider",
+      "blocks": {
+        "column_fCQLdR": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/hero_image_e1709430-745d-4697-a08a-ca2f64d80f17.jpg",
+            "title": "",
+            "text": "<h6>Kanjivaram</h6>",
+            "link_label": "",
+            "link": "shopify://collections/kanjivaram"
+          }
+        },
+        "column_73wzqM": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/second-category-4.png",
+            "title": "",
+            "text": "<h6>Woollen Shawls</h6>",
+            "link_label": "",
+            "link": "shopify://collections/woollen-shawls"
+          }
+        },
+        "column_FQxnkg": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/beautiful-girl-with-saree.jpg",
+            "title": "",
+            "text": "<h6>Men's Ties</h6>",
+            "link_label": "",
+            "link": "shopify://collections/mens-ties"
+          }
+        },
+        "column_hjpU3g": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-16at4.03.41PM.png",
+            "title": "",
+            "text": "<h6>Scarves and Stoles</h6>",
+            "link_label": "",
+            "link": "shopify://collections/scarves-and-stoles"
+          }
+        },
+        "column_JgNiUk": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-22at1.25.42PM.png",
+            "title": "",
+            "text": "<h6>Silk Fabrics</h6>",
+            "link_label": "",
+            "link": "shopify://collections/fabrics"
+          }
+        },
+        "column_XRKe6b": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-16at4.23.41PM.png",
+            "title": "",
+            "text": "<h6>Cotton Suit Set</h6>",
+            "link_label": "",
+            "link": "shopify://collections/cotton-suit-set"
+          }
+        },
+        "column_DtJzgz": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/third-category-4.png",
+            "title": "",
+            "text": "<h6>Silk Suit Set</h6>",
+            "link_label": "",
+            "link": "shopify://collections/silk-suit-set"
+          }
+        },
+        "column_ixmDPd": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/closeup_angle_edf640c8-cf0e-4545-a85d-15107c861eeb.jpg",
+            "title": "",
+            "text": "<h6>Cotton</h6>",
+            "link_label": "",
+            "link": "shopify://collections/cotton"
+          }
+        },
+        "column_6zBqQC": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-22at2.08.27PM.png",
+            "title": "",
+            "text": "<h6>Plain and Dyed</h6>",
+            "link_label": "",
+            "link": "shopify://collections/dyed-sarees"
+          }
+        },
+        "column_ABN9ya": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/third-category-3.png",
+            "title": "",
+            "text": "<h6>Printed</h6>",
+            "link_label": "",
+            "link": "shopify://collections/printed"
+          }
+        },
+        "column_zHwK4D": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-22at1.40.21PM.png",
+            "title": "",
+            "text": "<h6>Crepe</h6>",
+            "link_label": "",
+            "link": "shopify://collections/crepe"
+          }
+        },
+        "column_fY6bV3": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-16at4.21.16PM.png",
+            "title": "",
+            "text": "<h6><strong>Gadwal</strong></h6>",
+            "link_label": "",
+            "link": "shopify://collections/gadwal-sarees"
+          }
+        },
+        "column_HVdATL": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-16at4.16.28PM.png",
+            "title": "",
+            "text": "<h6>Ikat Patola</h6>",
+            "link_label": "",
+            "link": "shopify://collections/patola-pochampally-saree"
+          }
+        },
+        "column_edfNbb": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot2026-02-16at4.14.04PM.png",
+            "title": "",
+            "text": "<h6>South Silk</h6>",
+            "link_label": "",
+            "link": "shopify://collections/south-silk"
+          }
+        },
+        "column_hKL3mj": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/side_angle_4cffa0ac-994f-4b76-9738-ca24ff9f982a.jpg",
+            "title": "",
+            "text": "<h6>Banarasi</h6>",
+            "link_label": "",
+            "link": "shopify://collections/banarasi"
+          }
+        }
+      },
+      "block_order": [
+        "column_fCQLdR",
+        "column_73wzqM",
+        "column_FQxnkg",
+        "column_hjpU3g",
+        "column_JgNiUk",
+        "column_XRKe6b",
+        "column_DtJzgz",
+        "column_ixmDPd",
+        "column_6zBqQC",
+        "column_ABN9ya",
+        "column_zHwK4D",
+        "column_fY6bV3",
+        "column_HVdATL",
+        "column_edfNbb",
+        "column_hKL3mj"
+      ],
+      "name": "t:sections.categories_slider.name",
+      "settings": {
+        "layout": "full_bleed",
+        "section_view": "desktop_mobile",
+        "class": "",
+        "title": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "image_width": "full",
+        "custom_width": 190,
+        "image_ratio": "circle",
+        "columns_desktop": 15,
+        "enable_slider": true,
+        "enable_autoplay": true,
+        "column_alignment": "center",
+        "background_style": "none",
+        "column_bkg_color": "#f9f9f9",
+        "color_scheme": "",
+        "image_bkg_color": "#f9f9f9",
+        "image_border_color": "rgba(0,0,0,0)",
+        "image_border_radius": 100,
+        "columns_mobile": "3",
+        "padding_top": 22,
+        "padding_bottom": 22
+      }
+    },
+    "image_banner_xxMkTw": {
+      "type": "image-banner",
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "image": "shopify://shop_images/Janardhana_Weaving_story.png",
+        "image_overlay_opacity": 0,
+        "image_height": "adapt",
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "",
+        "image_behavior": "none",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "blocks_GWmiPT": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4b89c2e_Bjc4nx": {
+          "type": "ai_gen_block_4b89c2e",
+          "settings": {
+            "text_content": "<p><strong>Our Story<br/><br/></strong>Since 1952, Janardhana Silk House has carried forward a living tradition—one that begins not in a showroom, but in the rhythmic poetry of the loom. Every creation is born from the patient dialogue between skilled hands, pure silk threads, and time-honored techniques passed down through generations of master weavers across India.</p><p></p><p>The journey starts with the finest silk yarns, carefully selected for their strength, sheen, and softness. These threads are dyed in rich, enduring hues—each color chosen to echo celebration, heritage, and grace. On traditional looms, artisans interlace warp and weft with remarkable precision, transforming delicate strands into enduring works of art. Intricate motifs emerge slowly—temple borders, floral vines, and timeless patterns—each detail woven with devotion rather than haste.</p><p>What makes the craft extraordinary is not just technique, but intention. Every saree carries the wisdom of decades: the understanding of balance, drape, texture, and elegance. It is this harmony of heritage and craftsmanship that gives each piece its soul.</p><p></p><p>From the quiet artistry of the weaving centers to the hands of those who wear them, Janardhana Silk House serves as a bridge between tradition and today. By preserving authentic weaving practices while making them accessible to modern patrons, the house ensures that India’s textile legacy continues to be lived, worn, and celebrated.</p><p>More than fabric, each weave is a story of time, care, and cultural pride—brought lovingly from loom to life.</p>",
+            "font_family": "assistant_n4",
+            "font_size": 16,
+            "line_height": 1.5,
+            "text_alignment": "left",
+            "text_color": "#000000",
+            "background_color": "#ffffff",
+            "link_color": "#000000",
+            "link_hover_color": "#666666",
+            "desktop_width_percent": 100,
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 20,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4b89c2e_Bjc4nx"
+      ],
+      "name": "Text",
+      "settings": {}
+    },
+    "177179296614bebf15": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_7b89184_D9pmhr": {
+          "type": "ai_gen_block_7b89184",
+          "name": "Divider",
+          "settings": {
+            "style": "solid",
+            "thickness": 1,
+            "color": "#000000",
+            "dash_length": 10,
+            "dash_gap": 10,
+            "dot_gap": 4,
+            "desktop_width_percent": 100,
+            "spacing_top": 20,
+            "spacing_bottom": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_b6fbcdf_CpGaqg": {
+          "type": "ai_gen_block_b6fbcdf",
+          "settings": {
+            "layout": "1",
+            "desktop_width_percent": 100,
+            "gap": 8,
+            "border_radius": 0,
+            "min_height": 300,
+            "mobile_min_height": 250,
+            "placeholder_bg_color": "#f4f4f4",
+            "image_1": "shopify://shop_images/ChatGPT_Image_Feb_23_2026_02_19_49_AM.png",
+            "title_1": "",
+            "description_1": "",
+            "link_1": "",
+            "image_2": "shopify://shop_images/unnamed_1.webp",
+            "title_2": "",
+            "description_2": "",
+            "link_2": "",
+            "image_3": "shopify://shop_images/unnamed.webp",
+            "title_3": "",
+            "description_3": "",
+            "link_3": "",
+            "title_4": "",
+            "description_4": "",
+            "link_4": "",
+            "show_overlay_on_hover": true,
+            "overlay_opacity": 60,
+            "text_color": "#ffffff",
+            "title_size": 20,
+            "description_size": 14,
+            "text_padding": 20
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_4b89c2e_8UUd9w": {
+          "type": "ai_gen_block_4b89c2e",
+          "name": "Text",
+          "settings": {
+            "text_content": "<p>For over six decades, Janardhana Silk House has stood as a treasured destination for the finest silk sarees, bringing together India’s most exquisite handmade weaves under one roof. Showcasing an extraordinary range—from rich Kanjivaram and regal Banarasi to vibrant Patola, elegant Mysore silk, graceful crepe, and timeless cottons—each creation reflects the beauty of tradition shaped for the modern woman.</p><p>Every saree is handwoven with the finest silk threads and brought to life through masterful craftsmanship, intricate embroidery, and thoughtfully curated colors and designs. Whether it is a grand wedding, a festive celebration, or an intimate gathering, the collection offers a perfect expression for every occasion.</p><p>Rooted in heritage since 1952, the house blends enduring Indian artistry with contemporary style, guided by generations of knowledge, care, and passion. With a deep understanding of its patrons and their evolving tastes, Janardhana Silk House has become more than a store—it is a cherished family tradition passed from one generation to the next.</p><p>Here, every creation is a promise: what you dream is lovingly brought to life.</p>",
+            "font_family": "assistant_n4",
+            "font_size": 16,
+            "line_height": 1.5,
+            "text_alignment": "left",
+            "text_color": "#000000",
+            "background_color": "#ffffff",
+            "link_color": "#000000",
+            "link_hover_color": "#666666",
+            "desktop_width_percent": 100,
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_horizontal": 20,
+            "border_radius": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_7b89184_D9pmhr",
+        "ai_gen_block_b6fbcdf_CpGaqg",
+        "ai_gen_block_4b89c2e_8UUd9w"
+      ],
+      "settings": {}
+    },
+    "dbc23b1d-b633-4783-868d-b25b10ce7ede": {
+      "type": "meet-the-team",
+      "blocks": {
+        "template--20627963937074__dbc23b1d-b633-4783-868d-b25b10ce7ede-column-1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/team-img-1.png",
+            "title": "Elizabeth",
+            "text": "<p>Fashion Designer</p>",
+            "link_label": "",
+            "link": "",
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_tiktok_link": "#",
+            "social_youtube_link": ""
+          }
+        },
+        "template--20627963937074__dbc23b1d-b633-4783-868d-b25b10ce7ede-column-2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/team-img-2.png",
+            "title": "Olivia",
+            "text": "<p>Director</p>",
+            "link_label": "",
+            "link": "",
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_tiktok_link": "#",
+            "social_youtube_link": ""
+          }
+        },
+        "template--20627963937074__dbc23b1d-b633-4783-868d-b25b10ce7ede-column-3": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/team-img-3.png",
+            "title": "Amelia",
+            "text": "<p>Marketing Manager</p>",
+            "link_label": "",
+            "link": "",
+            "social_twitter_link": "#",
+            "social_facebook_link": "#",
+            "social_pinterest_link": "#",
+            "social_instagram_link": "#",
+            "social_tiktok_link": "#",
+            "social_youtube_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--20627963937074__dbc23b1d-b633-4783-868d-b25b10ce7ede-column-1",
+        "template--20627963937074__dbc23b1d-b633-4783-868d-b25b10ce7ede-column-2",
+        "template--20627963937074__dbc23b1d-b633-4783-868d-b25b10ce7ede-column-3"
+      ],
+      "settings": {
+        "title": "Meet the team",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "solid",
+        "color_scheme": "scheme-580b95c8-eb81-4dff-a5f1-06ca56b3e0e5",
+        "social_icon_color": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 50,
+        "padding_bottom": 90
+      }
+    },
+    "a15a356f-3418-43c4-bc68-b33939610b28": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--20627963937074__a15a356f-3418-43c4-bc68-b33939610b28-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "WE'RE ECO-FRIENDLY",
+            "heading_size": "h2"
+          }
+        },
+        "template--20627963937074__a15a356f-3418-43c4-bc68-b33939610b28-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Eu feugiat pretium nibh ipsum consequat nisl vel. Lacus suspendisse faucibus interdum posuere. Id neque aliquam vestibulum morbi blandit cursus risus. </p><p>Consectetur adipiscing elit pellentesque habitant morbi. Suspendisse ultrices gravida dictum fusce ut. Enim nec dui nunc mattis enim.</p>",
+            "text_style": "body"
+          }
+        },
+        "template--20627963937074__a15a356f-3418-43c4-bc68-b33939610b28-button-1": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style": "solid"
+          }
+        }
+      },
+      "block_order": [
+        "template--20627963937074__a15a356f-3418-43c4-bc68-b33939610b28-heading-1",
+        "template--20627963937074__a15a356f-3418-43c4-bc68-b33939610b28-text-1",
+        "template--20627963937074__a15a356f-3418-43c4-bc68-b33939610b28-button-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "class_name": "",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image_behavior": "zoom-in",
+        "mobile_content_alignment": "left",
+        "padding_top": 52,
+        "padding_bottom": 56
+      }
+    }
+  },
+  "order": [
+    "main",
+    "categories_slider_Mzk3hx",
+    "image_banner_xxMkTw",
+    "blocks_GWmiPT",
+    "177179296614bebf15",
+    "dbc23b1d-b633-4783-868d-b25b10ce7ede",
+    "a15a356f-3418-43c4-bc68-b33939610b28"
+  ]
+}
