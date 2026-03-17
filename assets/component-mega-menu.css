@@ -2,6 +2,18 @@
   position: static;
 }
 
+@media (hover: hover) {
+  header-menu:hover .mega-menu {
+    overflow: visible;
+  }
+
+  header-menu:hover .mega-menu[open] .mega-menu__content,
+  .mega-menu:hover .mega-menu__content {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .mega-menu__content {
   background-color: rgb(var(--color-background));
   border-left: 0;

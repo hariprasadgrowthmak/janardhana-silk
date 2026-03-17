@@ -1285,3 +1285,35 @@ $('.top_button_arrow').click(function(event) {
         scrollTop: 0
     }, 800)
 });
+
+// Mega menu hover handler
+document.addEventListener('DOMContentLoaded', function() {
+  const headerMenus = document.querySelectorAll('header-menu');
+  
+  headerMenus.forEach(function(menu) {
+    const details = menu.querySelector('details.mega-menu');
+    if (!details) return;
+    
+    const summary = details.querySelector('summary');
+    
+    // Handle hover to open mega menu
+    menu.addEventListener('mouseenter', function() {
+      details.setAttribute('open', '');
+    });
+    
+    // Handle mouse leave to close mega menu
+    menu.addEventListener('mouseleave', function() {
+      details.removeAttribute('open');
+    });
+    
+    // Keep menu open when clicking summary (for keyboard accessibility)
+    summary.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (details.hasAttribute('open')) {
+        details.removeAttribute('open');
+      } else {
+        details.setAttribute('open', '');
+      }
+    });
+  });
+});
