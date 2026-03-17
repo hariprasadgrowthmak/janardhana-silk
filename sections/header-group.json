@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "name": "t:sections.header.name",
   "type": "header",
@@ -96,15 +87,23 @@
             "btntitle6": "",
             "btnurl6": ""
           }
+        },
+        "msu_megamenu_sarees": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "Saree Collections",
+            "image": "shopify://shop_images/logo.jpg"
+          }
         }
       },
       "block_order": [
-        "megamenu_jpebTm"
+        "megamenu_jpebTm",
+        "msu_megamenu_sarees"
       ],
       "settings": {
         "logo_position": "middle-left",
         "menu": "header",
-        "menu_type_desktop": "mega",
+        "menu_type_desktop": "msu_mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
         "color_scheme": "scheme-5c2f6738-90ad-435b-abca-0c0c149d151a",

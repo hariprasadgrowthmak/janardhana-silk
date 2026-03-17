@@ -6,7 +6,7 @@
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
-{%- if section.settings.menu_type_desktop == 'mega' or settings.categories_menu != blank or section.settings.menu_type_desktop == 'custom_mega' or section.settings.menu_type_desktop == 'advance_mega_menu' -%}
+{%- if section.settings.menu_type_desktop == 'mega' or settings.categories_menu != blank or section.settings.menu_type_desktop == 'custom_mega' or section.settings.menu_type_desktop == 'advance_mega_menu' or section.settings.menu_type_desktop == 'msu_mega' -%}
   <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
@@ -326,6 +326,8 @@
           render 'custom-mega-menu'
         elsif section.settings.menu_type_desktop == 'advance_mega_menu'
           render 'advance-mega-menu'
+        elsif section.settings.menu_type_desktop == 'msu_mega'
+          render 'msu-megamenu'
         elsif section.settings.menu_type_desktop != 'drawer'
           render 'header-mega-menu'
         endif
@@ -719,6 +721,10 @@
         {
           "value": "advance_mega_menu",
           "label": "t:sections.header.settings.menu_type_desktop.options__5.label"
+        },
+        {
+          "value": "msu_mega",
+          "label": "MSU Mega Menu"
         }
       ],
       "default": "dropdown",
@@ -1549,6 +1555,23 @@
           "type": "text",
           "id": "collection_vise_btn_text",
           "label": "t:sections.header.blocks.advance_megamenu.settings.collection_vise_btn_text.label"
+        }
+      ]
+    },
+    {
+      "type": "msu_megamenu",
+      "name": "MSU Megamenu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_link",
+          "label": "Parent link",
+          "info": "The menu item that should trigger this megamenu."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Promotional Image"
         }
       ]
     }
