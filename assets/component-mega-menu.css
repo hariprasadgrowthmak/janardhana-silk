@@ -24,8 +24,7 @@ header-menu {
   right: auto;
   top: 100%;
   z-index: 100;
-  width: auto;
-  white-space: nowrap;
+  width: fit-content;
 }
 
 .shopify-section-header-sticky .mega-menu__content {
@@ -304,28 +303,22 @@ h5.mega_iwt_title {
   border-top: none;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   min-height: auto;
-  width: auto;
-  max-width: 100%;
-  left: 0;
-  right: auto;
+  width: fit-content;
 }
 
 .msu-mega__grid {
   display: flex !important;
   gap: 4rem;
   align-items: flex-start;
-  max-width: 100%;
-  width: auto;
   flex-wrap: nowrap;
+  width: auto;
 }
 
 .msu-mega__columns {
-  flex: 1;
+  flex: 0 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(150px, 180px));
   gap: 3rem;
-  flex-grow: 1;
-  width: auto;
 }
 
 .msu-mega__column {
@@ -333,6 +326,7 @@ h5.mega_iwt_title {
   padding-right: 0;
   padding-left: 0;
   min-width: 0;
+  flex-shrink: 0;
 }
 
 .msu-mega__column:first-child {

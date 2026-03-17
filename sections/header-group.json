@@ -106,11 +106,51 @@
             "button_text": "LIVE Shopping",
             "button_url": ""
           }
+        },
+        "msu_megamenu_salwar": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "Salwar Kameez",
+            "show_live_button": false,
+            "button_text": "Shop Now",
+            "button_url": ""
+          }
+        },
+        "msu_megamenu_fabric": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "Fabric",
+            "show_live_button": false,
+            "button_text": "Shop Now",
+            "button_url": ""
+          }
+        },
+        "msu_megamenu_newarrivals": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "New Arrivals",
+            "show_live_button": false,
+            "button_text": "Shop Now",
+            "button_url": ""
+          }
+        },
+        "msu_megamenu_accessories": {
+          "type": "msu_megamenu",
+          "settings": {
+            "parent_link": "Accessories",
+            "show_live_button": false,
+            "button_text": "Shop Now",
+            "button_url": ""
+          }
         }
       },
       "block_order": [
         "megamenu_jpebTm",
-        "msu_megamenu_VbQwXy"
+        "msu_megamenu_VbQwXy",
+        "msu_megamenu_salwar",
+        "msu_megamenu_fabric",
+        "msu_megamenu_newarrivals",
+        "msu_megamenu_accessories"
       ],
       "settings": {
         "logo_position": "middle-left",
