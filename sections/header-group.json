@@ -40,7 +40,6 @@
       "blocks": {
         "megamenu_jpebTm": {
           "type": "megamenu",
-          "disabled": true,
           "settings": {
             "parent_link": "Sarees",
             "hide_default_menu": "False",
@@ -48,7 +47,7 @@
             "menu_layout": "full_bleed",
             "mega_menu_bkg_color": "#ffffff",
             "mega_menu_text_color": "#000000",
-            "menu_item_type1": "linklist",
+            "menu_item_type1": "show_image_with_text",
             "linklist1": "header",
             "collection1": "",
             "product1": "",
@@ -100,57 +99,18 @@
         },
         "msu_megamenu_VbQwXy": {
           "type": "msu_megamenu",
+          "disabled": true,
           "settings": {
             "parent_link": "Sarees",
             "show_live_button": true,
             "button_text": "LIVE Shopping",
             "button_url": ""
           }
-        },
-        "msu_megamenu_salwar": {
-          "type": "msu_megamenu",
-          "settings": {
-            "parent_link": "Salwar Kameez",
-            "show_live_button": false,
-            "button_text": "Shop Now",
-            "button_url": ""
-          }
-        },
-        "msu_megamenu_fabric": {
-          "type": "msu_megamenu",
-          "settings": {
-            "parent_link": "Fabric",
-            "show_live_button": false,
-            "button_text": "Shop Now",
-            "button_url": ""
-          }
-        },
-        "msu_megamenu_newarrivals": {
-          "type": "msu_megamenu",
-          "settings": {
-            "parent_link": "New Arrivals",
-            "show_live_button": false,
-            "button_text": "Shop Now",
-            "button_url": ""
-          }
-        },
-        "msu_megamenu_accessories": {
-          "type": "msu_megamenu",
-          "settings": {
-            "parent_link": "Accessories",
-            "show_live_button": false,
-            "button_text": "Shop Now",
-            "button_url": ""
-          }
         }
       },
       "block_order": [
         "megamenu_jpebTm",
-        "msu_megamenu_VbQwXy",
-        "msu_megamenu_salwar",
-        "msu_megamenu_fabric",
-        "msu_megamenu_newarrivals",
-        "msu_megamenu_accessories"
+        "msu_megamenu_VbQwXy"
       ],
       "settings": {
         "logo_position": "middle-left",
