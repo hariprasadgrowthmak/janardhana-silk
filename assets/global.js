@@ -1288,6 +1288,8 @@ $('.top_button_arrow').click(function(event) {
 
 // Mega menu hover handler - works with any mega menu type
 (function() {
+  let hoverTracker = {};
+  
   function initMegaMenuHover() {
     // Check if device supports hover
     if (!window.matchMedia('(hover: hover)').matches) {
@@ -1306,9 +1308,14 @@ $('.top_button_arrow').click(function(event) {
         return; // Not a menu
       }
 
-      let closeTimeout;
-      const HOVER_DELAY = 50;
-      const CLOSE_DELAY = 100;
+      // Store tracker for this menu
+      const menuId = 'menu_' + index;
+      if (!hoverTracker[menuId]) {
+        hoverTracker[menuId] = { closeTimeout: null };
+      }
+
+      const tracker = hoverTracker[menuId];
+      const CLOSE_DELAY = 200;
       
       const updateMenuPosition = function() {
         const content = details.querySelector('[class*="mega-menu__content"]');
@@ -1322,8 +1329,21 @@ $('.top_button_arrow').click(function(event) {
         }
       };
       
+      const closeMenu = function() {
+        clearTimeout(tracker.closeTimeout);
+        tracker.closeTimeout = setTimeout(function() {
+          if (details.hasAttribute('open')) {
+            details.removeAttribute('open');
+          }
+        }, CLOSE_DELAY);
+      };
+      
+      const clearCloseTimer = function() {
+        clearTimeout(tracker.closeTimeout);
+      };
+      
       const handleMouseEnter = function(e) {
-        clearTimeout(closeTimeout);
+        clearCloseTimer();
         if (!details.hasAttribute('open')) {
           details.setAttribute('open', '');
           updateMenuPosition();
@@ -1331,54 +1351,107 @@ $('.top_button_arrow').click(function(event) {
       };
       
       const handleMouseLeave = function(e) {
-        closeTimeout = setTimeout(function() {
-          details.removeAttribute('open');
-        }, CLOSE_DELAY);
+        closeMenu();
       };
 
+      // Remove old listeners to prevent duplicates
+      menu.removeEventListener('mouseenter', handleMouseEnter);
+      menu.removeEventListener('mouseleave', handleMouseLeave);
+      details.removeEventListener('mouseenter', clearCloseTimer);
+      details.removeEventListener('mouseleave', closeMenu);
+
       // Add listeners to header-menu wrapper
-      menu.addEventListener('mouseenter', handleMouseEnter, true);
-      menu.addEventListener('mouseleave', handleMouseLeave, true);
+      menu.addEventListener('mouseenter', handleMouseEnter);
+      menu.addEventListener('mouseleave', handleMouseLeave);
       
       // Add listeners to details element
       details.addEventListener('mouseenter', function(e) {
-        clearTimeout(closeTimeout);
-        updateMenuPosition();
-      }, true);
+        clearCloseTimer();
+      });
       
       details.addEventListener('mouseleave', function(e) {
-        closeTimeout = setTimeout(function() {
-          details.removeAttribute('open');
-        }, CLOSE_DELAY);
-      }, true);
+        closeMenu();
+      });
 
       // Add listeners to summary
       const summary = details.querySelector('summary');
       if (summary) {
         summary.addEventListener('mouseenter', function(e) {
-          clearTimeout(closeTimeout);
-          updateMenuPosition();
+          clearCloseTimer();
         });
         
         summary.addEventListener('mouseleave', function(e) {
-          closeTimeout = setTimeout(function() {
-            details.removeAttribute('open');
-          }, CLOSE_DELAY);
+          closeMenu();
         });
       }
 
-      // Add listeners to the content div
-      const content = details.querySelector('[class*="mega-menu__content"]') || details.nextElementSibling;
+      // Add listeners to the content div with special handling for fixed positioning
+      const content = details.querySelector('[class*="mega-menu__content"]');
       if (content) {
         content.addEventListener('mouseenter', function(e) {
-          clearTimeout(closeTimeout);
-        }, true);
+          clearCloseTimer();
+        });
         
         content.addEventListener('mouseleave', function(e) {
-          closeTimeout = setTimeout(function() {
+          closeMenu();
+        });
+      }
+    });
+    
+    // Add a global mousemove handler to detect when mouse leaves any fixed menu
+    document.removeEventListener('mousemove', globalMouseMoveHandler);
+    document.addEventListener('mousemove', globalMouseMoveHandler);
+  }
+
+  function globalMouseMoveHandler(e) {
+    const headerMenus = document.querySelectorAll('header-menu');
+    
+    headerMenus.forEach(function(menu, index) {
+      const details = menu.querySelector('details');
+      if (!details || !details.hasAttribute('open')) {
+        return;
+      }
+      
+      const content = details.querySelector('[class*="mega-menu__content"]');
+      if (!content) {
+        return;
+      }
+      
+      const menuId = 'menu_' + index;
+      const tracker = hoverTracker[menuId];
+      if (!tracker) {
+        return;
+      }
+
+      const contentRect = content.getBoundingClientRect();
+      const menuRect = menu.getBoundingClientRect();
+      
+      // Check if mouse is over menu trigger area or the fixed content
+      const isOverMenuTrigger = (
+        e.clientX >= menuRect.left &&
+        e.clientX <= menuRect.right &&
+        e.clientY >= menuRect.top &&
+        e.clientY <= menuRect.bottom
+      );
+      
+      const isOverContent = (
+        e.clientX >= contentRect.left &&
+        e.clientX <= contentRect.right &&
+        e.clientY >= contentRect.top &&
+        e.clientY <= contentRect.bottom
+      );
+      
+      if (!isOverMenuTrigger && !isOverContent) {
+        // Mouse is outside both menu trigger and content
+        clearTimeout(tracker.closeTimeout);
+        tracker.closeTimeout = setTimeout(function() {
+          if (details.hasAttribute('open')) {
             details.removeAttribute('open');
-          }, CLOSE_DELAY);
-        }, true);
+          }
+        }, 200);
+      } else {
+        // Mouse is over one of the areas
+        clearTimeout(tracker.closeTimeout);
       }
     });
   }
