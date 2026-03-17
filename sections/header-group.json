@@ -102,6 +102,7 @@
           "type": "msu_megamenu",
           "settings": {
             "parent_link": "Sarees",
+            "image": "shopify://shop_images/Every_saree_is_a_timeless_whisper_of_elegance_Unity_Buildings_J.C._Road_Bangalore-560_0.webp",
             "show_live_button": true,
             "button_text": "LIVE Shopping",
             "button_url": ""
