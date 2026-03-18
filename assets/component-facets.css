@@ -1726,7 +1726,7 @@ input.mobile-facets__checkbox {
   --range-track-height: 2px;
   --range-thumb-size: 18px;
   height: var(--range-thumb-size);
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   margin-bottom: 1.5rem;
 }
 
