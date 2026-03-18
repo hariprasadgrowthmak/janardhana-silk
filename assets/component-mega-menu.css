@@ -410,7 +410,7 @@ h5.mega_iwt_title {
 
 .msu-mega__heading {
   color: #a85c5c;
-  font-size: 1.3rem;
+  font-size: 16px;
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 1.8rem;
@@ -426,7 +426,7 @@ h5.mega_iwt_title {
   display: inline-block;
   color: #a85c5c;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 15px;
   font-weight: 500;
   margin-bottom: 1.2rem;
   padding: 0;
@@ -435,6 +435,7 @@ h5.mega_iwt_title {
 
 .msu-mega__view-all:hover {
   text-decoration: none;
+  font-weight: 600;
   color: #8a4848;
 }
 
