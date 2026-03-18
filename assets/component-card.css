@@ -705,7 +705,7 @@
 .card-wrapper.product-card-wrapper .quick-add__submit {
     width: 100%;
     min-width: auto;
-    opacity: 0;
+    opacity: 1;
     transition: var(--duration-long) ease 0s;
     -webkit-transition: var(--duration-long) ease 0s;
     -moz-transition: var(--duration-long) ease 0s;

@@ -1599,12 +1599,21 @@ a.product__text {
     margin-bottom: 0;
     display: none;
 }
+
+/* Quantity + Add-to-Cart / Sold Out on the same row */
 .product .product__info-wrapper .product-form__quantity {
-    float: left;
+    float: none;
+}
+.product .product__info-wrapper .product-form {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 12px;
 }
 .product .product__info-wrapper .product-form__quantity .quantity {
    min-height: calc((var(--inputs-border-width) * 2) + 3.9rem);
    width: calc(10rem / var(--font-body-scale) + var(--inputs-border-width) * 2);
+   flex-shrink: 0;
 }
 .product .product__info-wrapper .product-form__quantity .quantity__button {
     width: calc(3rem / var(--font-body-scale));
@@ -1622,6 +1631,7 @@ a.product__text {
 }
 .product .product__info-wrapper .product-form__buttons {
     max-width: 100%;
+    flex: 1;
 }
 .product .product__info-wrapper .product-form__buttons .shopify-payment-button__button--unbranded {
     min-height: calc(3.9rem + var(--buttons-border-width) * 2);
@@ -1637,9 +1647,9 @@ a.product__text {
     margin-bottom: 0;
 }
 .product .product__info-wrapper .product__info-container .product-form-block {
-    float: left;
-    padding-left: 10px;
-    width: calc(100% - 102px);
+    float: none;
+    padding-left: 0;
+    width: 100%;
 }
 .product .product__info-wrapper .product__info-container .product-form-block .product-form {
     margin: 0;
@@ -2331,3 +2341,60 @@ quick-add-modal .product .product__media-wrapper .wishlist-compare {
       height: 34px;
   }
 }
+
+/* ====== Sold Out button → inactive gray style ====== */
+.product .product__info-wrapper .product-form__submit.button--primary[disabled],
+.product .product__info-wrapper .product-form__submit.button--primary:disabled {
+  background: #e8e8e8 !important;
+  color: #666666 !important;
+  border-color: #e8e8e8 !important;
+  opacity: 1 !important;
+  cursor: not-allowed;
+}
+
+/* ====== Hide Compare icon on product page and cards ====== */
+.product .product__media-wrapper .wishlist-compare .button.button-compare,
+.hover_button .button.button-compare {
+  display: none !important;
+}
+
+/* ====== Quantity + Buy Button horizontal row ====== */
+.product .product__info-container .product-form__quantity,
+.product .product__info-container .product-form-block {
+  display: inline-flex !important;
+  vertical-align: top;
+}
+.product .product__info-container .product-form__quantity {
+  width: auto !important;
+  float: none !important;
+}
+.product .product__info-container .product-form-block {
+  float: none !important;
+  padding-left: 12px !important;
+  width: calc(100% - 130px) !important;
+}
+.product .product__info-container .product-form-block .product-form {
+  display: block;
+}
+
+/* ====== 52px height for quantity, buttons, add to cart ====== */
+.product .product__info-wrapper .product-form__quantity .quantity,
+.product .product__info-wrapper .product-form__quantity .quantity__button,
+.product .product__info-wrapper .product-form__quantity .quantity__input {
+  min-height: 52px !important;
+  height: 52px !important;
+}
+.product .product__info-wrapper .product-form__submit.button--primary,
+.product .product__info-wrapper .product-form__submit.button--full-width {
+  min-height: 52px !important;
+  height: 52px !important;
+  line-height: 52px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ====== Payment icons — left aligned ====== */
+.product__info-container .payment-icon-block .payment-icon-list {
+  justify-content: flex-start !important;
+}
+

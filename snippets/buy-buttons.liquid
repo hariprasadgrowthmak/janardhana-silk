@@ -68,32 +68,7 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        {%- comment -%} STITCHING MODAL TRIGGER {%- endcomment -%}
-        <div class="stitching-button-container">
-          <button type="button" id="openStitchingModal" class="button button--secondary">
-            Add Stitching
-          </button>
-        </div>
 
-        {%- comment -%} STITCHING MODAL OVERLAY {%- endcomment -%}
-        <div id="stitchingModalOverlay" class="stitching-modal-overlay" style="display:none;">
-          <div class="stitching-modal-content">
-            <button type="button" id="closeStitchingModal" class="modal-close-btn">&times;</button>
-
-            <div class="modal-header">
-              <h2>Add Stitching</h2>
-            </div>
-
-            <div class="modal-body">
-              {%- comment -%} GLOBO APP INJECTS HERE {%- endcomment -%}
-              <div id="globoOptions"></div>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" id="submitStitching" class="button button--primary">Submit</button>
-            </div>
-          </div>
-        </div>
 
 
         <div class="product-form__buttons">
@@ -180,77 +155,4 @@
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 </div>
-
- <div class="product-form-buy-button">
-       <div class="product-form__error-message-wrapper" role="alert" hidden>
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          class="icon icon-error"
-          viewBox="0 0 13 13"
-        >
-          <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
-          <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
-          <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
-          <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
-        </svg>
-        <span class="product-form__error-message"></span>
-      </div>
-
-      {%- form 'product',
-        product,
-        id: product_form_id,
-        class: 'form',
-        novalidate: 'novalidate',
-        data-type: 'add-to-cart-form'
-      -%}
-        <input
-          type="hidden"
-          name="id"
-          value="{{ product.selected_or_first_available_variant.id }}"
-          {% if product.selected_or_first_available_variant.available == false
-            or quantity_rule_soldout
-            or product.selected_or_first_available_variant == nil
-          %}
-          disabled
-          {% endif %}
-          class="product-variant-id"
-        >   
-           <div class="product-form__buttons">
-             {%- if show_dynamic_checkout -%}
-                  {{ form | payment_button }}
-              {%- endif -%}
-            </div>
-        {%- endform -%}
-  </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('stitchingModalOverlay');
-  const openBtn = document.getElementById('openStitchingModal');
-  const closeBtn = document.getElementById('closeStitchingModal');
-  const submitBtn = document.getElementById('submitStitching');
-
-  if (!modal || !openBtn) return;
-
-  // Open Modal
-  openBtn.addEventListener('click', () => {
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  });
-
-  // Close Modal
-  const closeModal = () => {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  };
-
-  closeBtn.addEventListener('click', closeModal);
-  if (submitBtn) submitBtn.addEventListener('click', closeModal);
-
-  // Click outside to close
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-});
-</script>
+
