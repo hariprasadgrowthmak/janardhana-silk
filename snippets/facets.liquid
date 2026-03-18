@@ -64,7 +64,7 @@
                       id="verticalTitle"
                       tabindex="-1"
                     >
-                      {{ 'products.facets.filter_by_label' | t }}
+                      FILTERS
                     </h2>
                   {%- endunless -%}
                   <facet-remove class="active-facets__button-wrapper">
@@ -136,7 +136,7 @@
                     >
                       <div>
                         <span class="facets__summary-label">
-                          {{- filter.label | escape }}
+                          {{- filter.label | escape | uppercase }}
                           {%- if filter_type == 'vertical' -%}
                             <span class="facets__selected{% if filter.active_values.size == 0 %} hidden{% endif %}">
                               ({{ filter.active_values.size }})</span
@@ -396,7 +396,7 @@
                   >
                     <summary class="facets__summary caption-large focus-offset">
                       <div>
-                        <span>{{ filter.label | escape }}</span>
+                        <span class="facets__summary-label">{{ filter.label | escape | uppercase }}</span>
                         {% render 'icon-caret' %}
                       </div>
                     </summary>

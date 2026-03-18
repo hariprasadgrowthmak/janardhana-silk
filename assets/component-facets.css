@@ -1576,3 +1576,120 @@ input.mobile-facets__checkbox {
       opacity: 1;
   }
 }
+/* Redesign Filter Styles */
+.facets__divider {
+  border-bottom: 1px solid #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+.facets__heading--vertical {
+  font-weight: 700 !important;
+  font-size: 1.8rem !important;
+  margin-bottom: 2rem !important;
+  letter-spacing: 0.1rem;
+}
+
+.facets__summary-label {
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.05rem;
+}
+
+/* Price Range Redesign */
+.price-range__input_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.price-range__field {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d1d1;
+  padding: 0.8rem 1.2rem;
+  flex: 1;
+}
+
+.price-range__field .field-currency {
+  font-size: 1.2rem;
+  color: #666;
+  margin-right: 0.5rem;
+}
+
+.price-range__field .field__input {
+  border: none !important;
+  padding: 0 !important;
+  min-height: auto !important;
+  font-size: 1.4rem;
+  width: 100%;
+}
+
+.price-range__separator {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Range Slider Aesthetics */
+.price-range__range-group {
+  --range-track-height: 4px;
+  --range-thumb-size: 20px;
+  height: var(--range-thumb-size);
+  margin-top: 2rem;
+}
+
+.price-range__range-group input[type="range"] {
+  background: none;
+  pointer-events: none;
+}
+
+.price-range__range-group input[type="range"]::-webkit-slider-runnable-track {
+  background: #000;
+  height: var(--range-track-height);
+}
+
+.price-range__range-group input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto;
+  appearance: none;
+  width: var(--range-thumb-size);
+  height: var(--range-thumb-size);
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  margin-top: calc((var(--range-track-height) - var(--range-thumb-size)) / 2);
+}
+
+/* Checkbox Modernization */
+.facet-checkbox {
+  padding: 0.8rem 0 !important;
+}
+
+.facet-checkbox > svg {
+  border: 1px solid #d1d1d1;
+  border-radius: 2px;
+  width: 1.8rem !important;
+  height: 1.8rem !important;
+  margin-right: 1.5rem !important;
+}
+
+.facet-checkbox .icon-checkmark {
+  top: 1.3rem !important;
+  left: 0.5rem !important;
+}
+
+.facet-checkbox__text-label {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Accordion Icons */
+.facets__summary .icon-caret {
+  width: 1.2rem;
+  right: 0;
+  transition: transform 0.3s ease;
+}
+
+details[open] .facets__summary .icon-caret {
+  transform: rotate(180deg);
+}
