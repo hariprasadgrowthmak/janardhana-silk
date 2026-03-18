@@ -30,6 +30,17 @@ class DetailsModal extends HTMLElement {
     document.body.addEventListener('click', this.onBodyClickEvent);
     document.body.classList.add('overflow-hidden');
 
+    // Hide navigation and close any open mega menus when search opens
+    const headerWrapper = this.closest('.header-wrapper');
+    if (headerWrapper) {
+      headerWrapper.classList.add('search-open');
+    }
+    document.querySelectorAll('header-menu').forEach((menu) => {
+      if (menu.mainDetailsToggle && menu.mainDetailsToggle.open) {
+        menu.close();
+      }
+    });
+
     trapFocus(
       this.detailsContainer.querySelector('[tabindex="-1"]'),
       this.detailsContainer.querySelector('input:not([type="hidden"])')
@@ -41,6 +52,12 @@ class DetailsModal extends HTMLElement {
     this.detailsContainer.removeAttribute('open');
     document.body.removeEventListener('click', this.onBodyClickEvent);
     document.body.classList.remove('overflow-hidden');
+
+    // Restore navigation when search closes
+    const headerWrapper = this.closest('.header-wrapper');
+    if (headerWrapper) {
+      headerWrapper.classList.remove('search-open');
+    }
   }
 }
 
