@@ -113,6 +113,10 @@
             "image_4": "shopify://shop_images/image_4.png",
             "heading_4": "QUICK & EASY RETURNS"
           }
+        },
+        "globo_product_options_app_block_UjeEYL": {
+          "type": "shopify://apps/globo-product-options/blocks/app-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
+          "settings": {}
         }
       },
       "block_order": [
@@ -127,7 +131,8 @@
         "buy_buttons",
         "payment_icon_4cUFU4",
         "description",
-        "icon_with_text_HkN6Ka"
+        "icon_with_text_HkN6Ka",
+        "globo_product_options_app_block_UjeEYL"
       ],
       "settings": {
         "enable_sticky_info": true,
