@@ -99,7 +99,7 @@
         "auto_rotate": true,
         "change_slides_speed": 3,
         "image_behavior": "none",
-        "show_text_below": true,
+        "show_text_below": false,
         "accessibility_info": "Slideshow about our brand"
       }
     },
@@ -365,7 +365,7 @@
         "image_bkg_color": "#f9f9f9",
         "image_border_color": "#891403",
         "image_border_radius": 100,
-        "columns_mobile": "3",
+        "columns_mobile": "4",
         "padding_top": 22,
         "padding_bottom": 22
       }
@@ -650,7 +650,7 @@
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
-        "columns_mobile": "2",
+        "columns_mobile": "1",
         "swipe_on_mobile": true,
         "padding_top": 20,
         "padding_bottom": 52
@@ -995,7 +995,7 @@
         "show_vendor": false,
         "show_rating": false,
         "quick_add": "none",
-        "columns_mobile": "2",
+        "columns_mobile": "1",
         "swipe_on_mobile": true,
         "padding_top": 20,
         "padding_bottom": 48
@@ -1438,7 +1438,7 @@
       ],
       "custom_css": [
         ".sub-title {text-align: center; margin-bottom: 2.5rem;}",
-        "img{aspect-ratio: 4/3}"
+        "img {aspect-ratio: 4/3;}"
       ],
       "settings": {
         "layout": "grid",
