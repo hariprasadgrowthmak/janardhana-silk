@@ -349,7 +349,7 @@ h5.mega_iwt_title {
   background-color: #ffffff;
   border-top: none;
   min-height: auto;
-  width: 90vw;
+  width: 75%;
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
