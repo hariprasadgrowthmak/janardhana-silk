@@ -204,21 +204,25 @@
                               
                          
                               {%- if presentation == 'swatch' -%}
-                                <div class="{{ label_class }}">
-                                  <div class="swatch-input-wrapper">
-                                    {% render 'swatch-input',
-                                      id: input_id,
-                                      type: 'checkbox',
-                                      name: value.param_name,
-                                      value: value.value,
-                                      product_form_id: 'FacetFiltersForm',
-                                      swatch: value.swatch,
-                                      checked: value.active,
-                                      disabled: is_disabled
-                                    %}
-                                  </div>
+                                <label for="{{ input_id }}" class="color-match {{ label_class }}">
+                                  <input type="checkbox"
+                                    name="{{ value.param_name }}"
+                                    value="{{ value.value }}"
+                                    id="{{ input_id }}"
+                                    {% if value.active %}checked{% endif %}
+                                    {% if is_disabled %}disabled{% endif %}
+                                  >
+                                  <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                    <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                  </svg>
+                                  <svg aria-hidden="true" class="icon icon-checkmark" width="1.1rem" height="0.7rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                                  </svg>
+                                  <span class="color-type-outer" style="margin-left: 0.5rem; margin-right: 0.5rem; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid #ccc; overflow: hidden;">
+                                    {% render 'swatch', swatch: value.swatch, shape: 'circle' %}
+                                  </span>
                                   {{ text_value }}
-                                </div>   
+                                </label>
                               {%- else -%}
                                 <!-- zenon start --> 
                                 {% if filter.label == variant_name  %}
@@ -682,22 +686,26 @@
                               <li class="mobile-facets__item list-menu__item">
                                 
                                 {% if presentation == 'swatch' %}
-                                  <div class="{{ label_class }}">
-                                    <div class="swatch-input-wrapper">
-                                      {% render 'swatch-input',
-                                        id: input_id,
-                                        type: 'checkbox',
-                                        name: value.param_name,
-                                        value: value.value,
-                                        product_form_id: 'FacetFiltersFormMobile',
-                                        swatch: value.swatch,
-                                        checked: value.active,
-                                        disabled: is_disabled
-                                      %}
-                                    </div>
-
+                                  <label for="{{ input_id }}" class="color-match {{ label_class }}">
+                                    <input class="mobile-facets__checkbox" type="checkbox"
+                                      name="{{ value.param_name }}"
+                                      value="{{ value.value }}"
+                                      id="{{ input_id }}"
+                                      {% if value.active %}checked{% endif %}
+                                      {% if is_disabled %}disabled{% endif %}
+                                    >
+                                    <span class="mobile-facets__highlight"></span>
+                                    <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                      <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                    </svg>
+                                    <svg aria-hidden="true" class="icon icon-checkmark" width="1.1rem" height="0.7rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <span class="color-type-outer" style="margin-left: 0.5rem; margin-right: 0.5rem; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid #ccc; overflow: hidden;">
+                                      {% render 'swatch', swatch: value.swatch, shape: 'circle' %}
+                                    </span>
                                     {{ text_value }}
-                                  </div>
+                                  </label>
                                 {% else %}
                                     <!-- zenon start --> 
                                     {% if filter.label == variant_name  %}
