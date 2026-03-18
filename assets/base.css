@@ -2637,6 +2637,21 @@ menu-drawer+.header__search {
   }
 }
 
+/* Hide navigation when search modal is open */
+.search-open .header__inline-menu,
+.search-open .msu-mega-wrap {
+  display: none !important;
+}
+
+.search-open .header__search {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
 details[open]>.search-modal {
   opacity: 1;
   animation: animateMenuOpen var(--duration-default) ease;

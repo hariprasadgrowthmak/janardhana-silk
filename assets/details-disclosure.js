@@ -37,14 +37,54 @@ class HeaderMenu extends DetailsDisclosure {
     super();
     this.header = document.querySelector('.header-wrapper');
     this.isMegaMenu = this.mainDetailsToggle.classList.contains('mega-menu');
+    this.closeTimeout = null;
+
+    if (this.isMegaMenu) {
+      this.setupMegaMenuHover();
+    }
   }
 
   onFocusOut() {
-    if (this.isMegaMenu) {
-      // Don't close mega menus on focusout - let hover handler manage it
-      return;
-    }
     super.onFocusOut();
+  }
+
+  setupMegaMenuHover() {
+    const summary = this.mainDetailsToggle.querySelector('summary');
+
+    // Open on hover over the summary trigger
+    summary.addEventListener('mouseenter', () => {
+      clearTimeout(this.closeTimeout);
+      // Close any other open mega menus first
+      document.querySelectorAll('header-menu').forEach((menu) => {
+        if (menu !== this && menu.mainDetailsToggle && menu.mainDetailsToggle.open) {
+          menu.close();
+        }
+      });
+      this.open();
+    });
+
+    // Close on mouseleave from the whole header-menu wrapper (with delay)
+    this.addEventListener('mouseleave', () => {
+      this.closeTimeout = setTimeout(() => this.close(), 200);
+    });
+
+    // Cancel close if mouse re-enters the wrapper (e.g. moving into dropdown)
+    this.addEventListener('mouseenter', () => {
+      clearTimeout(this.closeTimeout);
+    });
+  }
+
+  open() {
+    this.mainDetailsToggle.setAttribute('open', '');
+    const summary = this.mainDetailsToggle.querySelector('summary');
+    if (summary) summary.setAttribute('aria-expanded', 'true');
+  }
+
+  close() {
+    clearTimeout(this.closeTimeout);
+    this.mainDetailsToggle.removeAttribute('open');
+    const summary = this.mainDetailsToggle.querySelector('summary');
+    if (summary) summary.setAttribute('aria-expanded', 'false');
   }
 
   onToggle() {
