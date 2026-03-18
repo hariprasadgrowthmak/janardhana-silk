@@ -1385,7 +1385,8 @@
         "ai_gen_block_df80ba0_RBhq7F"
       ],
       "custom_css": [
-        ".ai-blog-container-an1fls2lxtm9obmtgsaigenblockdf80ba0rbhq7f{padding: 40px 5rem;}"
+        ".ai-blog-container-an1fls2lxtm9obmtgsaigenblockdf80ba0rbhq7f {padding: 40px 5rem; max-width: 154rem;}",
+        " {justify-items: center;}"
       ],
       "settings": {}
     },
