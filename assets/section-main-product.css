@@ -169,11 +169,11 @@ product-info {
 
 /* Form Elements */
 .product-form__input {
-  flex: 0 0 100%;
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
   padding: 0;
   margin: 0 0 1.2rem 0;
-  max-width: 44rem;
-  min-width: fit-content;
   border: none;
 }
 
@@ -1623,6 +1623,12 @@ a.product__text {
     flex-wrap: nowrap;
     align-items: center;
     gap: 12px;
+
+    /* Ensure buttons do not stretch full width */
+    .product-quantity-buy-row .button--full-width,
+    .product-quantity-buy-row .product-form__submit {
+      width: auto !important;
+    }
 }
 .product .product__info-wrapper .product-form__quantity .quantity {
    min-height: calc((var(--inputs-border-width) * 2) + 3.9rem);
@@ -2399,12 +2405,38 @@ quick-add-modal .product .product__media-wrapper .wishlist-compare {
   border-color: #891403 !important;
   color: #ffffff !important;
   width: 100% !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
+/* No hover/focus effect — keep same appearance at all states */
 .product .product__info-wrapper .product-form__submit.button--primary:hover,
-.product .product__info-wrapper .product-form__submit.button--full-width:hover {
-  background-color: #6a0f02 !important;
-  border-color: #6a0f02 !important;
+.product .product__info-wrapper .product-form__submit.button--full-width:hover,
+.product .product__info-wrapper .product-form__submit.button--primary:focus,
+.product .product__info-wrapper .product-form__submit.button--full-width:focus,
+.product .product__info-wrapper .product-form__submit.button--primary:active,
+.product .product__info-wrapper .product-form__submit.button--full-width:active {
+  background-color: #891403 !important;
+  border-color: #891403 !important;
+  color: #ffffff !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Disable all mouse events on the disabled (Sold Out) button — no hover visuals */
+.product .product__info-wrapper .product-form__submit[disabled],
+.product .product__info-wrapper .product-form__submit[disabled]:hover,
+.product .product__info-wrapper .product-form__submit[disabled]:focus {
+  pointer-events: none !important;
+  cursor: default !important;
+  background-color: #891403 !important;
+  border-color: #891403 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 /* ====== 52px height for quantity, buttons, add to cart ====== */
