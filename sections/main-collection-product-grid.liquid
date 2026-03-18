@@ -123,7 +123,7 @@
       </facet-filters-form>
 
       {%- comment -%} Active filter pills below the title {%- endcomment -%}
-      <div class="active-facets-top-container page-width" style="margin-top: 1rem; margin-bottom: 2rem;">
+      <div class="active-facets-top-container page-width" style="margin-top: 1rem; margin-bottom: 2rem; padding-left: 0px;">
         {%- for filter in collection.filters -%}
           {%- for value in filter.active_values -%}
             <facet-remove>
@@ -141,7 +141,7 @@
             {% assign max = filter.max_value.value %}
             {%- if min != null or max != null -%}
               <facet-remove>
-                <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light" style="display: inline-flex; align-items: center; background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 0.5rem 1.2rem; margin-right: 1rem; margin-bottom: 1rem; text-decoration: none; color: #333; font-size: 1.3rem;">
+                <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light" style="display: inline-flex; align-items: center; border-radius: 20px; padding: 0.5rem 1.2rem; margin-right: 1rem; margin-bottom: 1rem; text-decoration: none; color: #333; font-size: 1.3rem;">
                   <span class="active-facets__button-inner">
                     {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
                     <span aria-hidden="true" style="margin-left: 0.8rem; font-size: 1.6rem; line-height: 1;">&times;</span>
