@@ -127,7 +127,6 @@
         }
       },
       "block_order": [
-        "custom_liquid_Ea9rLc",
         "vendor",
         "title",
         "price",
@@ -139,6 +138,7 @@
         "quantity_selector",
         "buy_buttons",
         "payment_icon_4cUFU4",
+                "custom_liquid_Ea9rLc",
         "icon_with_text_HkN6Ka",
         "description"
       ],
