@@ -309,15 +309,15 @@ class PriceRange extends HTMLElement {
     this.rangeLowerBound = this.querySelector(".price-range__range-group input:first-child");
     this.rangeHigherBound = this.querySelector(".price-range__range-group input:last-child");
     
-    this.textInputLowerBound = this.querySelector(".price-range__input_min_max_old .price-range__input_min input");
-    this.textInputHigherBound = this.querySelector(".price-range__input_min_max_old .price-range__input_max input");
+    this.textInputLowerBound = this.querySelector(".price-range__field:first-of-type input");
+    this.textInputHigherBound = this.querySelector(".price-range__field:last-of-type input");
     
     //this.textInputLowerBound.addEventListener("focus", () => this.textInputLowerBound.select());
    // this.textInputHigherBound.addEventListener("focus", () => this.textInputHigherBound.select());
 
     if (this.textInputLowerBound) { 
     this.textInputLowerBound.addEventListener("change", (event) => {
-      event.target.value = Math.max(Math.min(parseInt(event.target.value), parseInt(this.textInputHigherBound.value || event.target.data-max) - 1), event.target.data-min);
+      event.target.value = Math.max(Math.min(parseInt(event.target.value), parseInt(this.textInputHigherBound.value || event.target.getAttribute('data-max')) - 1), event.target.getAttribute('data-min'));
       this.rangeLowerBound.value = event.target.value;
       this.rangeLowerBound.parentElement.style.setProperty("--range-min", `${parseInt(this.rangeLowerBound.value) / parseInt(this.rangeLowerBound.max) * 100}%`);
     });
@@ -325,9 +325,9 @@ class PriceRange extends HTMLElement {
 
     if (this.textInputHigherBound) { 
     this.textInputHigherBound.addEventListener("change", (event) => {
-      event.target.value = Math.min(Math.max(parseInt(event.target.value), parseInt(this.textInputLowerBound.value || event.target.data-min) + 1), event.target.data-max);
+      event.target.value = Math.min(Math.max(parseInt(event.target.value), parseInt(this.textInputLowerBound.value || event.target.getAttribute('data-min')) + 1), event.target.getAttribute('data-max'));
       this.rangeHigherBound.value = event.target.value;
-      this.rangeHigherBound.parentElement.style.setProperty("--range-max", `${parseInt(this.rangeHigherBound.value) / parseInt(this.rangeHigherBound.data-max) * 100}%`);
+      this.rangeHigherBound.parentElement.style.setProperty("--range-max", `${parseInt(this.rangeHigherBound.value) / parseInt(this.rangeHigherBound.getAttribute('data-max')) * 100}%`);
     });
     } 
 
@@ -348,8 +348,8 @@ class PriceRange extends HTMLElement {
     if (this.rangeLowerBound) { 
     this.rangeLowerBound.addEventListener("input", (event) => {
       //triggerEvent(this, "facet:abort-loading");
-      event.target.value = Math.min(parseInt(event.target.value), parseInt(this.textInputHigherBound.value || event.target.data-max) - 1);
-      event.target.parentElement.style.setProperty("--range-min", `${parseInt(event.target.value) / parseInt(event.target.data-max) * 100}%`);
+      event.target.value = Math.min(parseInt(event.target.value), parseInt(this.textInputHigherBound.value || event.target.getAttribute('data-max')) - 1);
+      event.target.parentElement.style.setProperty("--range-min", `${parseInt(event.target.value) / parseInt(event.target.getAttribute('data-max')) * 100}%`);
       this.textInputLowerBound.value = event.target.value;
     });
     } 
@@ -357,8 +357,8 @@ class PriceRange extends HTMLElement {
     if (this.rangeHigherBound) { 
     this.rangeHigherBound.addEventListener("input", (event) => {
      // triggerEvent(this, "facet:abort-loading");
-      event.target.value = Math.max(parseInt(event.target.value), parseInt(this.textInputLowerBound.value || event.target.data-min) + 1);
-      event.target.parentElement.style.setProperty("--range-max", `${parseInt(event.target.value) / parseInt(event.target.data-max) * 100}%`);
+      event.target.value = Math.max(parseInt(event.target.value), parseInt(this.textInputLowerBound.value || event.target.getAttribute('data-min')) + 1);
+      event.target.parentElement.style.setProperty("--range-max", `${parseInt(event.target.value) / parseInt(event.target.getAttribute('data-max')) * 100}%`);
       this.textInputHigherBound.value = event.target.value;
     });
     } 

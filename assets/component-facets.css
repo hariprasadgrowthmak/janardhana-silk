@@ -1589,10 +1589,15 @@ input.mobile-facets__checkbox {
   letter-spacing: 0.1rem;
 }
 
-.facets__summary-label {
-  font-weight: 600;
-  font-size: 1.4rem;
-  letter-spacing: 0.05rem;
+.facets__summary-label,
+.mobile-facets__summary span,
+.mobile-facets__close-button span,
+.facets__summary,
+.mobile-facets__summary {
+  font-weight: 600 !important;
+  font-size: 1.4rem !important;
+  letter-spacing: 0.05rem !important;
+  text-transform: uppercase !important;
 }
 
 /* Price Range Redesign */
@@ -1604,17 +1609,23 @@ input.mobile-facets__checkbox {
 }
 
 .price-range__field {
-  display: flex;
-  align-items: center;
-  border: 1px solid #d1d1d1;
-  padding: 0.8rem 1.2rem;
-  flex: 1;
+  display: flex !important;
+  align-items: center !important;
+  border: 1px solid #d1d1d1 !important;
+  padding: 0.8rem 1.2rem !important;
+  flex: 1 !important;
+  background: #fff !important;
 }
 
 .price-range__field .field-currency {
-  font-size: 1.2rem;
-  color: #666;
-  margin-right: 0.5rem;
+  font-size: 1.25rem !important;
+  color: #000 !important;
+  font-weight: 500 !important;
+  margin-right: 0.8rem !important;
+  text-transform: uppercase !important;
+}
+.price-range__field ::placeholder {
+  color: transparent !important;
 }
 
 .price-range__field .field__input {
@@ -1629,6 +1640,10 @@ input.mobile-facets__checkbox {
   font-size: 1.2rem;
   font-weight: 600;
   color: #333;
+}
+.facets__header-vertical,
+.mobile-facets__info {
+  display: none !important;
 }
 
 /* Range Slider Aesthetics */
@@ -1645,19 +1660,35 @@ input.mobile-facets__checkbox {
 }
 
 .price-range__range-group input[type="range"]::-webkit-slider-runnable-track {
-  background: #000;
-  height: 2px;
+  background: #000 !important;
+  height: 2px !important;
+}
+.price-range__range-group input[type="range"]::-moz-range-track {
+  background: #000 !important;
+  height: 2px !important;
 }
 
 .price-range__range-group input[type="range"]::-webkit-slider-thumb {
-  pointer-events: auto;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  border: 1px solid #000;
-  border-radius: 50%;
-  margin-top: -7px;
+  pointer-events: auto !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  border-radius: 50% !important;
+  margin-top: -7px !important;
+  box-shadow: none !important;
+}
+.price-range__range-group input[type="range"]::-moz-range-thumb {
+  pointer-events: auto !important;
+  appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
 }
 
 /* Checkbox Modernization */
