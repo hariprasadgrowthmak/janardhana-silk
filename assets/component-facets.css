@@ -1132,7 +1132,7 @@ input.mobile-facets__checkbox {
   }
 
   .facets__disclosure-vertical {
-    border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+    border-top: none;
     margin-right: 0;
   }
 
@@ -1154,7 +1154,7 @@ input.mobile-facets__checkbox {
   }
 
   .facets__display-vertical {
-    padding-bottom: 1.5rem;
+    padding-bottom: 0;
   }
 
   .facets-vertical .facets-wrapper {
@@ -1579,7 +1579,7 @@ input.mobile-facets__checkbox {
 /* Redesign Filter Styles */
 .facets__divider {
   border-bottom: 1px solid #dcdcdc;
-  margin: 2.5rem 0;
+  margin: 1rem 0;
 }
 
 .facets__heading--vertical {
