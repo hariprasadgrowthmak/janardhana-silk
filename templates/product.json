@@ -48,7 +48,7 @@
         "f1d7e9a6-b6c1-48c1-ab28-eabef196c446": {
           "type": "timer",
           "settings": {
-            "timer_box": true,
+            "timer_box": false,
             "time": "29 December 2027 9:56:00",
             "timer_bg_color_top": "#f2c94c",
             "timer_text_color_top": "#ffffff",
@@ -68,6 +68,10 @@
             "picker_type": "button",
             "swatch_shape": "circle"
           }
+        },
+        "globo_product_options_app_block_UjeEYL": {
+          "type": "shopify://apps/globo-product-options/blocks/app-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
+          "settings": {}
         },
         "quantity_selector": {
           "type": "quantity_selector",
@@ -91,11 +95,6 @@
             "image_6": "shopify://shop_images/klarna_color_card.svg"
           }
         },
-        "description": {
-          "type": "description",
-          "disabled": true,
-          "settings": {}
-        },
         "icon_with_text_HkN6Ka": {
           "type": "icon-with-text",
           "settings": {
@@ -114,8 +113,9 @@
             "heading_4": "QUICK & EASY RETURNS"
           }
         },
-        "globo_product_options_app_block_UjeEYL": {
-          "type": "shopify://apps/globo-product-options/blocks/app-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
+        "description": {
+          "type": "description",
+          "disabled": true,
           "settings": {}
         }
       },
