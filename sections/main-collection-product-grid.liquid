@@ -127,7 +127,7 @@
         {%- for filter in collection.filters -%}
           {%- for value in filter.active_values -%}
             <facet-remove>
-              <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light" style="display: inline-flex; align-items: center; background: #fff; border: 1px solid #ddd; border-radius: 20px; padding: 0.5rem 1.2rem; margin-right: 1rem; margin-bottom: 1rem; text-decoration: none; color: #333; font-size: 1.3rem;">
+              <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light" style="display: inline-flex; align-items: center; background: #fff; border-radius: 20px; margin-right: 1rem; margin-bottom: 1rem; text-decoration: none; color: #333; font-size: 1.3rem;">
                 <span class="active-facets__button-inner">
                   {{ value.label | escape }}
                   <span aria-hidden="true" style="margin-left: 0.8rem; font-size: 1.6rem; line-height: 1;">&times;</span>
