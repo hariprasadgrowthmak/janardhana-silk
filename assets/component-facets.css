@@ -1578,15 +1578,16 @@ input.mobile-facets__checkbox {
 }
 /* Redesign Filter Styles */
 .facets__divider {
-  border-bottom: 1px solid #e0e0e0;
-  margin: 1.5rem 0;
+  border-bottom: 1px solid #dcdcdc;
+  margin: 2.5rem 0;
 }
 
 .facets__heading--vertical {
   font-weight: 700 !important;
-  font-size: 1.8rem !important;
-  margin-bottom: 2rem !important;
-  letter-spacing: 0.1rem;
+  font-size: 1.6rem !important;
+  margin-bottom: 2.5rem !important;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase !important;
 }
 
 .facets__summary-label,
@@ -1594,10 +1595,11 @@ input.mobile-facets__checkbox {
 .mobile-facets__close-button span,
 .facets__summary,
 .mobile-facets__summary {
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   font-size: 1.4rem !important;
   letter-spacing: 0.05rem !important;
   text-transform: uppercase !important;
+  color: #000 !important;
 }
 
 /* Price Range Redesign */
@@ -1605,8 +1607,9 @@ input.mobile-facets__checkbox {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 1rem !important;
+  gap: 1.5rem !important;
   margin-top: 1.5rem !important;
+  margin-bottom: 2rem !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
@@ -1614,19 +1617,19 @@ input.mobile-facets__checkbox {
 .price-range__field {
   display: flex !important;
   align-items: center !important;
-  border: 1px solid #d1d1d1 !important;
-  padding: 0.6rem 0.8rem !important;
-  flex: 1 1 40% !important;
+  border: 1px solid #c0c0c0 !important;
+  padding: 1rem !important;
+  flex: 1 1 42% !important;
   min-width: 0 !important;
   background: #fff !important;
   box-sizing: border-box !important;
 }
 
 .price-range__field .field-currency {
-  font-size: 1.1rem !important;
-  color: #000 !important;
+  font-size: 1.2rem !important;
+  color: #333 !important;
   font-weight: 500 !important;
-  margin-right: 0.5rem !important;
+  margin-right: 0.4rem !important;
   text-transform: uppercase !important;
   flex-shrink: 0 !important;
 }
@@ -1635,16 +1638,17 @@ input.mobile-facets__checkbox {
   border: none !important;
   padding: 0 !important;
   min-height: auto !important;
-  font-size: 1.3rem !important;
+  font-size: 1.2rem !important;
   width: 100% !important;
   background: transparent !important;
   margin: 0 !important;
   outline: none !important;
+  color: #333 !important;
 }
 
 .price-range__separator {
-  font-size: 1.1rem !important;
-  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
   color: #000 !important;
   text-transform: uppercase !important;
   flex-shrink: 0 !important;
@@ -1656,10 +1660,11 @@ input.mobile-facets__checkbox {
 
 /* Range Slider Aesthetics */
 .price-range__range-group {
-  --range-track-height: 4px;
-  --range-thumb-size: 20px;
+  --range-track-height: 2px;
+  --range-thumb-size: 18px;
   height: var(--range-thumb-size);
   margin-top: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .price-range__range-group input[type="range"] {
@@ -1680,21 +1685,21 @@ input.mobile-facets__checkbox {
   pointer-events: auto !important;
   appearance: none !important;
   -webkit-appearance: none !important;
-  width: 16px !important;
-  height: 16px !important;
+  width: 14px !important;
+  height: 14px !important;
   background: #fff !important;
-  border: 1px solid #000 !important;
+  border: 1.5px solid #000 !important;
   border-radius: 50% !important;
-  margin-top: -7px !important;
+  margin-top: -6px !important;
   box-shadow: none !important;
 }
 .price-range__range-group input[type="range"]::-moz-range-thumb {
   pointer-events: auto !important;
   appearance: none !important;
-  width: 16px !important;
-  height: 16px !important;
+  width: 14px !important;
+  height: 14px !important;
   background: #fff !important;
-  border: 1px solid #000 !important;
+  border: 1.5px solid #000 !important;
   border-radius: 50% !important;
   box-shadow: none !important;
 }
