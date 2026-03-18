@@ -4452,6 +4452,95 @@ header .categories-menu p {
 }
 
 
+/* ============================================================
+   GLOBO PRODUCT OPTIONS APP — ULTRA PREMIUM CARD LAYOUT
+   (Equivalent to: Globo App > Settings > Design > Custom CSS)
+   ============================================================ */
+
+/* 1. The Grid Container - Smooth Spacing */
+.gpo-element[data-type="radio"] .gpo-list-radio,
+.globo-form-app .gpo-radio-group {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+}
+
+/* 2. The Cards - Soft, Elegant, Breathable */
+.globo-form-app .gpo-list-radio label {
+    border: 1px solid #eaeaea !important;
+    padding: 20px 16px !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    cursor: pointer;
+    height: 100%;
+    background-color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.015) !important;
+}
+
+/* 3. The Hover Effect - Gentle Lift */
+.globo-form-app .gpo-list-radio label:hover {
+    border-color: #d1d1d1 !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 4. The Selected State - Rich & Refined */
+.globo-form-app .gpo-list-radio label.gpo-selected,
+.globo-form-app .gpo-list-radio label:has(input:checked) {
+    border: 1.5px solid #2a2a2a !important;
+    background-color: #fafafa !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* 5. Typography - Crisp and Aligned */
+.globo-form-app .gpo-radio-label-text {
+    margin-left: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    width: 100%;
+}
+
+/* Option Title */
+.globo-form-app .gpo-radio-label-text .gpo-label-value {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #222222 !important;
+    line-height: 1.4 !important;
+    margin-bottom: 4px !important;
+    transition: color 0.2s ease;
+}
+
+/* Add-on Price - Subtle and Elegant */
+.globo-form-app .gpo-price-add-on {
+    font-size: 13px !important;
+    color: #7a7a7a !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.3px;
+}
+
+/* 6. Refine the Radio Dot */
+.globo-form-app .gpo-list-radio input[type="radio"] {
+    accent-color: #2a2a2a !important;
+    margin-top: 4px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Mobile Elegance */
+@media only screen and (max-width: 600px) {
+    .gpo-element[data-type="radio"] .gpo-list-radio,
+    .globo-form-app .gpo-radio-group {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+}
+
+
 
 
 
