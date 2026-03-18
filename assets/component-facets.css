@@ -1657,7 +1657,7 @@ input.mobile-facets__checkbox {
 .mobile-facets__close-button span,
 .facets__summary,
 .mobile-facets__summary {
-  font-weight: 700 !important;
+  font-weight: 500 !important;
   font-size: 1.4rem !important;
   letter-spacing: 0.05rem !important;
   text-transform: uppercase !important;
