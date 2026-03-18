@@ -1,6 +1,4 @@
-<span class="field-currency">{{ cart.currency.symbol }}</span>
-
-  {%- assign min_value = filter.min_value.value | default: 0.0 | divided_by: 100.0 -%}
+{%- assign min_value = filter.min_value.value | default: 0.0 | divided_by: 100.0 -%}
   {%- assign max_value = filter.max_value.value | default: filter.range_max | divided_by: 100.0 -%}
   {%- assign range_max = filter.range_max | divided_by: 100.0 | ceil -%}
 
@@ -11,49 +9,34 @@
     <input type="range" aria-label="{{ 'products.facets.to' | t }}" class="range" min="0" max="{{ range_max | ceil }}" value="{{ max_value | ceil }}">
   </div>
 
-  <div class="price-range__input_min_max_old">
-  <span class="field-currency">{{ cart.currency.symbol }}</span>
-  <div class="field price-range__input_min">
-  <input
-    class="field__input"
-    name="{{ filter.min_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
-    {%- if filter.min_value.value -%}
-      value="{{ filter.min_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="0"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
-    {{- 'products.facets.from' | t -}}
-  </label>
-</div>
-
-{%- if filter_type != 'vertical' -%}
-  <span class="field-currency">{{ cart.currency.symbol }}</span>
- {%- endif -%}
-
-<div class="field price-range__input_max">
-  <input
-    class="field__input"
-    name="{{ filter.max_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
-    {%- if filter.max_value.value -%}
-      value="{{ filter.max_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="number"
-    inputmode="decimal"
-    placeholder="{{ filter.range_max | money_without_currency }}"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
-    {{- 'products.facets.to' | t -}}
-  </label>
-</div>
-</div>
+  <div class="price-range__input_wrapper">
+    <div class="price-range__field">
+      <span class="field-currency">INR</span>
+      <input
+        class="field__input"
+        name="{{ filter.min_value.param_name }}"
+        id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+        {%- if filter.min_value.value -%}
+          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | replace: '.', '' }}"
+        {%- endif -%}
+        type="number"
+        inputmode="decimal"
+        placeholder="0"
+      >
+    </div>
+    <span class="price-range__separator">TO</span>
+    <div class="price-range__field">
+      <span class="field-currency">INR</span>
+      <input
+        class="field__input"
+        name="{{ filter.max_value.param_name }}"
+        id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+        {%- if filter.max_value.value -%}
+          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | replace: '.', '' }}"
+        {%- endif -%}
+        type="number"
+        inputmode="decimal"
+        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' | replace: '.', '' }}"
+      >
+    </div>
+  </div>

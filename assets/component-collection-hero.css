@@ -188,3 +188,51 @@
       min-height: 30vw;
   }
 }
+
+/* ---- Collection result count ---- */
+.collection-hero__result-count {
+  font-size: 0.65em;
+  font-weight: 400;
+  color: inherit;
+  opacity: 0.75;
+  margin-left: 0.3em;
+  white-space: nowrap;
+}
+
+/* ---- Active filter pills below title ---- */
+.collection-hero__active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.4rem;
+  justify-content: inherit;
+}
+
+.collection-hero__filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.9rem;
+  border: 1px solid rgba(var(--color-foreground), 0.3);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.collection-hero__filter-pill:hover {
+  background: rgba(var(--color-foreground), 0.06);
+  border-color: rgba(var(--color-foreground), 0.5);
+  text-decoration: none;
+}
+
+.collection-hero__filter-pill span[aria-hidden] {
+  font-size: 1.2rem;
+  line-height: 1;
+  opacity: 0.7;
+}

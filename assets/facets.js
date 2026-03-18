@@ -305,69 +305,76 @@ class PriceRange extends HTMLElement {
   constructor() {
     super();
 
-    /** Start Zenonlabs edit  ***/
+    // Range slider inputs
     this.rangeLowerBound = this.querySelector(".price-range__range-group input:first-child");
     this.rangeHigherBound = this.querySelector(".price-range__range-group input:last-child");
-    
-    this.textInputLowerBound = this.querySelector(".price-range__input_min_max_old .price-range__input_min input");
-    this.textInputHigherBound = this.querySelector(".price-range__input_min_max_old .price-range__input_max input");
-    
-    //this.textInputLowerBound.addEventListener("focus", () => this.textInputLowerBound.select());
-   // this.textInputHigherBound.addEventListener("focus", () => this.textInputHigherBound.select());
 
-    if (this.textInputLowerBound) { 
-    this.textInputLowerBound.addEventListener("change", (event) => {
-      event.target.value = Math.max(Math.min(parseInt(event.target.value), parseInt(this.textInputHigherBound.value || event.target.data-max) - 1), event.target.data-min);
-      this.rangeLowerBound.value = event.target.value;
-      this.rangeLowerBound.parentElement.style.setProperty("--range-min", `${parseInt(this.rangeLowerBound.value) / parseInt(this.rangeLowerBound.max) * 100}%`);
-    });
-    } 
+    // Text inputs (inside .price-range__input_wrapper)
+    const textInputs = this.querySelectorAll(".price-range__input_wrapper .price-range__field input");
+    this.textInputLowerBound = textInputs[0] || null;
+    this.textInputHigherBound = textInputs[1] || null;
 
-    if (this.textInputHigherBound) { 
-    this.textInputHigherBound.addEventListener("change", (event) => {
-      event.target.value = Math.min(Math.max(parseInt(event.target.value), parseInt(this.textInputLowerBound.value || event.target.data-min) + 1), event.target.data-max);
-      this.rangeHigherBound.value = event.target.value;
-      this.rangeHigherBound.parentElement.style.setProperty("--range-max", `${parseInt(this.rangeHigherBound.value) / parseInt(this.rangeHigherBound.data-max) * 100}%`);
-    });
-    } 
+    // Sync text input changes -> range slider
+    if (this.textInputLowerBound) {
+      this.textInputLowerBound.addEventListener("change", (event) => {
+        const maxVal = parseInt(this.textInputHigherBound && this.textInputHigherBound.value || this.rangeLowerBound.max);
+        const minVal = parseInt(this.rangeLowerBound.min) || 0;
+        event.target.value = Math.max(Math.min(parseInt(event.target.value) || 0, maxVal - 1), minVal);
+        if (this.rangeLowerBound) {
+          this.rangeLowerBound.value = event.target.value;
+          this.rangeLowerBound.parentElement.style.setProperty("--range-min", `${parseInt(this.rangeLowerBound.value) / parseInt(this.rangeLowerBound.max) * 100}%`);
+        }
+      });
+    }
 
-    if (this.rangeLowerBound) { 
-    this.rangeLowerBound.addEventListener("change", (event) => {
-      this.textInputLowerBound.value = event.target.value;
-      this.textInputLowerBound.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-    } 
+    if (this.textInputHigherBound) {
+      this.textInputHigherBound.addEventListener("change", (event) => {
+        const minVal = parseInt(this.textInputLowerBound && this.textInputLowerBound.value || 0);
+        const maxVal = parseInt(this.rangeHigherBound.max);
+        event.target.value = Math.min(Math.max(parseInt(event.target.value) || 0, minVal + 1), maxVal);
+        if (this.rangeHigherBound) {
+          this.rangeHigherBound.value = event.target.value;
+          this.rangeHigherBound.parentElement.style.setProperty("--range-max", `${parseInt(this.rangeHigherBound.value) / parseInt(this.rangeHigherBound.max) * 100}%`);
+        }
+      });
+    }
 
-    if (this.rangeHigherBound) { 
-    this.rangeHigherBound.addEventListener("change", (event) => {
-      this.textInputHigherBound.value = event.target.value;
-      this.textInputHigherBound.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-    } 
+    // Sync range slider changes -> text inputs and dispatch form events
+    if (this.rangeLowerBound) {
+      this.rangeLowerBound.addEventListener("change", (event) => {
+        if (this.textInputLowerBound) {
+          this.textInputLowerBound.value = event.target.value;
+          this.textInputLowerBound.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      });
 
-    if (this.rangeLowerBound) { 
-    this.rangeLowerBound.addEventListener("input", (event) => {
-      //triggerEvent(this, "facet:abort-loading");
-      event.target.value = Math.min(parseInt(event.target.value), parseInt(this.textInputHigherBound.value || event.target.data-max) - 1);
-      event.target.parentElement.style.setProperty("--range-min", `${parseInt(event.target.value) / parseInt(event.target.data-max) * 100}%`);
-      this.textInputLowerBound.value = event.target.value;
-    });
-    } 
+      this.rangeLowerBound.addEventListener("input", (event) => {
+        const maxVal = parseInt(this.textInputHigherBound && this.textInputHigherBound.value || event.target.max);
+        event.target.value = Math.min(parseInt(event.target.value), maxVal - 1);
+        event.target.parentElement.style.setProperty("--range-min", `${parseInt(event.target.value) / parseInt(event.target.max) * 100}%`);
+        if (this.textInputLowerBound) {
+          this.textInputLowerBound.value = event.target.value;
+        }
+      });
+    }
 
-    if (this.rangeHigherBound) { 
-    this.rangeHigherBound.addEventListener("input", (event) => {
-     // triggerEvent(this, "facet:abort-loading");
-      event.target.value = Math.max(parseInt(event.target.value), parseInt(this.textInputLowerBound.value || event.target.data-min) + 1);
-      event.target.parentElement.style.setProperty("--range-max", `${parseInt(event.target.value) / parseInt(event.target.data-max) * 100}%`);
-      this.textInputHigherBound.value = event.target.value;
-    });
-    } 
-    /** End Zenonlabs edit  ***/
+    if (this.rangeHigherBound) {
+      this.rangeHigherBound.addEventListener("change", (event) => {
+        if (this.textInputHigherBound) {
+          this.textInputHigherBound.value = event.target.value;
+          this.textInputHigherBound.dispatchEvent(new Event("input", { bubbles: true }));
+        }
+      });
 
-    /* this.querySelectorAll('input').forEach((element) => {
-      element.addEventListener('change', this.onRangeChange.bind(this));
-      element.addEventListener('keydown', this.onKeyDown.bind(this));
-    });*/
+      this.rangeHigherBound.addEventListener("input", (event) => {
+        const minVal = parseInt(this.textInputLowerBound && this.textInputLowerBound.value || event.target.min);
+        event.target.value = Math.max(parseInt(event.target.value), minVal + 1);
+        event.target.parentElement.style.setProperty("--range-max", `${parseInt(event.target.value) / parseInt(event.target.max) * 100}%`);
+        if (this.textInputHigherBound) {
+          this.textInputHigherBound.value = event.target.value;
+        }
+      });
+    }
 
     this.setMinAndMaxValues();
   }
@@ -385,13 +392,15 @@ class PriceRange extends HTMLElement {
   }
 
   setMinAndMaxValues() {
-    const inputs = this.querySelectorAll('input');
-    const minInput = inputs[0];
-    const maxInput = inputs[1];
-    if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
-    if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
-    if (minInput.value === '') maxInput.setAttribute('data-min', 0);
-    if (maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max'));
+    const rangeInputs = this.querySelectorAll('.price-range__range-group input');
+    const minInput = rangeInputs[0];
+    const maxInput = rangeInputs[1];
+    if (minInput && maxInput) {
+      if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
+      if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
+      if (minInput.value === '') maxInput.setAttribute('data-min', 0);
+      if (maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max') || maxInput.max);
+    }
   }
 
   adjustToValidValues(input) {

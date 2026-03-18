@@ -77,48 +77,19 @@
       <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
         <form class="facets-vertical-form" id="FacetSortForm">
 
-       <div class="product-count-vertical light" role="status">
-            
-          <div class="btn-group">
-            <a href="" class="btn four_columns{% case section.settings.columns_desktop %}{% when 4%} active{% endcase %}">
-              <svg class="icon icon-col-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.5 12.5"><defs></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><g id="shop_page" data-name="shop page"><g id="_4_col" data-name="4_col"><path id="Rectangle" d="M.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 01.75 0z"></path><path id="Rectangle-2" d="M4.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 014.75 0z" data-name="Rectangle"></path><path id="Rectangle-3" d="M8.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 018.75 0z" data-name="Rectangle"></path><path id="Rectangle-4" d="M12.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11a.76.76 0 01.75-.75z" data-name="Rectangle"></path></g></g></g></g>
-              </svg>
-            </a> 
-            
-            <a  href="" class="btn three_columns{% case section.settings.columns_desktop %}{% when 3%} active{% endcase %}">
-              <svg class="icon icon-col-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9.5 12.5"><defs></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><g id="shop_page" data-name="shop page"><g id="Group-16"><path id="Rectangle" d="M.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 01.75 0z"></path><path id="Rectangle-2" d="M4.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 014.75 0z" data-name="Rectangle"></path><path id="Rectangle-3" d="M8.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 018.75 0z" data-name="Rectangle"></path></g></g></g></g>
-              </svg>
-            </a>
-            
-            <a  href="" class="btn two_columns{% case section.settings.columns_desktop %}{% when 2%} active{% endcase %}">
-              <svg class="icon icon-col-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5.5 12.5"><defs></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><g id="shop_page" data-name="shop page"><g id="Group-10"><path id="Rectangle" d="M.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 01.75 0z"></path><path id="Rectangle-2" d="M4.75 0a.76.76 0 01.75.75v11a.76.76 0 01-.75.75.76.76 0 01-.75-.75v-11A.76.76 0 014.75 0z" data-name="Rectangle"></path></g></g></g></g>
-              </svg>
-            </a>  
-      
-            <a  href="" class="btn list_columns{% case section.settings.columns_desktop %}{% when 2%} active{% endcase %}">
-             <svg class="icon icon-list" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.5 9.5"><defs></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><g id="shop_page" data-name="shop page"><g id="Group-16"><path id="Rectangle" d="M12.5.75a.76.76 0 01-.75.75h-11A.76.76 0 010 .75.76.76 0 01.75 0h11a.76.76 0 01.75.75z"></path><path id="Rectangle-2" d="M12.5 4.75a.76.76 0 01-.75.75h-11A.76.76 0 010 4.75.76.76 0 01.75 4h11a.76.76 0 01.75.75z" data-name="Rectangle"></path><path id="Rectangle-3" d="M12.5 8.75a.76.76 0 01-.75.75h-11A.76.76 0 010 8.75.76.76 0 01.75 8h11a.76.76 0 01.75.75z" data-name="Rectangle"></path></g></g></g></g></svg>
-            </a>      
+       <div class="product-count-vertical light" role="status" style="display: flex; align-items: center; justify-content: flex-start; margin: 0;">
+          <h1 class="collection-hero__title" style="margin: 0; font-size: 2.3rem; display: flex; align-items: center; font-family: poppins; gap: 0.8rem; flex-wrap: wrap;">
+            {{- collection.title | escape -}}
+            <span class="collection-hero__result-count" style="font-size: 1.6rem; font-weight: normal; color: #8C8C8C;">
+              {%- if collection.results_count -%}
+                ({{ collection.results_count }} Results)
+              {%- else -%}
+                ({{ collection.products_count }} Results)
+              {%- endif -%}
+            </span>
+          </h1>
+          {%- render 'loading-spinner' -%}
         </div>
-
-            <h2 class="product-count__text text-body">
-              <span id="ProductCountDesktop">
-                {%- if collection.results_count -%}
-                  {{
-                    'templates.search.results_with_count'
-                    | t: terms: collection.terms, count: collection.results_count
-                  }}
-                {%- elsif collection.products_count == collection.all_products_count -%}
-                  {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-                {%- else -%}
-                  {{
-                    'products.facets.product_count'
-                    | t: product_count: collection.products_count, count: collection.all_products_count
-                  }}
-                {%- endif -%}
-              </span>
-            </h2>
-            {%- render 'loading-spinner' -%}
-          </div>
 
           <div class="facet-filters sorting caption">
             <div class="facet-filters__field">
@@ -150,6 +121,38 @@
           </div>
         </form>
       </facet-filters-form>
+
+      {%- comment -%} Active filter pills below the title {%- endcomment -%}
+      <div class="active-facets-top-container page-width" style="margin-top: 1rem; margin-bottom: 2rem; padding-left: 0px;">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <facet-remove>
+              <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light" style="display: inline-flex; align-items: center; background: #fff; border-radius: 20px; margin-right: 1rem; margin-bottom: 1rem; text-decoration: none; color: #333; font-size: 1.3rem;">
+                <span class="active-facets__button-inner">
+                  {{ value.label | escape }}
+                  <span aria-hidden="true" style="margin-left: 0.8rem; font-size: 1.6rem; line-height: 1;">&times;</span>
+                  <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                </span>
+              </a>
+            </facet-remove>
+          {%- endfor -%}
+          {% if filter.type == 'price_range' %}
+            {% assign min = filter.min_value.value %}
+            {% assign max = filter.max_value.value %}
+            {%- if min != null or max != null -%}
+              <facet-remove>
+                <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light" style="display: inline-flex; align-items: center; border-radius: 20px; padding: 0.5rem 1.2rem; margin-right: 1rem; margin-bottom: 1rem; text-decoration: none; color: #333; font-size: 1.3rem;">
+                  <span class="active-facets__button-inner">
+                    {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                    <span aria-hidden="true" style="margin-left: 0.8rem; font-size: 1.6rem; line-height: 1;">&times;</span>
+                    <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                  </span>
+                </a>
+              </facet-remove>
+            {%- endif -%}
+          {% endif %}
+        {%- endfor -%}
+      </div>
     {%- endif -%}
       
      {%- paginate collection.products by section.settings.products_per_page -%}

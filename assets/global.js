@@ -1285,3 +1285,205 @@ $('.top_button_arrow').click(function(event) {
         scrollTop: 0
     }, 800)
 });
+
+// Mega menu hover handler - works with MSU mega menu type
+(function() {
+  let megaMenuTracker = {};
+  let globalMouseMoveActive = false;
+  
+  function setupMegaMenuHover(menu, index) {
+    const details = menu.querySelector('details.msu-mega-menu');
+    if (!details) return;
+
+    const content = details.querySelector('.msu-mega__content');
+    if (!content) return;
+
+    const menuId = 'megamenu_' + index;
+    megaMenuTracker[menuId] = {
+      menu: menu,
+      details: details,
+      content: content,
+      closeTimeout: null
+    };
+
+    const CLOSE_DELAY = 250;
+
+    function updateMenuPosition() {
+      const header = document.querySelector('header') || document.querySelector('shop-header');
+      if (header) {
+        const headerHeight = header.offsetHeight;
+        content.style.top = headerHeight + 'px';
+      }
+    }
+
+    function clearCloseTimer() {
+      if (megaMenuTracker[menuId]) {
+        clearTimeout(megaMenuTracker[menuId].closeTimeout);
+        megaMenuTracker[menuId].closeTimeout = null;
+      }
+    }
+
+    function scheduleClose() {
+      clearCloseTimer();
+      if (megaMenuTracker[menuId]) {
+        megaMenuTracker[menuId].closeTimeout = setTimeout(() => {
+          if (details.hasAttribute('open')) {
+            details.removeAttribute('open');
+          }
+        }, CLOSE_DELAY);
+      }
+    }
+
+    function openMenu() {
+      clearCloseTimer();
+      if (!details.hasAttribute('open')) {
+        details.setAttribute('open', '');
+        updateMenuPosition();
+      }
+    }
+
+    // Menu trigger hover
+    menu.addEventListener('mouseenter', openMenu);
+    menu.addEventListener('mouseleave', scheduleClose);
+
+    // Details hover
+    details.addEventListener('mouseenter', clearCloseTimer);
+    details.addEventListener('mouseleave', scheduleClose);
+
+    // Summary hover
+    const summary = details.querySelector('summary');
+    if (summary) {
+      summary.addEventListener('mouseenter', clearCloseTimer);
+      summary.addEventListener('mouseleave', scheduleClose);
+    }
+
+    // Content hover
+    content.addEventListener('mouseenter', clearCloseTimer);
+    content.addEventListener('mouseleave', scheduleClose);
+  }
+
+  function handleGlobalMouseMove(e) {
+    Object.keys(megaMenuTracker).forEach(menuId => {
+      const tracker = megaMenuTracker[menuId];
+      if (!tracker.details.hasAttribute('open')) {
+        return;
+      }
+
+      const menuRect = tracker.menu.getBoundingClientRect();
+      const contentRect = tracker.content.getBoundingClientRect();
+
+      const isOverMenuTrigger = (
+        e.clientX >= menuRect.left &&
+        e.clientX <= menuRect.right &&
+        e.clientY >= menuRect.top &&
+        e.clientY <= menuRect.bottom
+      );
+
+      const isOverContent = (
+        e.clientX >= contentRect.left &&
+        e.clientX <= contentRect.right &&
+        e.clientY >= contentRect.top &&
+        e.clientY <= contentRect.bottom
+      );
+
+      if (!isOverMenuTrigger && !isOverContent) {
+        // Schedule menu close
+        if (!tracker.closeTimeout) {
+          tracker.closeTimeout = setTimeout(() => {
+            if (tracker.details.hasAttribute('open')) {
+              tracker.details.removeAttribute('open');
+            }
+          }, 150);
+        }
+      } else {
+        // Clear any pending close
+        clearTimeout(tracker.closeTimeout);
+        tracker.closeTimeout = null;
+      }
+    });
+  }
+
+  function handleClickOutside(e) {
+    Object.keys(megaMenuTracker).forEach(menuId => {
+      const tracker = megaMenuTracker[menuId];
+      if (!tracker.details.hasAttribute('open')) {
+        return;
+      }
+
+      const menuRect = tracker.menu.getBoundingClientRect();
+      const contentRect = tracker.content.getBoundingClientRect();
+
+      const clickInMenu = (
+        e.clientX >= menuRect.left &&
+        e.clientX <= menuRect.right &&
+        e.clientY >= menuRect.top &&
+        e.clientY <= menuRect.bottom
+      );
+
+      const clickInContent = (
+        e.clientX >= contentRect.left &&
+        e.clientX <= contentRect.right &&
+        e.clientY >= contentRect.top &&
+        e.clientY <= contentRect.bottom
+      );
+
+      if (!clickInMenu && !clickInContent) {
+        // Click outside - close menu immediately
+        if (tracker.details.hasAttribute('open')) {
+          tracker.details.removeAttribute('open');
+        }
+      }
+    });
+  }
+
+  function handleEscapeKey(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      Object.keys(megaMenuTracker).forEach(menuId => {
+        const tracker = megaMenuTracker[menuId];
+        if (tracker.details.hasAttribute('open')) {
+          tracker.details.removeAttribute('open');
+        }
+      });
+    }
+  }
+
+  function initMegaMenuHover() {
+    if (!window.matchMedia('(hover: hover)').matches) {
+      return;
+    }
+
+    const headerMenus = document.querySelectorAll('header-menu');
+    headerMenus.forEach((menu, index) => {
+      setupMegaMenuHover(menu, index);
+    });
+
+    // Attach global handlers only once
+    if (!globalMouseMoveActive) {
+      document.addEventListener('mousemove', handleGlobalMouseMove);
+      document.addEventListener('click', handleClickOutside, true);
+      document.addEventListener('keydown', handleEscapeKey);
+      globalMouseMoveActive = true;
+    }
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMegaMenuHover);
+  } else {
+    initMegaMenuHover();
+  }
+
+  // Retry initialization for dynamic content
+  setTimeout(initMegaMenuHover, 500);
+  setTimeout(initMegaMenuHover, 1000);
+
+  // Update on resize
+  window.addEventListener('resize', () => {
+    Object.values(megaMenuTracker).forEach(tracker => {
+      const header = document.querySelector('header') || document.querySelector('shop-header');
+      if (header && tracker.details.hasAttribute('open')) {
+        tracker.content.style.top = header.offsetHeight + 'px';
+      }
+    });
+  });
+})();

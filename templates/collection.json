@@ -11,6 +11,7 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
+      "disabled": true,
       "settings": {
         "show_image": "show_background_image",
         "show_collection_description": true,
@@ -34,7 +35,7 @@
         "quick_add": "standard",
         "list_view_quick_add": "standard",
         "enable_filtering": true,
-        "vertical_filter_bkg_color": "#f9f9f9",
+        "vertical_filter_bkg_color": "#ffffff",
         "filter_type": "vertical",
         "enable_sorting": true,
         "columns_mobile": "2",
