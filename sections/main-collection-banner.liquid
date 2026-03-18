@@ -14,7 +14,52 @@
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
+        <span class="collection-hero__result-count">
+          {%- if collection.products_count == collection.all_products_count -%}
+            ({{ collection.products_count }} Results)
+          {%- else -%}
+            ({{ collection.products_count }} Results)
+          {%- endif -%}
+        </span>
       </h1>
+
+      {%- comment -%} Active filter pills below the title {%- endcomment -%}
+      {%- assign has_active_filters = false -%}
+      {%- for filter in collection.filters -%}
+        {%- if filter.active_values.size > 0 -%}
+          {%- assign has_active_filters = true -%}
+        {%- endif -%}
+        {%- if filter.type == 'price_range' -%}
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+            {%- assign has_active_filters = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_active_filters -%}
+        <div class="collection-hero__active-filters">
+          {%- for filter in collection.filters -%}
+            {%- for value in filter.active_values -%}
+              <a href="{{ value.url_to_remove }}" class="collection-hero__filter-pill">
+                {{ value.label | escape }}
+                <span aria-hidden="true">&times;</span>
+                <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+              </a>
+            {%- endfor -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- assign min = filter.min_value.value -%}
+              {%- assign max = filter.max_value.value -%}
+              {%- if min != nil or max != nil -%}
+                <a href="{{ filter.url_to_remove }}" class="collection-hero__filter-pill">
+                  {{ min | default: 0 | money }} – {{ max | default: filter.range_max | money }}
+                  <span aria-hidden="true">&times;</span>
+                  <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
 
       {%- if section.settings.show_collection_description -%}
         <div class="collection-hero__description rte">{{ collection.description }}</div>
