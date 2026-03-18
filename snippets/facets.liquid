@@ -404,7 +404,7 @@
                       id="Facet-{{ forloop.index }}-{{ section.id }}"
                       class="{% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
                     >
-                      <div class="{% if filter_type == 'horizontal' %}facets__header{% else %}facets__header-vertical{% endif %}">
+                      <div class="{% if filter_type == 'horizontal' %}facets__header{% else %}facets__header-vertical{% endif %} visually-hidden">
                         {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
                         <span class="facets__selected">
                           {{- 'products.facets.max_price' | t: price: max_price_amount -}}
@@ -643,7 +643,7 @@
                             type="button"
                           >
                             {% render 'icon-arrow' %}
-                            <span>{{ filter.label | escape }}</span>
+                            <span class="facets__summary-label">{{ filter.label | escape | uppercase }}</span>
                             {%- if filter.operator == 'AND' -%}
                               <span class="facets__and-helptext">
                                 {{ 'products.facets.filter_and_operator_subtitle' | t }}
@@ -875,11 +875,11 @@
                             type="button"
                           >
                             {% render 'icon-arrow' %}
-                            {{ filter.label | escape }}
+                            <span class="facets__summary-label">{{ filter.label | escape | uppercase }}</span>
                           </button>
 
                           {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
-                          <p class="mobile-facets__info">
+                          <p class="mobile-facets__info visually-hidden">
                             {{ 'products.facets.max_price' | t: price: max_price_amount }}
                           </p>
 

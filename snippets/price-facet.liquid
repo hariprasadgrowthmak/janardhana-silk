@@ -1,6 +1,4 @@
-<span class="field-currency">{{ cart.currency.symbol }}</span>
-
-  {%- assign min_value = filter.min_value.value | default: 0.0 | divided_by: 100.0 -%}
+{%- assign min_value = filter.min_value.value | default: 0.0 | divided_by: 100.0 -%}
   {%- assign max_value = filter.max_value.value | default: filter.range_max | divided_by: 100.0 -%}
   {%- assign range_max = filter.range_max | divided_by: 100.0 | ceil -%}
 

@@ -1646,18 +1646,18 @@ input.mobile-facets__checkbox {
 
 .price-range__range-group input[type="range"]::-webkit-slider-runnable-track {
   background: #000;
-  height: var(--range-track-height);
+  height: 2px;
 }
 
 .price-range__range-group input[type="range"]::-webkit-slider-thumb {
   pointer-events: auto;
   appearance: none;
-  width: var(--range-thumb-size);
-  height: var(--range-thumb-size);
+  width: 16px;
+  height: 16px;
   background: #fff;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 50%;
-  margin-top: calc((var(--range-track-height) - var(--range-thumb-size)) / 2);
+  margin-top: -7px;
 }
 
 /* Checkbox Modernization */
