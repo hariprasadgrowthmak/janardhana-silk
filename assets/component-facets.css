@@ -1681,6 +1681,8 @@ input.mobile-facets__checkbox {
   align-items: center !important;
   border: 1px solid #c0c0c0 !important;
   padding: 1rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-top: 0.5rem !important;
   flex: 1 1 42% !important;
   min-width: 0 !important;
   background: #fff !important;
