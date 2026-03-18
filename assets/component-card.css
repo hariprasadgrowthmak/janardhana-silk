@@ -705,7 +705,7 @@
 .card-wrapper.product-card-wrapper .quick-add__submit {
     width: 100%;
     min-width: auto;
-    opacity: 1;
+    opacity: 1 !important;
     transition: var(--duration-long) ease 0s;
     -webkit-transition: var(--duration-long) ease 0s;
     -moz-transition: var(--duration-long) ease 0s;
@@ -760,6 +760,10 @@
     bottom: 0;
     margin: 0;
     padding: 15px;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    z-index: 3 !important;
 }
 .product_tile_color_holder {
   margin: 0 -2px;
