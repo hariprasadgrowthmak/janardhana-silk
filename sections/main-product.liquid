@@ -140,8 +140,19 @@
         class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
       >
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
-
+        {%- assign qty_buy_open = false -%}
         {%- for block in section.blocks -%}
+          {%- if block.type == 'quantity_selector' or block.type == 'buy_buttons' -%}
+            {%- if qty_buy_open == false -%}
+              <div class="product-quantity-buy-row">
+              {%- assign qty_buy_open = true -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- if qty_buy_open -%}
+              </div>
+              {%- assign qty_buy_open = false -%}
+            {%- endif -%}
+          {%- endif -%}
           {%- case block.type -%}
             {%- when '@app' -%}
               <div class="finishing-services-container">
@@ -774,6 +785,7 @@
               %}
           {%- endcase -%}
         {%- endfor -%}
+        {%- if qty_buy_open -%}</div>{%- endif -%}
         
         <div class="discount-coupon-code-block">
           {%- for block in section.blocks -%}

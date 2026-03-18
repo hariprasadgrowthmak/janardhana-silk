@@ -1601,8 +1601,22 @@ a.product__text {
 }
 
 /* Quantity + Add-to-Cart / Sold Out on the same row */
+.product-quantity-buy-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.product-quantity-buy-row > * {
+  margin: 0 !important;
+}
+.product-quantity-buy-row .product-form-block {
+  flex: 1;
+}
 .product .product__info-wrapper .product-form__quantity {
     float: none;
+    width: auto;
 }
 .product .product__info-wrapper .product-form {
     display: flex;
