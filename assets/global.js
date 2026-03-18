@@ -1292,6 +1292,9 @@ $('.top_button_arrow').click(function(event) {
   let globalMouseMoveActive = false;
   
   function setupMegaMenuHover(menu, index) {
+    if (menu.dataset.msuHoverInitialized) return;
+    menu.dataset.msuHoverInitialized = 'true';
+
     const details = menu.querySelector('details.msu-mega-menu');
     if (!details) return;
 
@@ -1306,30 +1309,34 @@ $('.top_button_arrow').click(function(event) {
       closeTimeout: null
     };
 
-    const CLOSE_DELAY = 250;
+    const CLOSE_DELAY = 150; // Quicker response
 
     function updateMenuPosition() {
-      const header = document.querySelector('header') || document.querySelector('shop-header');
+      const header = document.querySelector('.header-wrapper') || document.querySelector('header') || document.querySelector('shop-header');
       if (header) {
-        const headerHeight = header.offsetHeight;
-        content.style.top = headerHeight + 'px';
+        // Use getBoundingClientRect to get accurate viewport position if fixed
+        const headerRect = header.getBoundingClientRect();
+        content.style.top = headerRect.bottom + 'px';
       }
     }
 
     function clearCloseTimer() {
-      if (megaMenuTracker[menuId]) {
-        clearTimeout(megaMenuTracker[menuId].closeTimeout);
-        megaMenuTracker[menuId].closeTimeout = null;
+      const tracker = megaMenuTracker[menuId];
+      if (tracker && tracker.closeTimeout) {
+        clearTimeout(tracker.closeTimeout);
+        tracker.closeTimeout = null;
       }
     }
 
     function scheduleClose() {
       clearCloseTimer();
-      if (megaMenuTracker[menuId]) {
-        megaMenuTracker[menuId].closeTimeout = setTimeout(() => {
+      const tracker = megaMenuTracker[menuId];
+      if (tracker) {
+        tracker.closeTimeout = setTimeout(() => {
           if (details.hasAttribute('open')) {
             details.removeAttribute('open');
           }
+          tracker.closeTimeout = null;
         }, CLOSE_DELAY);
       }
     }
@@ -1337,27 +1344,26 @@ $('.top_button_arrow').click(function(event) {
     function openMenu() {
       clearCloseTimer();
       if (!details.hasAttribute('open')) {
+        // Close other open msu menus first
+        Object.values(megaMenuTracker).forEach(otherTracker => {
+          if (otherTracker.details !== details && otherTracker.details.hasAttribute('open')) {
+            otherTracker.details.removeAttribute('open');
+            if (otherTracker.closeTimeout) {
+              clearTimeout(otherTracker.closeTimeout);
+              otherTracker.closeTimeout = null;
+            }
+          }
+        });
+        
         details.setAttribute('open', '');
         updateMenuPosition();
       }
     }
 
-    // Menu trigger hover
+    // Only need listeners on the trigger and the content
     menu.addEventListener('mouseenter', openMenu);
     menu.addEventListener('mouseleave', scheduleClose);
 
-    // Details hover
-    details.addEventListener('mouseenter', clearCloseTimer);
-    details.addEventListener('mouseleave', scheduleClose);
-
-    // Summary hover
-    const summary = details.querySelector('summary');
-    if (summary) {
-      summary.addEventListener('mouseenter', clearCloseTimer);
-      summary.addEventListener('mouseleave', scheduleClose);
-    }
-
-    // Content hover
     content.addEventListener('mouseenter', clearCloseTimer);
     content.addEventListener('mouseleave', scheduleClose);
   }
@@ -1365,40 +1371,33 @@ $('.top_button_arrow').click(function(event) {
   function handleGlobalMouseMove(e) {
     Object.keys(megaMenuTracker).forEach(menuId => {
       const tracker = megaMenuTracker[menuId];
-      if (!tracker.details.hasAttribute('open')) {
-        return;
-      }
+      if (!tracker.details.hasAttribute('open')) return;
 
       const menuRect = tracker.menu.getBoundingClientRect();
       const contentRect = tracker.content.getBoundingClientRect();
 
+      // Buffer zone of 10px to prevent jitter
+      const buffer = 10;
       const isOverMenuTrigger = (
-        e.clientX >= menuRect.left &&
-        e.clientX <= menuRect.right &&
-        e.clientY >= menuRect.top &&
-        e.clientY <= menuRect.bottom
+        e.clientX >= menuRect.left - buffer &&
+        e.clientX <= menuRect.right + buffer &&
+        e.clientY >= menuRect.top - buffer &&
+        e.clientY <= menuRect.bottom + buffer
       );
 
       const isOverContent = (
-        e.clientX >= contentRect.left &&
-        e.clientX <= contentRect.right &&
-        e.clientY >= contentRect.top &&
-        e.clientY <= contentRect.bottom
+        e.clientX >= contentRect.left - buffer &&
+        e.clientX <= contentRect.right + buffer &&
+        e.clientY >= contentRect.top - buffer &&
+        e.clientY <= contentRect.bottom + buffer
       );
 
       if (!isOverMenuTrigger && !isOverContent) {
-        // Schedule menu close
         if (!tracker.closeTimeout) {
-          tracker.closeTimeout = setTimeout(() => {
-            if (tracker.details.hasAttribute('open')) {
-              tracker.details.removeAttribute('open');
-            }
-          }, 150);
+          scheduleClose();
         }
       } else {
-        // Clear any pending close
-        clearTimeout(tracker.closeTimeout);
-        tracker.closeTimeout = null;
+        clearCloseTimer();
       }
     });
   }
@@ -1406,58 +1405,34 @@ $('.top_button_arrow').click(function(event) {
   function handleClickOutside(e) {
     Object.keys(megaMenuTracker).forEach(menuId => {
       const tracker = megaMenuTracker[menuId];
-      if (!tracker.details.hasAttribute('open')) {
-        return;
-      }
+      if (!tracker.details.hasAttribute('open')) return;
 
-      const menuRect = tracker.menu.getBoundingClientRect();
-      const contentRect = tracker.content.getBoundingClientRect();
-
-      const clickInMenu = (
-        e.clientX >= menuRect.left &&
-        e.clientX <= menuRect.right &&
-        e.clientY >= menuRect.top &&
-        e.clientY <= menuRect.bottom
-      );
-
-      const clickInContent = (
-        e.clientX >= contentRect.left &&
-        e.clientX <= contentRect.right &&
-        e.clientY >= contentRect.top &&
-        e.clientY <= contentRect.bottom
-      );
-
-      if (!clickInMenu && !clickInContent) {
-        // Click outside - close menu immediately
-        if (tracker.details.hasAttribute('open')) {
-          tracker.details.removeAttribute('open');
-        }
+      if (!tracker.menu.contains(e.target) && !tracker.content.contains(e.target)) {
+        tracker.details.removeAttribute('open');
+        clearCloseTimer();
       }
     });
   }
 
   function handleEscapeKey(e) {
     if (e.key === 'Escape' || e.keyCode === 27) {
-      Object.keys(megaMenuTracker).forEach(menuId => {
-        const tracker = megaMenuTracker[menuId];
+      Object.values(megaMenuTracker).forEach(tracker => {
         if (tracker.details.hasAttribute('open')) {
           tracker.details.removeAttribute('open');
+          clearCloseTimer();
         }
       });
     }
   }
 
   function initMegaMenuHover() {
-    if (!window.matchMedia('(hover: hover)').matches) {
-      return;
-    }
+    if (!window.matchMedia('(hover: hover)').matches) return;
 
     const headerMenus = document.querySelectorAll('header-menu');
     headerMenus.forEach((menu, index) => {
       setupMegaMenuHover(menu, index);
     });
 
-    // Attach global handlers only once
     if (!globalMouseMoveActive) {
       document.addEventListener('mousemove', handleGlobalMouseMove);
       document.addEventListener('click', handleClickOutside, true);
@@ -1473,17 +1448,20 @@ $('.top_button_arrow').click(function(event) {
     initMegaMenuHover();
   }
 
-  // Retry initialization for dynamic content
-  setTimeout(initMegaMenuHover, 500);
+  // Use a targeted observer instead of multiple timeouts if possible
+  // but for legacy support keeping one delayed retry
   setTimeout(initMegaMenuHover, 1000);
 
-  // Update on resize
+  // Update on resize/scroll
   window.addEventListener('resize', () => {
     Object.values(megaMenuTracker).forEach(tracker => {
-      const header = document.querySelector('header') || document.querySelector('shop-header');
-      if (header && tracker.details.hasAttribute('open')) {
-        tracker.content.style.top = header.offsetHeight + 'px';
+      if (tracker.details.hasAttribute('open')) {
+        const header = document.querySelector('.header-wrapper') || document.querySelector('header') || document.querySelector('shop-header');
+        if (header) {
+          tracker.content.style.top = header.getBoundingClientRect().bottom + 'px';
+        }
       }
     });
   });
+})();
 })();
