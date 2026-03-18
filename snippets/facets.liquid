@@ -174,8 +174,42 @@
                             {%- endcapture -%}
 
                             {%- capture text_value -%}
-                              <span class="facet-checkbox__text" aria-hidden="true">
-                                <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                              {%- assign is_color = false -%}
+                              {%- if presentation == 'swatch' -%}
+                                {%- assign is_color = true -%}
+                              {%- elsif settings.product_swatch == true -%}
+                                {%- assign keys =  settings.swatch_name | split: ',' -%}
+                                {%- for key in keys -%} 
+                                  {%- if filter.label == key -%}{%- assign is_color = true -%}{%- endif -%}
+                                {%- endfor -%} 
+                              {%- endif -%}
+                              <span class="facet-checkbox__text" aria-hidden="true" {% if is_color %}style="display: flex; align-items: center;"{% endif %}>
+                                {%- if presentation == 'swatch' -%}
+                                  <span class="color-type-outer" style="display: inline-flex; align-items: center; justify-content: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid #e1e1e1; overflow: hidden; background-color: #f7f7f7; flex-shrink: 0; margin-right: 0.8rem;">
+                                    {% render 'swatch', swatch: value.swatch, shape: 'circle' %}
+                                  </span>
+                                {%- elsif is_color -%}
+                                  {% for colormatch in shop.metaobjects.shopify--color-pattern.values %}
+                                    {% if colormatch.label == value.label %}
+                                      {%- liquid
+                                        if colormatch.image
+                                          assign image_url = colormatch.image | image_url: width: 50
+                                          assign swatch_value = 'url(' | append: image_url | append: ')'
+                                        elsif colormatch.color
+                                          assign swatch_value = colormatch.color
+                                        else
+                                          assign swatch_value = null
+                                        endif
+                                      -%}
+                                      {% if swatch_value %} 
+                                        <span class="color-type-outer" style="display: inline-flex; align-items: center; justify-content: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid #e1e1e1; overflow: hidden; flex-shrink: 0; padding: 2px; margin-right: 0.8rem;">
+                                          <span class="color-type {{swatch_value}}" style="background: {{ swatch_value }}; display: block; width: 100%; height: 100%; border-radius: 50%;"></span>
+                                        </span>
+                                      {% endif %}
+                                    {% endif %}
+                                  {% endfor %}
+                                {%- endif -%}
+                                <span class="facet-checkbox__text-label">{{- value.label | escape }}</span>&nbsp;({{- value.count -}})
                               </span>
                               <span class="visually-hidden">
                                 {{- value.label | escape }} (
@@ -188,167 +222,58 @@
                               </span>
                             {%- endcapture -%}
                             
-                          
                              <li class="list-menu__item facets__item{% if forloop.index > show_more_number and filter_type == 'vertical' %} show-more-item hidden{% endif %}">
-                               
-                              <!-- zenon start --> 
-                              {% if settings.product_swatch == true %}
-                                  {% assign keys =  settings.swatch_name | split: ',' %}
-                                  {% for key in keys %} 
-                                    {% if filter.label == key %}
-                                    {% assign variant_name = filter.label %}
-                                    {% endif %}
-                                  {% endfor %} 
-                              {% endif %}
-                              <!-- zenon end -->
-                              
-                         
-                              {%- if presentation == 'swatch' -%}
-                                <label for="{{ input_id }}" class="color-match {{ label_class }}">
-                                  <input type="checkbox"
-                                    name="{{ value.param_name }}"
-                                    value="{{ value.value }}"
-                                    id="{{ input_id }}"
-                                    {% if value.active %}checked{% endif %}
-                                    {% if is_disabled %}disabled{% endif %}
-                                  >
-                                  <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                                    <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                                  </svg>
-                                  <svg aria-hidden="true" class="icon icon-checkmark" width="1.1rem" height="0.7rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-                                  </svg>
-                                  <span class="color-type-outer" style="margin-left: 0.5rem; margin-right: 0.5rem; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid #ccc; overflow: hidden;">
-                                    {% render 'swatch', swatch: value.swatch, shape: 'circle' %}
-                                  </span>
+                               <label for="{{ input_id }}" class="{{ label_class }}">
+                                 <input
+                                   type="checkbox"
+                                   name="{{ value.param_name }}"
+                                   value="{{ value.value }}"
+                                   id="{{ input_id }}"
+                                   {% if value.active %}checked{% endif %}
+                                   {% if is_disabled %}disabled{% endif %}
+                                 >
+
+                                 {%- if presentation == 'image' -%}
+                                   <div class="facets__image-wrapper">
+                                     {%- if value.image -%}
+                                       {{
+                                         value.image
+                                         | image_url: width: 300
+                                         | image_tag: class: 'facets__image', alt: value.alt
+                                       }}
+                                     {%- endif -%}
+                                   </div>
+                                 {%- else -%}
+                                   <svg
+                                     width="1.6rem"
+                                     height="1.6rem"
+                                     viewBox="0 0 16 16"
+                                     aria-hidden="true"
+                                     focusable="false"
+                                   >
+                                     <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                   </svg>
+
+                                   <svg
+                                     aria-hidden="true"
+                                     class="icon icon-checkmark"
+                                     width="1.1rem"
+                                     height="0.7rem"
+                                     viewBox="0 0 11 7"
+                                     fill="none"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                   >
+                                     <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
+                                       stroke="currentColor"
+                                       stroke-width="1.75"
+                                       stroke-linecap="round"
+                                       stroke-linejoin="round" />
+                                   </svg>
+                                 {%- endif -%}
+                                       
                                   {{ text_value }}
                                 </label>
-                              {%- else -%}
-                                <!-- zenon start --> 
-                                {% if filter.label == variant_name  %}
-                                  
-                                   <label for="{{ input_id }}" class="color-match {{ label_class }}">
-                                      <input
-                                        type="checkbox"
-                                        name="{{ value.param_name }}"
-                                        value="{{ value.value }}"
-                                        id="{{ input_id }}"
-                                        {% if value.active %}
-                                          checked
-                                        {% endif %}
-                                        {% if is_disabled %}
-                                          disabled
-                                        {% endif %}
-                                      >
-                                      {% for colormatch in shop.metaobjects.shopify--color-pattern.values %}
-                                          {% if colormatch.label == value.label %}
-                                            
-                                              {%- liquid
-                                                if colormatch.image
-                                                  assign image_url = colormatch.image | image_url: width: 50
-                                                  assign swatch_value = 'url(' | append: image_url | append: ')'
-                                                elsif colormatch.color
-                                                  assign swatch_value = colormatch.color
-                                                else
-                                                  assign swatch_value = null
-                                                endif
-                                              -%}
-                                             
-                                                  {% if swatch_value %} 
-                                                    <span class="color-type-outer">
-                                                      <span
-                                                          class="color-type {{swatch_value}}"
-                                                          style="background: {{ swatch_value }};"
-                                                      ></span>
-                                                    </span>
-                                                  {% endif %}
-                                          {% endif %}
-                                      {% endfor %}
-                                      <svg
-                                        width="1.6rem"
-                                        height="1.6rem"
-                                        viewBox="0 0 16 16"
-                                        aria-hidden="true"
-                                        focusable="false"
-                                      >
-                                        <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                                      </svg>
-                                      <svg
-                                         aria-hidden="true"
-                                         class="icon icon-checkmark"
-                                          width="1.1rem"
-                                          height="0.7rem"
-                                          viewBox="0 0 11 7"
-                                          fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                          <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                            stroke="currentColor"
-                                            stroke-width="1.75"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        </svg>
-                                    {{ text_value }}  
-                                  </label>
-                                  <!-- zenon end -->         
-                                {% else %}
-                                    <label for="{{ input_id }}" class="{{ label_class }}">
-                                      <input
-                                        type="checkbox"
-                                        name="{{ value.param_name }}"
-                                        value="{{ value.value }}"
-                                        id="{{ input_id }}"
-                                        {% if value.active %}
-                                          checked
-                                        {% endif %}
-                                        {% if is_disabled %}
-                                          disabled
-                                        {% endif %}
-                                      >
-    
-                                      {%- if presentation == 'image' -%}
-                                        <div class="facets__image-wrapper">
-                                          {%- if value.image -%}
-                                            {{
-                                              value.image
-                                              | image_url: width: 300
-                                              | image_tag: class: 'facets__image', alt: value.alt
-                                            }}
-                                          {%- endif -%}
-                                        </div>
-                                      {%- else -%}
-                                        <svg
-                                          width="1.6rem"
-                                          height="1.6rem"
-                                          viewBox="0 0 16 16"
-                                          aria-hidden="true"
-                                          focusable="false"
-                                        >
-                                          <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                                        </svg>
-    
-                                        <svg
-                                          aria-hidden="true"
-                                          class="icon icon-checkmark"
-                                          width="1.1rem"
-                                          height="0.7rem"
-                                          viewBox="0 0 11 7"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                            stroke="currentColor"
-                                            stroke-width="1.75"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        </svg>
-                                      {%- endif -%}
-                                            
-                                       {{ text_value }}
-                                     </label>
-                                  {%- endif -%}
-                              {%- endif -%}
-                            </li>
+                             </li></li>
                           {%- endfor -%}
                         </ul>
                       </fieldset>
@@ -659,8 +584,42 @@
                               {%- endcapture -%}
 
                               {%- capture text_value -%}
-                                <span class="facet-checkbox__text" aria-hidden="true">
-                                  <span class="facet-checkbox__text-label">{{- value.label | escape }}</span> ({{- value.count -}})
+                                {%- assign is_color = false -%}
+                                {%- if presentation == 'swatch' -%}
+                                  {%- assign is_color = true -%}
+                                {%- elsif settings.product_swatch == true -%}
+                                  {%- assign keys =  settings.swatch_name | split: ',' -%}
+                                  {%- for key in keys -%} 
+                                    {%- if filter.label contains key -%}{%- assign is_color = true -%}{%- endif -%}
+                                  {%- endfor -%} 
+                                {%- endif -%}
+                                <span class="facet-checkbox__text" aria-hidden="true" {% if is_color %}style="display: flex; align-items: center;"{% endif %}>
+                                  {%- if presentation == 'swatch' -%}
+                                    <span class="color-type-outer" style="display: inline-flex; align-items: center; justify-content: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid #e1e1e1; overflow: hidden; background-color: #f7f7f7; flex-shrink: 0; margin-right: 0.8rem;">
+                                      {% render 'swatch', swatch: value.swatch, shape: 'circle' %}
+                                    </span>
+                                  {%- elsif is_color -%}
+                                    {% for colormatch in shop.metaobjects.shopify--color-pattern.values %}
+                                      {% if colormatch.label == value.label %}
+                                        {%- liquid
+                                          if colormatch.image
+                                            assign image_url = colormatch.image | image_url: width: 50
+                                            assign swatch_value = 'url(' | append: image_url | append: ')'
+                                          elsif colormatch.color
+                                            assign swatch_value = colormatch.color
+                                          else
+                                            assign swatch_value = null
+                                          endif
+                                        -%}
+                                        {% if swatch_value %} 
+                                          <span class="color-type-outer" style="display: inline-flex; align-items: center; justify-content: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid #e1e1e1; overflow: hidden; flex-shrink: 0; padding: 2px; margin-right: 0.8rem;">
+                                            <span class="color-type {{swatch_value}}" style="background: {{ swatch_value }}; display: block; width: 100%; height: 100%; border-radius: 50%;"></span>
+                                          </span>
+                                        {% endif %}
+                                      {% endif %}
+                                    {% endfor %}
+                                  {%- endif -%}
+                                  <span class="facet-checkbox__text-label">{{- value.label | escape }}</span>&nbsp;({{- value.count -}})
                                 </span>
                                 <span class="visually-hidden">
                                   {{- value.label | escape }} (
@@ -672,166 +631,57 @@
                                   )
                                 </span>
                               {%- endcapture -%}
-                            <!-- zenon start --> 
-                            {% if settings.product_swatch == true %}
-                                {% assign keys =  settings.swatch_name | split: ',' %}
-                                {% for key in keys %} 
-                                  {% if filter.label contains key %}
-                                  {% assign variant_name = filter.label %}
-                                  {% endif %}
-                                {% endfor %} 
-                            {% endif %}
-                            <!-- zenon end --> 
                            
                               <li class="mobile-facets__item list-menu__item">
-                                
-                                {% if presentation == 'swatch' %}
-                                  <label for="{{ input_id }}" class="color-match {{ label_class }}">
-                                    <input class="mobile-facets__checkbox" type="checkbox"
-                                      name="{{ value.param_name }}"
-                                      value="{{ value.value }}"
-                                      id="{{ input_id }}"
-                                      {% if value.active %}checked{% endif %}
-                                      {% if is_disabled %}disabled{% endif %}
-                                    >
+                                <label for="{{ input_id }}" class="{{ label_class }}">
+                                  <input
+                                    class="mobile-facets__checkbox"
+                                    type="checkbox"
+                                    name="{{ value.param_name }}"
+                                    value="{{ value.value }}"
+                                    id="{{ input_id }}"
+                                    {% if value.active %}checked{% endif %}
+                                    {% if is_disabled %}disabled{% endif %}
+                                  >
+
+                                  {%- if presentation == 'image' -%}
+                                    <div class="facets__image-wrapper">
+                                      {%- if value.image -%}
+                                        {{
+                                          value.image
+                                          | image_url: width: 300
+                                          | image_tag: class: 'facets__image', alt: value.alt
+                                        }}
+                                      {%- endif -%}
+                                    </div>
+                                  {%- else -%}
                                     <span class="mobile-facets__highlight"></span>
-                                    <svg width="1.6rem" height="1.6rem" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+
+                                    <svg
+                                      width="1.6rem"
+                                      height="1.6rem"
+                                      viewBox="0 0 16 16"
+                                      aria-hidden="true"
+                                      focusable="false"
+                                    >
                                       <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
                                     </svg>
-                                    <svg aria-hidden="true" class="icon icon-checkmark" width="1.1rem" height="0.7rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                    <svg
+                                      aria-hidden="true"
+                                      class="icon icon-checkmark"
+                                      width="1.1rem"
+                                      height="0.7rem"
+                                      viewBox="0 0 11 7"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
                                       <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    <span class="color-type-outer" style="margin-left: 0.5rem; margin-right: 0.5rem; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid #ccc; overflow: hidden;">
-                                      {% render 'swatch', swatch: value.swatch, shape: 'circle' %}
-                                    </span>
-                                    {{ text_value }}
-                                  </label>
-                                {% else %}
-                                    <!-- zenon start --> 
-                                    {% if filter.label == variant_name  %}
-                                      
-                                       <label for="{{ input_id }}" class="color-match {{ label_class }}">
-                                          <input
-                                            class="mobile-facets__checkbox"
-                                            type="checkbox"
-                                            name="{{ value.param_name }}"
-                                            value="{{ value.value }}"
-                                            id="{{ input_id }}"
-                                            {% if value.active %}
-                                              checked
-                                            {% endif %}
-                                            {% if is_disabled %}
-                                              disabled
-                                            {% endif %}
-                                           >
-                                          {% for colormatch in shop.metaobjects.shopify--color-pattern.values %}
-                                              {% if colormatch.label == value.label %}
-                                                
-                                                  {%- liquid
-                                                    if colormatch.image
-                                                      assign image_url = colormatch.image | image_url: width: 50
-                                                      assign swatch_value = 'url(' | append: image_url | append: ')'
-                                                    elsif colormatch.color
-                                                      assign swatch_value = colormatch.color
-                                                    else
-                                                      assign swatch_value = null
-                                                    endif
-                                                  -%}
-                                                 
-                                                      {% if swatch_value %} 
-                                                        <span class="color-type-outer">
-                                                          <span
-                                                              class="color-type {{swatch_value}}"
-                                                              style="background: {{ swatch_value }};"
-                                                          ></span>
-                                                        </span>
-                                                      {% endif %}
-                                              {% endif %}
-                                          {% endfor %}
-                                          <span class="mobile-facets__highlight"></span>
-                                          <svg
-                                            width="1.6rem"
-                                            height="1.6rem"
-                                            viewBox="0 0 16 16"
-                                            aria-hidden="true"
-                                            focusable="false"
-                                          >
-                                            <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                                          </svg>
-                                          <svg
-                                             aria-hidden="true"
-                                             class="icon icon-checkmark"
-                                              width="1.1rem"
-                                              height="0.7rem"
-                                              viewBox="0 0 11 7"
-                                              fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                              >
-                                              <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1"
-                                                stroke="currentColor"
-                                                stroke-width="1.75"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round" />
-                                            </svg>
-                                        {{ text_value }}  
-                                      </label>
-                                      <!-- zenon end -->
-                                 {% else %}
-                                    <label for="{{ input_id }}" class="{{ label_class }}">
-                                        <input
-                                          class="mobile-facets__checkbox"
-                                          type="checkbox"
-                                          name="{{ value.param_name }}"
-                                          value="{{ value.value }}"
-                                          id="{{ input_id }}"
-                                          {% if value.active %}
-                                            checked
-                                          {% endif %}
-                                          {% if is_disabled %}
-                                            disabled
-                                          {% endif %}
-                                        >
-    
-                                        {%- if presentation == 'image' -%}
-                                          <div class="facets__image-wrapper">
-                                            {%- if value.image -%}
-                                              {{
-                                                value.image
-                                                | image_url: width: 300
-                                                | image_tag: class: 'facets__image', alt: value.alt
-                                              }}
-                                            {%- endif -%}
-                                          </div>
-                                        {%- else -%}
-                                          <span class="mobile-facets__highlight"></span>
-    
-                                          <svg
-                                            width="1.6rem"
-                                            height="1.6rem"
-                                            viewBox="0 0 16 16"
-                                            aria-hidden="true"
-                                            focusable="false"
-                                          >
-                                            <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                                          </svg>
-    
-                                          <svg
-                                            aria-hidden="true"
-                                            class="icon icon-checkmark"
-                                            width="1.1rem"
-                                            height="0.7rem"
-                                            viewBox="0 0 11 7"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                          >
-                                            <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-                                          </svg>
-                                        {%- endif %}
-    
-                                        {{ text_value }}
-                                      </label>
-                                   {% endif %}
-                                {% endif %}
+                                  {%- endif %}
+
+                                  {{ text_value }}
+                                </label>
                               </li>
                             {%- endfor -%}
                           </ul>
