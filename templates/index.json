@@ -9,6 +9,157 @@
  */
 {
   "sections": {
+    "slideshow_bGnUgg": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_cgFHmt": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/3_a1b69ca2-a971-4b4f-8205-ea551494c063.png",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_label_2": "",
+            "link_2": "",
+            "button_style": "solid",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "second_btn_bkg_color": "#ffffff",
+            "second_btn_text_color": "#000000",
+            "second_btn_bkg_color_hover": "#000000",
+            "second_btn_text_color_hover": "#ffffff",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_eKtC7z": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/4_975910eb-1a0b-4541-acc5-e4a5094799c5.png",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_label_2": "",
+            "link_2": "",
+            "button_style": "solid",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "second_btn_bkg_color": "#ffffff",
+            "second_btn_text_color": "#000000",
+            "second_btn_bkg_color_hover": "#000000",
+            "second_btn_text_color_hover": "#ffffff",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_NQBRg8": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/5_9a86bcff-a576-40b6-b14e-12f2a631d128.png",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_label_2": "",
+            "link_2": "",
+            "button_style": "solid",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "second_btn_bkg_color": "#ffffff",
+            "second_btn_text_color": "#000000",
+            "second_btn_bkg_color_hover": "#000000",
+            "second_btn_text_color_hover": "#ffffff",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_cgFHmt",
+        "slide_eKtC7z",
+        "slide_NQBRg8"
+      ],
+      "name": "t:sections.slideshow.presets.name",
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "pagination": true,
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 3,
+        "image_behavior": "none",
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "announcementbar_nLp8Nf": {
+      "type": "announcementbar",
+      "blocks": {
+        "message_4CRt3L": {
+          "type": "message",
+          "settings": {
+            "text": "✨ Free Shipping on Orders Above ₹999"
+          }
+        },
+        "message_EezKmx": {
+          "type": "message",
+          "settings": {
+            "text": "🌿 100% Cotton Comfort"
+          }
+        },
+        "message_yxRjxH": {
+          "type": "message",
+          "settings": {
+            "text": "❤️ Easy 7-Day Returns"
+          }
+        },
+        "message_r4LUqn": {
+          "type": "message",
+          "settings": {
+            "text": "🧸 Made with Love & Comfort"
+          }
+        },
+        "message_LccT6Y": {
+          "type": "message",
+          "settings": {
+            "text": "🌸 New Arrivals Every Week"
+          }
+        }
+      },
+      "block_order": [
+        "message_4CRt3L",
+        "message_EezKmx",
+        "message_yxRjxH",
+        "message_r4LUqn",
+        "message_LccT6Y"
+      ],
+      "name": "Koozy Announcement Bar",
+      "settings": {
+        "bg_color": "#891403",
+        "text_color": "#ffffff",
+        "font_family": "'DM Sans', sans-serif",
+        "font_size": 14,
+        "letter_spacing": 0.1,
+        "padding_y": 10,
+        "padding_x": 16,
+        "gap": 32,
+        "speed": 20,
+        "separator": "•",
+        "separator_opacity": 0.5,
+        "pause_hover": true
+      }
+    },
     "categories_slider_UtmejN": {
       "type": "categories-slider",
       "blocks": {
@@ -219,180 +370,6 @@
         "padding_bottom": 22
       }
     },
-    "slideshow_bGnUgg": {
-      "type": "slideshow",
-      "blocks": {
-        "slide_cgFHmt": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/3_a1b69ca2-a971-4b4f-8205-ea551494c063.png",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_label_2": "",
-            "link_2": "",
-            "button_style": "solid",
-            "box_align": "middle-center",
-            "show_text_box": false,
-            "text_alignment": "center",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
-            "second_btn_bkg_color": "#ffffff",
-            "second_btn_text_color": "#000000",
-            "second_btn_bkg_color_hover": "#000000",
-            "second_btn_text_color_hover": "#ffffff",
-            "text_alignment_mobile": "center"
-          }
-        },
-        "slide_eKtC7z": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/4_975910eb-1a0b-4541-acc5-e4a5094799c5.png",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_label_2": "",
-            "link_2": "",
-            "button_style": "solid",
-            "box_align": "middle-center",
-            "show_text_box": false,
-            "text_alignment": "center",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
-            "second_btn_bkg_color": "#ffffff",
-            "second_btn_text_color": "#000000",
-            "second_btn_bkg_color_hover": "#000000",
-            "second_btn_text_color_hover": "#ffffff",
-            "text_alignment_mobile": "center"
-          }
-        },
-        "slide_NQBRg8": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/5_9a86bcff-a576-40b6-b14e-12f2a631d128.png",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "",
-            "link": "",
-            "button_label_2": "",
-            "link_2": "",
-            "button_style": "solid",
-            "box_align": "middle-center",
-            "show_text_box": false,
-            "text_alignment": "center",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-1",
-            "second_btn_bkg_color": "#ffffff",
-            "second_btn_text_color": "#000000",
-            "second_btn_bkg_color_hover": "#000000",
-            "second_btn_text_color_hover": "#ffffff",
-            "text_alignment_mobile": "center"
-          }
-        }
-      },
-      "block_order": [
-        "slide_cgFHmt",
-        "slide_eKtC7z",
-        "slide_NQBRg8"
-      ],
-      "name": "t:sections.slideshow.presets.name",
-      "settings": {
-        "layout": "full_bleed",
-        "slide_height": "adapt_image",
-        "pagination": true,
-        "slider_visual": "dots",
-        "auto_rotate": true,
-        "change_slides_speed": 3,
-        "image_behavior": "none",
-        "show_text_below": true,
-        "accessibility_info": "Slideshow about our brand"
-      }
-    },
-    "announcementbar_nLp8Nf": {
-      "type": "announcementbar",
-      "blocks": {
-        "message_4CRt3L": {
-          "type": "message",
-          "settings": {
-            "text": "✨ Free Shipping on Orders Above ₹999"
-          }
-        },
-        "message_EezKmx": {
-          "type": "message",
-          "settings": {
-            "text": "🌿 100% Cotton Comfort"
-          }
-        },
-        "message_yxRjxH": {
-          "type": "message",
-          "settings": {
-            "text": "❤️ Easy 7-Day Returns"
-          }
-        },
-        "message_r4LUqn": {
-          "type": "message",
-          "settings": {
-            "text": "🧸 Made with Love & Comfort"
-          }
-        },
-        "message_LccT6Y": {
-          "type": "message",
-          "settings": {
-            "text": "🌸 New Arrivals Every Week"
-          }
-        }
-      },
-      "block_order": [
-        "message_4CRt3L",
-        "message_EezKmx",
-        "message_yxRjxH",
-        "message_r4LUqn",
-        "message_LccT6Y"
-      ],
-      "name": "Koozy Announcement Bar",
-      "settings": {
-        "bg_color": "#891403",
-        "text_color": "#ffffff",
-        "font_family": "'DM Sans', sans-serif",
-        "font_size": 14,
-        "letter_spacing": 0.1,
-        "padding_y": 10,
-        "padding_x": 16,
-        "gap": 32,
-        "speed": 20,
-        "separator": "•",
-        "separator_opacity": 0.5,
-        "pause_hover": true
-      }
-    },
-    "177211226407f26e75": {
-      "type": "apps",
-      "blocks": {
-        "globo_product_options_app_block_hEyjgr": {
-          "type": "shopify://apps/globo-product-options/blocks/app-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
-          "settings": {}
-        },
-        "vizup_videos_videos_block_HCCgKC": {
-          "type": "shopify://apps/vizup-videos/blocks/videos-block/eaecaa7b-ab6b-40ae-8ddf-50daa867f3eb",
-          "settings": {
-            "videoc_widget_id": "Silk House",
-            "custom_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "globo_product_options_app_block_hEyjgr",
-        "vizup_videos_videos_block_HCCgKC"
-      ],
-      "settings": {
-        "include_margins": true
-      }
-    },
     "1771088015a1a3f5b2": {
       "type": "_blocks",
       "blocks": {
@@ -549,6 +526,29 @@
         "swipe_on_mobile": false,
         "padding_top": 50,
         "padding_bottom": 50
+      }
+    },
+    "177211226407f26e75": {
+      "type": "apps",
+      "blocks": {
+        "globo_product_options_app_block_hEyjgr": {
+          "type": "shopify://apps/globo-product-options/blocks/app-block/fdc9fad5-1a0f-4bd4-9c8a-1af6a6eef6b8",
+          "settings": {}
+        },
+        "vizup_videos_videos_block_HCCgKC": {
+          "type": "shopify://apps/vizup-videos/blocks/videos-block/eaecaa7b-ab6b-40ae-8ddf-50daa867f3eb",
+          "settings": {
+            "videoc_widget_id": "Silk House",
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "globo_product_options_app_block_hEyjgr",
+        "vizup_videos_videos_block_HCCgKC"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "tbp_scroll_TyLmG6": {
@@ -1452,12 +1452,12 @@
     }
   },
   "order": [
-    "categories_slider_UtmejN",
     "slideshow_bGnUgg",
     "announcementbar_nLp8Nf",
-    "177211226407f26e75",
+    "categories_slider_UtmejN",
     "1771088015a1a3f5b2",
     "service_icon_pHgMfL",
+    "177211226407f26e75",
     "tbp_scroll_TyLmG6",
     "tbp_slidder_6FVGBb",
     "0617c2f2-69ec-4df8-a506-b2616d4e1db4",
