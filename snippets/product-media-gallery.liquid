@@ -351,9 +351,10 @@
             var videoThumbBtn = document.querySelector('#Slide-Thumbnails-{{ section.id }}-video button');
             if (videoThumbBtn) {
               videoThumbBtn.addEventListener('click', function() {
+                var slider = document.getElementById('Slider-Gallery-{{ section.id }}');
                 var videoSlide = document.getElementById('Slide-{{ section.id }}-video');
-                if (videoSlide) {
-                  videoSlide.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start'});
+                if (slider && videoSlide) {
+                  slider.scrollTo({ left: videoSlide.offsetLeft, behavior: 'smooth' });
                 }
                 var allThumbs = document.querySelectorAll('#Slider-Thumbnails-{{ section.id }} button');
                 allThumbs.forEach(function(b) { b.setAttribute('aria-current', 'false'); });
@@ -362,6 +363,7 @@
             }
           });
           </script>
+          
       </ul>
       <button
         type="button"
