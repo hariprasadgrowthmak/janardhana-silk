@@ -348,7 +348,8 @@
           </li>
                               <script>
           document.addEventListener('DOMContentLoaded', function() {
-            var videoThumbBtn = document.querySelector('#Slide-Thumbnails-{{ section.id }}-video button');
+                        var videoThumbLi = document.getElementById('Slide-Thumbnails-{{ section.id }}-video');
+                                    var videoThumbBtn = videoThumbLi ? videoThumbLi.querySelector('button') : null;
             if (videoThumbBtn) {
               videoThumbBtn.addEventListener('click', function() {
                 var firstSlide = document.querySelector('#Slider-Gallery-{{ section.id }} li');
