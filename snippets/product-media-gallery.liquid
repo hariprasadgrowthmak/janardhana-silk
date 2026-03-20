@@ -346,6 +346,22 @@
               </div>
             </button>
           </li>
+                    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var videoThumbBtn = document.querySelector('#Slide-Thumbnails-{{ section.id }}-video button');
+            if (videoThumbBtn) {
+              videoThumbBtn.addEventListener('click', function() {
+                var videoSlide = document.getElementById('Slide-{{ section.id }}-video');
+                if (videoSlide) {
+                  videoSlide.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start'});
+                }
+                var allThumbs = document.querySelectorAll('#Slider-Thumbnails-{{ section.id }} button');
+                allThumbs.forEach(function(b) { b.setAttribute('aria-current', 'false'); });
+                videoThumbBtn.setAttribute('aria-current', 'true');
+              });
+            }
+          });
+          </script>
       </ul>
       <button
         type="button"
