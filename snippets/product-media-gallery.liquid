@@ -347,14 +347,14 @@
             </button>
           </li>
                     <script>
-          document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function() {
             var videoThumbBtn = document.querySelector('#Slide-Thumbnails-{{ section.id }}-video button');
             if (videoThumbBtn) {
               videoThumbBtn.addEventListener('click', function() {
-                var slider = document.getElementById('Slider-Gallery-{{ section.id }}');
-                var videoSlide = document.getElementById('Slide-{{ section.id }}-video');
-                if (slider && videoSlide) {
-                  slider.scrollTo({ left: videoSlide.offsetLeft, behavior: 'smooth' });
+                var galleryViewer = document.getElementById('GalleryViewer-{{ section.id }}');
+                var firstSlide = galleryViewer ? galleryViewer.querySelector('.product__media-item') : null;
+                if (firstSlide) {
+                  firstSlide.innerHTML = '<div style="position:relative;padding-bottom:100%;height:0;overflow:hidden;"><iframe src="https://www.youtube.com/embed/_9VUPq3SxOc?autoplay=1&rel=0" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>';
                 }
                 var allThumbs = document.querySelectorAll('#Slider-Thumbnails-{{ section.id }} button');
                 allThumbs.forEach(function(b) { b.setAttribute('aria-current', 'false'); });
