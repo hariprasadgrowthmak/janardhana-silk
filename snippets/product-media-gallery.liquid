@@ -331,7 +331,7 @@
               aria-label="Load video in gallery view"
               aria-current="false"
               data-target="{{ section.id }}-video"
-              data-media-position="video"
+              data-media-position="{{ product.media.size | plus: 1 }}"
             >
               <div style="position:relative;width:100%;padding-bottom:100%;background:#000;display:flex;align-items:center;justify-content:center;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40%;height:40%;opacity:0.9;">
