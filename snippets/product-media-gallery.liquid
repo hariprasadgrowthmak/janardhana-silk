@@ -346,7 +346,23 @@
               </div>
             </button>
           </li>
-                              <script>
+                              
+          
+      </ul>
+      <button
+        type="button"
+        class="slider-button slider-button--next{% if media_count <= 3 %} small-hide{% endif %}{% if media_count <= 4 %} medium-hide large-up-hide{% endif %}"
+        name="next"
+        aria-label="{{ 'general.slider.next_slide' | t }}"
+        aria-controls="GalleryThumbnails-{{ section.id }}"
+        data-step="3"
+      >
+        {% render 'icon-caret' %}
+      </button>
+    </slider-component>
+  {%- endif -%}
+</media-gallery>
+<script>
           document.addEventListener('DOMContentLoaded', function() {
                         var videoThumbLi = document.getElementById('Slide-Thumbnails-{{ section.id }}-video');
                                     var videoThumbBtn = videoThumbLi ? videoThumbLi.querySelector('button') : null;
@@ -372,21 +388,6 @@
             }
           });
           </script>
-          
-      </ul>
-      <button
-        type="button"
-        class="slider-button slider-button--next{% if media_count <= 3 %} small-hide{% endif %}{% if media_count <= 4 %} medium-hide large-up-hide{% endif %}"
-        name="next"
-        aria-label="{{ 'general.slider.next_slide' | t }}"
-        aria-controls="GalleryThumbnails-{{ section.id }}"
-        data-step="3"
-      >
-        {% render 'icon-caret' %}
-      </button>
-    </slider-component>
-  {%- endif -%}
-</media-gallery>
 
 {% comment %} ******* multiple variant swith js ******* {% endcomment %}
 {%- liquid
