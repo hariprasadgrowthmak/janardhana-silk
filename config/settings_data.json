@@ -207,6 +207,11 @@
         "type": "shopify://apps/bucks/blocks/app-embed/4f0a9b06-9da4-4a49-b378-2de9d23a3af3",
         "disabled": false,
         "settings": {}
+      },
+      "9717370649079274736": {
+        "type": "shopify://apps/otp-login-notify/blocks/app-embed-block/c26b7b17-273d-4800-af62-8ec88ba18251",
+        "disabled": true,
+        "settings": {}
       }
     },
     "color_schemes": {
