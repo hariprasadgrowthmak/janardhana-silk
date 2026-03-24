@@ -1306,7 +1306,7 @@ $('.top_button_arrow').click(function(event) {
       closeTimeout: null
     };
 
-    const CLOSE_DELAY = 250;
+    const CLOSE_DELAY = 500;
 
     function updateMenuPosition() {
       const header = document.querySelector('header') || document.querySelector('shop-header');
@@ -1393,7 +1393,7 @@ $('.top_button_arrow').click(function(event) {
             if (tracker.details.hasAttribute('open')) {
               tracker.details.removeAttribute('open');
             }
-          }, 150);
+          }, 500);
         }
       } else {
         // Clear any pending close
