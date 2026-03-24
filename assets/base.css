@@ -2670,7 +2670,6 @@ details[open] .modal-overlay::after {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100vh;
 }
 
 .search-modal {
@@ -4163,7 +4162,8 @@ header .categories-menu p {
 
 @media screen and (max-width: 1150px) and (min-width: 990px) {
   .header.header--middle-center.drawer-menu.categories-link {
-    grid-template-columns: auto 1fr 0.4fr 1fr; /* new added */
+    grid-template-columns: auto 1fr 0.4fr 1fr;
+    /* new added */
   }
 }
 
@@ -4612,4 +4612,3 @@ header .categories-menu p {
 .range-group .range:last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
   right: 0;
 }
-
