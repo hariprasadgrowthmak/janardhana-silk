@@ -38,25 +38,41 @@
   /* Collection page grid-list button script end */
 
 
-  /* Mega menu hover script start */
-  if ($(window).width() >= 990) {
-    let items = document.querySelector(".header__inline-menu").querySelectorAll("details");
-    //console.log(items.length);
-    if (items.length > 0) {
-      items.forEach(item => {
-        item.addEventListener("mouseover", () => {
-          item.setAttribute("open", true);
-        item.querySelector("ul").addEventListener("mouseleave", () => {
-          item.removeAttribute("open");
-      });
-      item.addEventListener("mouseleave", () => {
-        item.removeAttribute("open");
-      });
-      });
-  
+  /* Mega menu hover script start (Fixed) */
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.innerWidth >= 990) {
+      var items = document.querySelectorAll(".header__inline-menu details");
+      items.forEach(function (item) {
+        var timeoutId;
+
+        // Open on mouse enter — cancel any pending close
+        item.addEventListener("mouseenter", function () {
+          clearTimeout(timeoutId);
+          item.setAttribute("open", "");
+        });
+
+        // Close after 300ms delay — gives cursor time to cross the gap into the dropdown
+        item.addEventListener("mouseleave", function () {
+          timeoutId = setTimeout(function () {
+            item.removeAttribute("open");
+          }, 300);
+        });
+
+        // Keep open if cursor enters the dropdown panel itself
+        var content = item.querySelector('.mega-menu__content, .msu-mega__content');
+        if (content) {
+          content.addEventListener("mouseenter", function () {
+            clearTimeout(timeoutId);
+          });
+          content.addEventListener("mouseleave", function () {
+            timeoutId = setTimeout(function () {
+              item.removeAttribute("open");
+            }, 300);
+          });
+        }
       });
     }
-  }
+  });
   /* Mega menu hover script end */
 
 
