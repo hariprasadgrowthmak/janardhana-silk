@@ -12,6 +12,12 @@ header-menu details {
   z-index: 101;
 }
 
+/* Required so the ::after hover-bridge in header.liquid is positioned
+   relative to the summary, not a distant ancestor */
+header-menu details > summary {
+  position: relative;
+}
+
 .mega-menu[open] {
   position: relative;
 }
@@ -28,6 +34,8 @@ header-menu details {
   padding: 3.5rem 4rem;
   position: absolute;
   top: 100%;
+  /* Pull up 2px to eliminate any sub-pixel gap between trigger and panel */
+  margin-top: -2px;
   z-index: 100;
   width: fit-content;
   max-width: calc(100vw - 40px);
@@ -55,14 +63,15 @@ header-menu details {
 }
 
 /* Hover bridge: fills the gap between the nav link and the dropdown panel
-   so the mouse never triggers a mouseleave while transitioning between them */
+   so the mouse never triggers a mouseleave while transitioning between them.
+   Height is generous (3rem) to cover various header padding configurations. */
 .mega-menu[open] .mega-menu__content::before {
   content: '';
   position: absolute;
-  top: -2.5rem;
+  top: -3rem;
   left: 0;
   right: 0;
-  height: 2.5rem;
+  height: 3rem;
   background: transparent;
 }
 
