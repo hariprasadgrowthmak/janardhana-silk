@@ -65,7 +65,7 @@ class HeaderMenu extends DetailsDisclosure {
 
     // Close on mouseleave from the whole header-menu wrapper (with delay)
     this.addEventListener('mouseleave', () => {
-      this.closeTimeout = setTimeout(() => this.close(), 200);
+      this.closeTimeout = setTimeout(() => this.close(), 300);
     });
 
     // Cancel close if mouse re-enters the wrapper (e.g. moving into dropdown)

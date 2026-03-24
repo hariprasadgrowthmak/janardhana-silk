@@ -358,7 +358,17 @@ h5.mega_iwt_title {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: auto;
+  top: var(--header-bottom-position-desktop, auto);
+}
+
+.msu-mega-menu[open] .msu-mega__content::before {
+  content: '';
+  position: absolute;
+  top: -2.5rem;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  background: transparent;
 }
 
 /* Ensure closed state with !important */
