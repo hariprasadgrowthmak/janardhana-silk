@@ -40,38 +40,13 @@ class HeaderMenu extends DetailsDisclosure {
     this.closeTimeout = null;
 
     if (this.isMegaMenu) {
-      this.setupMegaMenuHover();
+      // MSU mega menu hover is handled in global.js to avoid conflicts
+      // this.setupMegaMenuHover(); 
     }
   }
 
   onFocusOut() {
     super.onFocusOut();
-  }
-
-  setupMegaMenuHover() {
-    const summary = this.mainDetailsToggle.querySelector('summary');
-
-    // Open on hover over the summary trigger
-    summary.addEventListener('mouseenter', () => {
-      clearTimeout(this.closeTimeout);
-      // Close any other open mega menus first
-      document.querySelectorAll('header-menu').forEach((menu) => {
-        if (menu !== this && menu.mainDetailsToggle && menu.mainDetailsToggle.open) {
-          menu.close();
-        }
-      });
-      this.open();
-    });
-
-    // Close on mouseleave from the whole header-menu wrapper (with delay)
-    this.addEventListener('mouseleave', () => {
-      this.closeTimeout = setTimeout(() => this.close(), 500);
-    });
-
-    // Cancel close if mouse re-enters the wrapper (e.g. moving into dropdown)
-    this.addEventListener('mouseenter', () => {
-      clearTimeout(this.closeTimeout);
-    });
   }
 
   open() {
