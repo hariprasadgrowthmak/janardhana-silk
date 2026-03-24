@@ -1992,6 +1992,7 @@ input[type='checkbox'] {
 }
 
 .quantity__input[type='number'] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
@@ -2674,8 +2675,9 @@ details[open] .modal-overlay::after {
 .search-modal {
   opacity: 0;
   border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
-  min-height: calc(100% + var(--inputs-margin-offset) + (2 * var(--inputs-border-width)));
+  min-height: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .search-modal__content {
@@ -4161,7 +4163,7 @@ header .categories-menu p {
 
 @media screen and (max-width: 1150px) and (min-width: 990px) {
   .header.header--middle-center.drawer-menu.categories-link {
-    grid-template-columns: auto 1fr 0.4fr 1fr; //new added
+    grid-template-columns: auto 1fr 0.4fr 1fr; /* new added */
   }
 }
 
@@ -4609,3 +4611,5 @@ header .categories-menu p {
 
 .range-group .range:last-child:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi)) {
   right: 0;
+}
+
