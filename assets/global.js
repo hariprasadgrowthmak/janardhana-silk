@@ -1375,25 +1375,26 @@ $('.top_button_arrow').click(function(event) {
         return;
       }
 
-      const menuRect = tracker.menu.getBoundingClientRect();
+      // PRIMARY CHECK: DOM containment.
+      // menu.contains(e.target) returns true when the mouse is over the menu,
+      // the dropdown content, OR any pseudo-element area (::before bridge).
+      // getBoundingClientRect() alone misses pseudo-elements — this does not.
+      const isInsideMenuDOM = tracker.menu.contains(e.target) || tracker.menu === e.target;
+
+      // SECONDARY CHECK: expanded rect on the content (adds 60px above the panel
+      // to tolerate any gap not captured by the DOM check, e.g. positioned overlays).
       const contentRect = tracker.content.getBoundingClientRect();
-
-      const isOverMenuTrigger = (
-        e.clientX >= menuRect.left &&
-        e.clientX <= menuRect.right &&
-        e.clientY >= menuRect.top &&
-        e.clientY <= menuRect.bottom
-      );
-
-      const isOverContent = (
+      const isOverContentExpanded = (
         e.clientX >= contentRect.left &&
         e.clientX <= contentRect.right &&
-        e.clientY >= contentRect.top &&
+        e.clientY >= (contentRect.top - 60) &&
         e.clientY <= contentRect.bottom
       );
 
-      if (!isOverMenuTrigger && !isOverContent) {
-        // Schedule menu close
+      const isInsideMenu = isInsideMenuDOM || isOverContentExpanded;
+
+      if (!isInsideMenu) {
+        // Schedule menu close — only create one timer
         if (!tracker.closeTimeout) {
           tracker.closeTimeout = setTimeout(() => {
             if (tracker.details.hasAttribute('open')) {
@@ -1402,12 +1403,13 @@ $('.top_button_arrow').click(function(event) {
           }, 800);
         }
       } else {
-        // Clear any pending close
+        // Clear any pending close timer
         clearTimeout(tracker.closeTimeout);
         tracker.closeTimeout = null;
       }
     });
   }
+
 
   function handleClickOutside(e) {
     Object.keys(megaMenuTracker).forEach(menuId => {
