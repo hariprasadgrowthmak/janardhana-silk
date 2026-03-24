@@ -1286,17 +1286,23 @@ $('.top_button_arrow').click(function(event) {
     }, 800)
 });
 
-// Mega menu hover handler - works with MSU mega menu type
+// Mega menu hover handler - works with MSU mega menu type AND regular mega menus
 (function() {
   let megaMenuTracker = {};
   let globalMouseMoveActive = false;
   
   function setupMegaMenuHover(menu, index) {
-    const details = menu.querySelector('details.msu-mega-menu');
-    if (!details) return;
+    // Support both msu-mega-menu and regular mega-menu
+    let details = menu.querySelector('details.msu-mega-menu');
+    let content = details ? details.querySelector('.msu-mega__content') : null;
 
-    const content = details.querySelector('.msu-mega__content');
-    if (!content) return;
+    if (!details || !content) {
+      // Fallback: regular mega-menu
+      details = menu.querySelector('details.mega-menu');
+      content = details ? details.querySelector('.mega-menu__content') : null;
+    }
+
+    if (!details || !content) return;
 
     const menuId = 'megamenu_' + index;
     megaMenuTracker[menuId] = {

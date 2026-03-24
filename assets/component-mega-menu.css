@@ -54,6 +54,18 @@ header-menu details {
   pointer-events: auto;
 }
 
+/* Hover bridge: fills the gap between the nav link and the dropdown panel
+   so the mouse never triggers a mouseleave while transitioning between them */
+.mega-menu[open] .mega-menu__content::before {
+  content: '';
+  position: absolute;
+  top: -2.5rem;
+  left: 0;
+  right: 0;
+  height: 2.5rem;
+  background: transparent;
+}
+
 .mega-menu__list {
   display: grid;
   gap: 1.8rem 3rem;
