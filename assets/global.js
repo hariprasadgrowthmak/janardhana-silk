@@ -1286,210 +1286,160 @@ $('.top_button_arrow').click(function(event) {
     }, 800)
 });
 
-// Mega menu hover handler - works with MSU mega menu type AND regular mega menus
+// Mega menu hover handler — Single Shared Container Architecture
+// Only ONE wrapper element ever transitions. Inner panels swap via display:none/block.
+// This guarantees zero-frame overlap: the browser never paints two panels simultaneously.
 (function() {
-  let megaMenuTracker = {};
-  let globalMouseMoveActive = false;
-  
-  function setupMegaMenuHover(menu, index) {
-    // Support both msu-mega-menu and regular mega-menu
-    let details = menu.querySelector('details.msu-mega-menu');
-    let content = details ? details.querySelector('.msu-mega__content') : null;
+  const CLOSE_DELAY = 150;
 
-    if (!details || !content) {
-      // Fallback: regular mega-menu
-      details = menu.querySelector('details.mega-menu');
-      content = details ? details.querySelector('.mega-menu__content') : null;
-    }
+  let panels = [];          // { triggerEl, contentEl, menuId }
+  let activeMenuId = null;
+  let wrapper = null;
+  let closeTimer = null;
+  let listenersAttached = false;
 
-    if (!details || !content) return;
-
-    const menuId = 'megamenu_' + index;
-    megaMenuTracker[menuId] = {
-      menu: menu,
-      details: details,
-      content: content,
-      closeTimeout: null
-    };
-
-    const CLOSE_DELAY = 800;
-
-    function updateMenuPosition() {
-      const header = document.querySelector('header') || document.querySelector('shop-header');
-      if (header) {
-        const headerHeight = header.offsetHeight;
-        content.style.top = headerHeight + 'px';
-      }
-    }
-
-    function clearCloseTimer() {
-      if (megaMenuTracker[menuId]) {
-        clearTimeout(megaMenuTracker[menuId].closeTimeout);
-        megaMenuTracker[menuId].closeTimeout = null;
-      }
-    }
-
-    function scheduleClose() {
-      clearCloseTimer();
-      if (megaMenuTracker[menuId]) {
-        megaMenuTracker[menuId].closeTimeout = setTimeout(() => {
-          if (details.hasAttribute('open')) {
-            details.removeAttribute('open');
-          }
-        }, CLOSE_DELAY);
-      }
-    }
-
-    function openMenu() {
-      clearCloseTimer();
-      if (!details.hasAttribute('open')) {
-        details.setAttribute('open', '');
-        updateMenuPosition();
-      }
-    }
-
-    // Menu trigger hover
-    menu.addEventListener('mouseenter', openMenu);
-    menu.addEventListener('mouseleave', scheduleClose);
-
-    // Details hover
-    details.addEventListener('mouseenter', clearCloseTimer);
-    details.addEventListener('mouseleave', scheduleClose);
-
-    // Summary hover
-    const summary = details.querySelector('summary');
-    if (summary) {
-      summary.addEventListener('mouseenter', clearCloseTimer);
-      summary.addEventListener('mouseleave', scheduleClose);
-    }
-
-    // Content hover
-    content.addEventListener('mouseenter', clearCloseTimer);
-    content.addEventListener('mouseleave', scheduleClose);
+  // ── helpers ──────────────────────────────────────────────────────────
+  function clearClose() {
+    clearTimeout(closeTimer);
+    closeTimer = null;
   }
 
-  function handleGlobalMouseMove(e) {
-    Object.keys(megaMenuTracker).forEach(menuId => {
-      const tracker = megaMenuTracker[menuId];
-      if (!tracker.details.hasAttribute('open')) {
-        return;
-      }
-
-      const menuRect = tracker.menu.getBoundingClientRect();
-      const contentRect = tracker.content.getBoundingClientRect();
-
-      const isOverMenuTrigger = (
-        e.clientX >= menuRect.left &&
-        e.clientX <= menuRect.right &&
-        e.clientY >= menuRect.top &&
-        e.clientY <= menuRect.bottom
-      );
-
-      const isOverContent = (
-        e.clientX >= contentRect.left &&
-        e.clientX <= contentRect.right &&
-        e.clientY >= contentRect.top &&
-        e.clientY <= contentRect.bottom
-      );
-
-      if (!isOverMenuTrigger && !isOverContent) {
-        // Schedule menu close
-        if (!tracker.closeTimeout) {
-          tracker.closeTimeout = setTimeout(() => {
-            if (tracker.details.hasAttribute('open')) {
-              tracker.details.removeAttribute('open');
-            }
-          }, 800);
-        }
-      } else {
-        // Clear any pending close
-        clearTimeout(tracker.closeTimeout);
-        tracker.closeTimeout = null;
-      }
-    });
+  function closeAll() {
+    clearClose();
+    activeMenuId = null;
+    panels.forEach(p => { p.contentEl.style.display = 'none'; });
+    if (wrapper) wrapper.classList.remove('is-open');
   }
 
-  function handleClickOutside(e) {
-    Object.keys(megaMenuTracker).forEach(menuId => {
-      const tracker = megaMenuTracker[menuId];
-      if (!tracker.details.hasAttribute('open')) {
-        return;
-      }
-
-      const menuRect = tracker.menu.getBoundingClientRect();
-      const contentRect = tracker.content.getBoundingClientRect();
-
-      const clickInMenu = (
-        e.clientX >= menuRect.left &&
-        e.clientX <= menuRect.right &&
-        e.clientY >= menuRect.top &&
-        e.clientY <= menuRect.bottom
-      );
-
-      const clickInContent = (
-        e.clientX >= contentRect.left &&
-        e.clientX <= contentRect.right &&
-        e.clientY >= contentRect.top &&
-        e.clientY <= contentRect.bottom
-      );
-
-      if (!clickInMenu && !clickInContent) {
-        // Click outside - close menu immediately
-        if (tracker.details.hasAttribute('open')) {
-          tracker.details.removeAttribute('open');
-        }
-      }
-    });
+  function scheduleClose() {
+    clearClose();
+    closeTimer = setTimeout(closeAll, CLOSE_DELAY);
   }
 
-  function handleEscapeKey(e) {
-    if (e.key === 'Escape' || e.keyCode === 27) {
-      Object.keys(megaMenuTracker).forEach(menuId => {
-        const tracker = megaMenuTracker[menuId];
-        if (tracker.details.hasAttribute('open')) {
-          tracker.details.removeAttribute('open');
-        }
-      });
+  function activatePanel(id) {
+    clearClose();
+
+    // If already showing this panel, nothing to do
+    if (activeMenuId === id) return;
+
+    // 1. Hide every panel instantly (display swap — no transition, no paint overlap)
+    panels.forEach(p => { p.contentEl.style.display = 'none'; });
+
+    // 2. Show the target panel
+    const target = panels.find(p => p.menuId === id);
+    if (!target) return;
+    target.contentEl.style.display = 'block';
+    activeMenuId = id;
+
+    // 3. Ensure wrapper is visible (transition only lives here)
+    if (wrapper && !wrapper.classList.contains('is-open')) {
+      wrapper.classList.add('is-open');
     }
   }
 
-  function initMegaMenuHover() {
-    if (!window.matchMedia('(hover: hover)').matches) {
-      return;
+  // ── cursor tracking ─────────────────────────────────────────────────
+  function isInsideRect(x, y, rect) {
+    return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+  }
+
+  function handleMouseMove(e) {
+    if (activeMenuId === null) return;
+
+    // Check if cursor is over ANY trigger or the wrapper itself
+    const overAnyTrigger = panels.some(p =>
+      isInsideRect(e.clientX, e.clientY, p.triggerEl.getBoundingClientRect())
+    );
+    const overWrapper = wrapper
+      ? isInsideRect(e.clientX, e.clientY, wrapper.getBoundingClientRect())
+      : false;
+
+    if (overAnyTrigger || overWrapper) {
+      clearClose();
+    } else if (!closeTimer) {
+      scheduleClose();
+    }
+  }
+
+  function handleClick(e) {
+    if (activeMenuId === null) return;
+    const overAnyTrigger = panels.some(p =>
+      isInsideRect(e.clientX, e.clientY, p.triggerEl.getBoundingClientRect())
+    );
+    const overWrapper = wrapper
+      ? isInsideRect(e.clientX, e.clientY, wrapper.getBoundingClientRect())
+      : false;
+    if (!overAnyTrigger && !overWrapper) closeAll();
+  }
+
+  function handleEscape(e) {
+    if (e.key === 'Escape') closeAll();
+  }
+
+  // ── initialisation ──────────────────────────────────────────────────
+  function init() {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+
+    // Create wrapper once
+    if (!wrapper) {
+      wrapper = document.getElementById('global-mega-menu-wrapper');
+      if (!wrapper) {
+        wrapper = document.createElement('div');
+        wrapper.id = 'global-mega-menu-wrapper';
+        wrapper.className = 'global-mega-menu-wrapper';
+        const hw = document.querySelector('.header-wrapper');
+        if (hw) hw.appendChild(wrapper);
+      }
     }
 
-    const headerMenus = document.querySelectorAll('header-menu');
-    headerMenus.forEach((menu, index) => {
-      setupMegaMenuHover(menu, index);
+    // Discover all <header-menu> elements
+    document.querySelectorAll('header-menu').forEach((menuEl, idx) => {
+      if (menuEl.dataset.megaInit === 'true') return;
+      menuEl.dataset.megaInit = 'true';
+
+      // Find the details + content (MSU variant first, then regular)
+      let details = menuEl.querySelector('details.msu-mega-menu');
+      let content = details ? details.querySelector('.msu-mega__content') : null;
+      if (!details || !content) {
+        details = menuEl.querySelector('details.mega-menu');
+        content = details ? details.querySelector('.mega-menu__content') : null;
+      }
+      if (!details || !content) return;
+
+      const menuId = 'mm_' + idx;
+
+      // Relocate content into the shared wrapper (runs once per panel)
+      if (!content.dataset.relocated) {
+        content.dataset.relocated = 'true';
+        content.style.display = 'none';
+        wrapper.appendChild(content);
+      }
+
+      // Prevent native <details> toggle from interfering
+      const summary = details.querySelector('summary');
+      if (summary) {
+        summary.addEventListener('click', e => { e.preventDefault(); });
+      }
+
+      panels.push({ triggerEl: menuEl, contentEl: content, menuId });
+
+      // Hover trigger
+      menuEl.addEventListener('mouseenter', () => activatePanel(menuId));
     });
 
-    // Attach global handlers only once
-    if (!globalMouseMoveActive) {
-      document.addEventListener('mousemove', handleGlobalMouseMove);
-      document.addEventListener('click', handleClickOutside, true);
-      document.addEventListener('keydown', handleEscapeKey);
-      globalMouseMoveActive = true;
+    // Global listeners (once)
+    if (!listenersAttached) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('click', handleClick, true);
+      document.addEventListener('keydown', handleEscape);
+      listenersAttached = true;
     }
   }
 
-  // Initialize
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMegaMenuHover);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initMegaMenuHover();
+    init();
   }
-
-  // Retry initialization for dynamic content
-  setTimeout(initMegaMenuHover, 500);
-  setTimeout(initMegaMenuHover, 1000);
-
-  // Update on resize
-  window.addEventListener('resize', () => {
-    Object.values(megaMenuTracker).forEach(tracker => {
-      const header = document.querySelector('header') || document.querySelector('shop-header');
-      if (header && tracker.details.hasAttribute('open')) {
-        tracker.content.style.top = header.offsetHeight + 'px';
-      }
-    });
-  });
+  setTimeout(init, 500);
+  setTimeout(init, 1000);
 })();

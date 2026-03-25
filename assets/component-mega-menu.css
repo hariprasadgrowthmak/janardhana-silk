@@ -8,8 +8,7 @@ header-menu {
 }
 
 header-menu details {
-  position: relative;
-  z-index: 101;
+  position: static;
 }
 
 /* Required so the ::after hover-bridge in header.liquid is positioned
@@ -19,7 +18,7 @@ header-menu details > summary {
 }
 
 .mega-menu[open] {
-  position: relative;
+  position: static;
 }
 
 .mega-menu__content {
@@ -36,7 +35,7 @@ header-menu details > summary {
   top: 100%;
   /* Pull up 2px to eliminate any sub-pixel gap between trigger and panel */
   margin-top: -2px;
-  z-index: 100;
+  z-index: 101;
   width: fit-content;
   max-width: calc(100vw - 40px);
 }
@@ -49,10 +48,10 @@ header-menu details > summary {
   border-top: 0;
 }
 
+/* ── Per-item fallback (no-JS / mobile) ─────────────────────────── */
 .js .mega-menu__content {
   opacity: 0;
   visibility: hidden;
-  transition: all 0.5s ease;
   pointer-events: none;
 }
 
@@ -60,6 +59,58 @@ header-menu details > summary {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+/* ── Single Shared Global Container ─────────────────────────────── */
+.global-mega-menu-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+  margin-top: -2px;
+  z-index: 101;
+  width: fit-content;
+  max-width: calc(100vw - 40px);
+  background-color: transparent;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.global-mega-menu-wrapper.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Hover bridge — invisible area that bridges the gap between nav links
+   and the dropdown so the cursor doesn't trigger a close */
+.global-mega-menu-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -3.5rem;
+  left: 0;
+  right: 0;
+  height: 3.5rem;
+  background: transparent;
+}
+
+/* Inner panels: strip ALL transitions.  Only display:none/block matters.
+   These elements now live inside the wrapper, so the wrapper's opacity
+   transition is the single source of truth for visual enter/exit. */
+.global-mega-menu-wrapper .mega-menu__content,
+.global-mega-menu-wrapper .msu-mega__content {
+  position: static !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  transition: none !important;
+  pointer-events: auto !important;
+  margin: 0 !important;
+  left: auto !important;
+  width: max-content;
+  max-width: 100%;
 }
 
 /* Hover bridge: fills the gap between the nav link and the dropdown panel
@@ -376,19 +427,20 @@ h5.mega_iwt_title {
   visibility: hidden !important;
   pointer-events: none !important;
   transition: all 0.3s ease;
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: var(--header-bottom-position-desktop, auto);
+  top: 100%;
+  margin-top: -2px;
 }
 
 .msu-mega-menu[open] .msu-mega__content::before {
   content: '';
   position: absolute;
-  top: -2.5rem;
+  top: -3.5rem;
   left: 0;
   right: 0;
-  height: 2.5rem;
+  height: 3.5rem;
   background: transparent;
 }
 
